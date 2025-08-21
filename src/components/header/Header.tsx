@@ -7,6 +7,7 @@ import { IoMdSearch } from "react-icons/io";
 import { AiOutlineShopping } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 import { navigationItems, languageOptions, currencyOptions } from "@/utils/constants/constant";
+import { useRouter }from "next/navigation";
 import {
   FaFacebook,
   FaInstagram,
@@ -35,6 +36,9 @@ import Showmodal from "../modals/Showmodal";
 import Showmodaleye from "../modals/Showmodaleye";
 import Showforgotmodal from "../modals/Showforgotmodal";
 import Showsearch from "../modals/Showsearch";
+import CartModal from "@/components/modals/CartModal";
+import { cartStore } from "@/utils/cartStore";
+import { useCartItems } from "../hookes/useCartItems";
 
 
 const Header = () => {
@@ -49,13 +53,24 @@ const Header = () => {
     newsletter: false,
   });
   const [showModal, setShowModal] = useState(false);
-  const [generatedCaptcha, setGeneratedCaptcha] = useState(generateCaptcha());
   const [showModaleye, setShowModaleye] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [email, setEmail] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const [showCart, setShowCart] = useState(false);
+  const [cartQty, setCartQty] = useState(0);
+    const [generatedCaptcha, setGeneratedCaptcha] = useState("");
+const router = useRouter();
+  // Generate only on client
+  useEffect(() => {
+    setGeneratedCaptcha(generateCaptcha());
+  }, []);
+
+  function generateCaptcha() {
+    return Math.random().toString(36).substring(2, 7).toUpperCase();
+  }
 
   const handleSubmitForgot = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,9 +78,6 @@ const Header = () => {
     setShowForgotModal(false);
   };
 
-  function generateCaptcha() {
-    return Math.random().toString(36).substring(2, 7).toUpperCase();
-  }
 
   const [formDatalogin, setFormDatalogin] = useState({
     email: "",
@@ -143,6 +155,12 @@ const Header = () => {
       document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [showSearch]);
+
+useEffect(() => {
+  const update = () => setCartQty(cartStore.getTotalQty());
+  update();
+  return cartStore.subscribe(update);
+}, []);
 
   return (
     <>
@@ -420,7 +438,7 @@ const Header = () => {
           <div className="flex items-center gap-6">
             {/* Heart with Counter */}
             <div className="relative cursor-pointer">
-              <FaRegHeart className="size-5 hover:text-[#ba933e]" />
+              <FaRegHeart className="size-5 hover:text-[#ba933e]" onClick={() =>router.push('/signup')}/>
               <span
                 className="
          absolute -top-3 -right-3
@@ -435,7 +453,7 @@ const Header = () => {
               </span>
             </div>
 
-            <div className="relative cursor-pointer">
+            <div className="relative cursor-pointer" onClick={() => setShowCart(true)}>
               <AiOutlineShopping className="size-6 hover:text-[#ba933e]" />
               <span
                 className="
@@ -447,7 +465,7 @@ const Header = () => {
          flex items-center justify-center
        "
               >
-                0
+                {cartQty}
               </span>
             </div>
 
@@ -460,10 +478,10 @@ const Header = () => {
 
         {/* Mobile Actions - Visible only on Mobile */}
         <div className="md:hidden flex items-center gap-4 ">
-          <div className="relative cursor-pointer">
+          <div className="relative cursor-pointer" onClick={() => setShowCart(true)}>
             <AiOutlineShopping className="size-6 cursor-pointer" />
             <span className="absolute -top-2 -right-2  text-xs rounded-full w-4 h-4 flex items-center justify-center">
-              0
+              {cartQty}
             </span>
           </div>
           <CiUser
@@ -472,6 +490,15 @@ const Header = () => {
           />
         </div>
       </div>
+
+      <CartModal
+        open={showCart}
+        onClose={() => setShowCart(false)}
+        items={useCartItems()}
+        onIncQty={(cartId: string) => cartStore.inc(cartId)} // ✅ use cartId
+        onDecQty={(cartId: string) => cartStore.dec(cartId)} // ✅ use cartId
+        onRemove={(cartId: string) => cartStore.remove(cartId)} // ✅ use cartId
+      />
     </>
   );
 };

@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -48,7 +49,7 @@ const Showmodaleye: React.FC<ShowmodaleyeProps> = ({
         {/* Close Button */}
         <button
           onClick={() => setShowModaleye(false)}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl transition"
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl transition cursor-pointer"
         >
           ✕
         </button>
@@ -111,7 +112,7 @@ const Showmodaleye: React.FC<ShowmodaleyeProps> = ({
                 name="remember"
                 checked={formDatalogin.remember}
                 onChange={handleChangelogin}
-                className="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500"
+                className="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
               />
               Remember Me
             </label>
@@ -131,7 +132,7 @@ const Showmodaleye: React.FC<ShowmodaleyeProps> = ({
           {/* Login Button */}
           <button
             type="submit"
-            className="w-full bg-black text-white py-2 rounded-lg font-semibold hover:bg-black/80 transition-colors"
+            className="w-full bg-black text-white py-2 rounded-lg font-semibold hover:bg-black/80 transition-colors cursor-pointer"
           >
             Login
           </button>

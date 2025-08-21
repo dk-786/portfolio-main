@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+import React from "react";
 
 interface ShowmodalProps {
   showModal: boolean;
@@ -13,20 +14,24 @@ interface ShowmodalProps {
     agreeTerms: boolean;
     newsletter: boolean;
   };
-  setFormData: React.Dispatch<React.SetStateAction<{
-    title: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    captcha: string;
-    agreeTerms: boolean;
-    newsletter: boolean;
-  }>>;
+  setFormData: React.Dispatch<
+    React.SetStateAction<{
+      title: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      password: string;
+      captcha: string;
+      agreeTerms: boolean;
+      newsletter: boolean;
+    }>
+  >;
   generatedCaptcha: string;
   setGeneratedCaptcha: (captcha: string) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
   generateCaptcha: () => string;
   setShowModaleye: (show: boolean) => void;
 }
@@ -41,7 +46,7 @@ const Showmodal: React.FC<ShowmodalProps> = ({
   handleSubmit,
   handleChange,
   generateCaptcha,
-  setShowModaleye
+  setShowModaleye,
 }) => {
   if (!showModal) return null;
 
@@ -57,7 +62,7 @@ const Showmodal: React.FC<ShowmodalProps> = ({
         {/* Close Button */}
         <button
           onClick={() => setShowModal(false)}
-          className="absolute top-2 right-4 text-gray-600 hover:text-black text-xl"
+          className="absolute top-2 right-4 text-gray-600 hover:text-black text-xl cursor-pointer"
         >
           ✕
         </button>
@@ -70,12 +75,12 @@ const Showmodal: React.FC<ShowmodalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Title */}
           <div>
-            <label className="block mb-1 font-medium">Title</label>
+            <label className="block mb-1 font-medium ">Title</label>
             <select
               name="title"
               value={formData.title}
               onChange={handleChange}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border rounded px-3 py-2 cursor-pointer"
             >
               <option value="Mr">Mr</option>
               <option value="Mrs">Mrs</option>
@@ -129,7 +134,7 @@ const Showmodal: React.FC<ShowmodalProps> = ({
           {/* Captcha */}
           <div className="flex items-center gap-3">
             <span className="bg-gray-200 px-4 py-2 font-bold rounded">
-              {generatedCaptcha}
+              {generatedCaptcha || "....."}
             </span>
             <button
               type="button"
@@ -156,7 +161,7 @@ const Showmodal: React.FC<ShowmodalProps> = ({
               name="agreeTerms"
               checked={formData.agreeTerms}
               onChange={handleChange}
-              className="mr-2"
+              className="mr-2 cursor-pointer"
             />
             <label>
               I agree to the{" "}
@@ -174,7 +179,7 @@ const Showmodal: React.FC<ShowmodalProps> = ({
               name="newsletter"
               checked={formData.newsletter}
               onChange={handleChange}
-              className="mr-2"
+              className="mr-2 cursor-pointer"
             />
             <label>Sign up for our newsletter</label>
           </div>
@@ -182,7 +187,7 @@ const Showmodal: React.FC<ShowmodalProps> = ({
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-black text-white py-2 rounded hover:bg-black/80 transition-colors"
+            className="w-full bg-black text-white py-2 rounded hover:bg-black/80 transition-colors cursor-pointer"
           >
             Create an Account
           </button>

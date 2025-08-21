@@ -1,7 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { products, productss } from "@/utils/constants/constant";
+import {
+  products,
+  productss,
+  shippingContent,
+} from "@/utils/constants/constant";
 import { AiFillStar } from "react-icons/ai";
 import { MdOutlineMessage, MdOutlineEdit } from "react-icons/md";
 import Countdown from "react-countdown";
@@ -16,6 +20,11 @@ import "swiper/css/navigation";
 import Link from "next/link";
 import { ProductCardItem } from "@/components/common/Card";
 import { useRouter } from "next/navigation";
+import WriteReviewModal from "@/components/modals/WriteReviewModal";
+import SizeGuideModal from "@/components/modals/SizeGuideModal";
+import CartModal from "@/components/modals/CartModal";
+import { cartStore, parsePriceToNumber } from "@/utils/cartStore";
+import { useCartItems } from "@/components/hookes/useCartItems";
 
 const Page = () => {
   const params = useParams();
@@ -26,9 +35,8 @@ const Page = () => {
   const productId = Number(idParam);
   const allProducts = [...products, ...productss];
   const product = allProducts.find((p) => p.id === productId);
-
   const [value, setValue] = useState(0);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const sizes = ["S", "M", "L", "XL"];
@@ -36,6 +44,15 @@ const Page = () => {
   const [activeTab, setActiveTab] = useState<
     "description" | "product" | "details" | "reviews" | "shipping"
   >("description");
+  const [showWriteReview, setShowWriteReview] = useState<boolean>(false);
+  const [showSizeGuide, setShowSizeGuide] = useState<boolean>(false);
+  const [showCart, setShowCart] = useState(false);
+
+  const [showPopup, setShowPopup] = useState(false);
+  const handleAddToCartPopup = () => {
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 2000);
+  };
 
   const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
     if (completed) {
@@ -116,7 +133,10 @@ const Page = () => {
               <span>(1)</span>
             </div>
             <span className=" flex  text-gray-400 items-center">|</span>
-            <div className="flex  items-center mt-1  text-gray-600 gap-1 cursor-pointer">
+            <div
+              className="flex  items-center mt-1  text-gray-600 gap-1 cursor-pointer"
+              onClick={() => setShowWriteReview(true)}
+            >
               <MdOutlineEdit />
               <span>Write a review</span>
             </div>
@@ -178,7 +198,7 @@ const Page = () => {
           <div className="flex gap-4 p-4">
             <div className="flex  border-2 w-30 h-12  px-4 justify-between">
               <button
-                onClick={() => setCount(count - 1)}
+                onClick={() => setCount((prev) => Math.max(1, prev - 1))}
                 className=" text-black  font-bold cursor-pointer"
               >
                 -
@@ -193,12 +213,37 @@ const Page = () => {
                 +
               </button>
             </div>
-            <button className="bg-black text-white px-8 py-2 flex items-center gap-2 rounded hover:bg-[#ba933e]">
+            <button
+              className="bg-black text-white px-8 py-2 flex items-center gap-2 rounded hover:bg-[#ba933e]"
+              onClick={() => {
+                cartStore.add(
+                  {
+                    id: product.id,
+                    name: product.name,
+                    img: product.img,
+                    price: parsePriceToNumber(product.newPrice),
+                    size: selectedSize ?? undefined, // ✅ ensure null, not undefined
+                    color: selected ?? undefined, // ✅ ensure null, not undefined
+                  },
+                  Math.max(1, count)
+                );
+                setShowCart(false);
+                handleAddToCartPopup();
+              }}
+            >
               Add to cart
             </button>
+            {showPopup && (
+              <div className="fixed top-0 left-0 w-full bg-green-600 text-white text-center py-3 z-50 shadow-md">
+                ✅ Added to cart successfully!
+              </div>
+            )}
           </div>
           <div className="flex gap-4 px-4">
-            <div className="flex text-sm  items-center mt-1  text-gray-600 gap-1 cursor-pointer hover:text-black">
+            <div
+              className="flex text-sm  items-center mt-1  text-gray-600 gap-1 cursor-pointer hover:text-black"
+              onClick={() => setShowSizeGuide(true)}
+            >
               <CgRuler />
               <span>Size Guide </span>
             </div>
@@ -269,6 +314,7 @@ const Page = () => {
           </div>
         </div>
       </section>
+
       <section>
         <div className="flex items-center justify-between px-14 gap-4">
           <div className="flex-1 border-1 border-gray-200"></div>
@@ -294,7 +340,7 @@ const Page = () => {
             >
               Product Details
             </span>
-          
+
             <span
               onClick={() => setActiveTab("reviews")}
               className={`cursor-pointer duration-300 ${
@@ -328,26 +374,68 @@ const Page = () => {
             </div>
           )}
         </div>
-        <div className="px-14 py-8 text-sm leading-7 text-gray-700">
+        <div className="px-14  text-sm leading-7 text-gray-700">
           {activeTab === "product" && (
             <div className="space-y-4">
               <div className="overflow-hidden rounded  max-w-sm">
                 <img
                   src={product.newimg}
                   alt={product.name}
-                
                   className=" h-15 w-15  object-cover"
                 />
               </div>
               <div>
-                <p className="font-medium text-gray-800">Referance: {product.name}</p>
-                <p className="font-medium text-gray-800">Stock: {product.stock}</p>
-
+                <p className="font-medium text-gray-800">
+                  Referance: {product.name}
+                </p>
+                <p className="font-medium text-gray-800">
+                  Stock: {product.stock}
+                </p>
               </div>
             </div>
           )}
         </div>
+        <div className="px-14  text-sm leading-7 text-gray-700">
+          {activeTab === "reviews" && (
+            <div
+              className="flex gap-2 cursor-pointer"
+              onClick={() => setShowWriteReview(true)}
+            >
+              <MdOutlineEdit className="h-7 w-7" />
+              <span> Be the first to write your review!</span>
+            </div>
+          )}
+        </div>
+        <div className="px-14  text-sm leading-7 text-gray-700">
+          {activeTab === "shipping" && (
+            <div className=" flex flex-col gap-2 cursor-pointer">
+              {shippingContent.map((item) => (
+                <div key={item.id} className="mb-2">
+                  <span className="font-bold text-xl">{item.title}</span>
+                  <span className="text-gray-500 block">{item.content}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </section>
+      <WriteReviewModal
+        open={!!showWriteReview}
+        onClose={() => setShowWriteReview(false)}
+        product={{ id: product.id, img: product.img, name: product.name }}
+      />
+      <SizeGuideModal
+        open={showSizeGuide}
+        onClose={() => setShowSizeGuide(false)}
+      />
+      <CartModal
+        open={showCart}
+        onClose={() => setShowCart(false)}
+        items={useCartItems()}
+        onIncQty={(cartId: string) => cartStore.inc(cartId)} // ✅ use cartId
+        onDecQty={(cartId: string) => cartStore.dec(cartId)} // ✅ use cartId
+        onRemove={(cartId: string) => cartStore.remove(cartId)} // ✅ use cartId
+      />
 
       <section className="md:p-6 p-0">
         <style>{`

@@ -8,7 +8,7 @@ export const products = [
     oldPrice: "€21.97",
     dicription: "The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
     newPrice: "€17.58",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "100"
   },
   {
@@ -20,7 +20,7 @@ export const products = [
     oldPrice: "€30.00",
     dicription: "The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
     newPrice: "€21.00",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "10"
   },
   {
@@ -32,7 +32,7 @@ export const products = [
     oldPrice: "€30.00",
     dicription: "The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
     newPrice: "€21.00",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "200"
   },
   {
@@ -43,7 +43,7 @@ export const products = [
     oldPrice: "€30.00",
     dicription: "The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
     newPrice: "€21.00",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "300"
   },
 ];
@@ -51,7 +51,7 @@ export const products = [
 export const posters = [
   {
     id: 1,
-    src: "/images/poster.jpg", 
+    src: "/images/poster.jpg",
     alt: "Poster 1",
   },
   {
@@ -113,16 +113,16 @@ export const navigationItems = [
     href: "/",
     hasDropdown: true,
     dropdownItems: [
-      { 
-        title: "Home 1", 
+      {
+        title: "Home 1",
         href: "/home-1"
       },
-      { 
-        title: "Home 2", 
+      {
+        title: "Home 2",
         href: "/home-2"
       },
-      { 
-        title: "Home 3", 
+      {
+        title: "Home 3",
         href: "/home-3"
       },
     ],
@@ -132,25 +132,25 @@ export const navigationItems = [
     href: "/shop",
     hasDropdown: true,
     dropdownItems: [
-      { 
-        title: "Shop Grid", 
+      {
+        title: "Shop Grid",
         href: "/shop-grid"
       },
-      { 
-        title: "Shop List", 
+      {
+        title: "Shop List",
         href: "/shop-list"
       },
-      { 
-        title: "Product Details", 
+      {
+        title: "Product Details",
         href: "/product-details"
       },
-      { 
-        title: "Shopping Cart", 
+      {
+        title: "Shopping Cart",
         href: "/cart",
-      
+
       },
-      { 
-        title: "Checkout", 
+      {
+        title: "Checkout",
         href: "/checkout"
       },
     ],
@@ -160,24 +160,24 @@ export const navigationItems = [
     href: "/pages",
     hasDropdown: true,
     dropdownItems: [
-      { 
-        title: "About Us", 
+      {
+        title: "About Us",
         href: "/about"
       },
-      { 
-        title: "Our Team", 
+      {
+        title: "Our Team",
         href: "/team"
       },
-      { 
-        title: "Services", 
+      {
+        title: "Services",
         href: "/services"
       },
-      { 
-        title: "FAQ", 
+      {
+        title: "FAQ",
         href: "/faq"
       },
-      { 
-        title: "404 Page", 
+      {
+        title: "404 Page",
         href: "/404"
       },
     ],
@@ -187,25 +187,25 @@ export const navigationItems = [
     href: "/collections",
     hasDropdown: true,
     dropdownItems: [
-      { 
-        title: "Furniture", 
+      {
+        title: "Furniture",
         href: "/collections/furniture",
         badge: "Hot"
       },
-      { 
-        title: "Lighting", 
+      {
+        title: "Lighting",
         href: "/collections/lighting"
       },
-      { 
-        title: "Decor", 
+      {
+        title: "Decor",
         href: "/collections/decor"
       },
-      { 
-        title: "Kitchen", 
+      {
+        title: "Kitchen",
         href: "/collections/kitchen"
       },
-      { 
-        title: "Bathroom", 
+      {
+        title: "Bathroom",
         href: "/collections/bathroom"
       },
     ],
@@ -215,20 +215,20 @@ export const navigationItems = [
     href: "/blog",
     hasDropdown: true,
     dropdownItems: [
-      { 
-        title: "Blog Grid", 
+      {
+        title: "Blog Grid",
         href: "/blog-grid"
       },
-      { 
-        title: "Blog List", 
+      {
+        title: "Blog List",
         href: "/blog-list"
       },
-      { 
-        title: "Blog Single", 
+      {
+        title: "Blog Single",
         href: "/blog-single"
       },
-      { 
-        title: "Blog Sidebar", 
+      {
+        title: "Blog Sidebar",
         href: "/blog-sidebar"
       },
     ],
@@ -245,7 +245,7 @@ export const productss = [
     dicription: "The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
     oldPrice: "€21.97",
     newPrice: "€17.58",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "100"
   },
   {
@@ -257,9 +257,9 @@ export const productss = [
     name: "Elegant Vase",
     oldPrice: "€30.00",
     newPrice: "€21.00",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "100"
-    
+
   },
   {
     id: 6,
@@ -270,7 +270,7 @@ export const productss = [
     name: "Elegant Vase",
     oldPrice: "€30.00",
     newPrice: "€21.00",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "100"
   },
   {
@@ -281,7 +281,7 @@ export const productss = [
     name: "Elegant Vase",
     oldPrice: "€30.00",
     newPrice: "€21.00",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "180"
   },
   {
@@ -293,7 +293,7 @@ export const productss = [
     dicription: "The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
     oldPrice: "€30.00",
     newPrice: "€21.00",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "170"
   },
   {
@@ -305,7 +305,7 @@ export const productss = [
     oldPrice: "€30.00",
     dicription: "The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
     newPrice: "€21.00",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "140"
   },
   {
@@ -317,7 +317,7 @@ export const productss = [
     dicription: "The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
     oldPrice: "€30.00",
     newPrice: "€21.00",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "150"
   },
   {
@@ -329,7 +329,7 @@ export const productss = [
     oldPrice: "€30.00",
     dicription: "The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
     newPrice: "€21.00",
-    newimg:"/images/1-brand_default.jpg",
+    newimg: "/images/1-brand_default.jpg",
     stock: "20"
   }
 ];
@@ -380,7 +380,7 @@ export const Blogmain1 = [
                   et ultrices posuere cubilia Curae; Curabitur faucibus aliquam pulvinar. Vivamus mattis volutpat
                   erat, et congue nisi semper quis. Cras vehicula dignissim libero in elementum. Mauris sit amet
                   dolor justo. Morbi consequat velit vel est fermentum euismod. Curabitur in magna augue.`,
-    
+
   },
   {
     id: 2,
@@ -404,7 +404,7 @@ export const Blogmain1 = [
                   et ultrices posuere cubilia Curae; Curabitur faucibus aliquam pulvinar. Vivamus mattis volutpat
                   erat, et congue nisi semper quis. Cras vehicula dignissim libero in elementum. Mauris sit amet
                   dolor justo. Morbi consequat velit vel est fermentum euismod. Curabitur in magna augue.`,
-    
+
   },
   {
     id: 3,
@@ -428,7 +428,7 @@ export const Blogmain1 = [
                   et ultrices posuere cubilia Curae; Curabitur faucibus aliquam pulvinar. Vivamus mattis volutpat
                   erat, et congue nisi semper quis. Cras vehicula dignissim libero in elementum. Mauris sit amet
                   dolor justo. Morbi consequat velit vel est fermentum euismod. Curabitur in magna augue.`,
-    
+
   },
   {
     id: 4,
@@ -452,7 +452,7 @@ export const Blogmain1 = [
                   et ultrices posuere cubilia Curae; Curabitur faucibus aliquam pulvinar. Vivamus mattis volutpat
                   erat, et congue nisi semper quis. Cras vehicula dignissim libero in elementum. Mauris sit amet
                   dolor justo. Morbi consequat velit vel est fermentum euismod. Curabitur in magna augue.`,
-    
+
   },
   {
     id: 5,
@@ -476,7 +476,7 @@ export const Blogmain1 = [
                   et ultrices posuere cubilia Curae; Curabitur faucibus aliquam pulvinar. Vivamus mattis volutpat
                   erat, et congue nisi semper quis. Cras vehicula dignissim libero in elementum. Mauris sit amet
                   dolor justo. Morbi consequat velit vel est fermentum euismod. Curabitur in magna augue.`,
-    
+
   },
   {
     id: 6,
@@ -500,7 +500,7 @@ export const Blogmain1 = [
                   et ultrices posuere cubilia Curae; Curabitur faucibus aliquam pulvinar. Vivamus mattis volutpat
                   erat, et congue nisi semper quis. Cras vehicula dignissim libero in elementum. Mauris sit amet
                   dolor justo. Morbi consequat velit vel est fermentum euismod. Curabitur in magna augue.`,
-    
+
   },
   {
     id: 7,
@@ -524,36 +524,36 @@ export const Blogmain1 = [
                   et ultrices posuere cubilia Curae; Curabitur faucibus aliquam pulvinar. Vivamus mattis volutpat
                   erat, et congue nisi semper quis. Cras vehicula dignissim libero in elementum. Mauris sit amet
                   dolor justo. Morbi consequat velit vel est fermentum euismod. Curabitur in magna augue.`,
-    
+
   }
 ];
 
 export const brandlogo = [
-    {
-      id: 1,
-      img: "/images/1-brand_default.jpg",
-    },
-    {
-      id: 2,
-      img: "/images/2-brand_default.jpg",
-    },
-    {
-      id: 3,
-      img: "/images/3-brand_default.jpg",
-    },
-    {
-      id: 4,
-      img: "/images/4-brand_default.jpg",
-    },
-    {
-      id: 5,
-      img: "/images/5-brand_default.jpg",
-    },
-    {
-      id: 6,
-      img: "/images/6-brand_default.jpg",
-    }
-  
+  {
+    id: 1,
+    img: "/images/1-brand_default.jpg",
+  },
+  {
+    id: 2,
+    img: "/images/2-brand_default.jpg",
+  },
+  {
+    id: 3,
+    img: "/images/3-brand_default.jpg",
+  },
+  {
+    id: 4,
+    img: "/images/4-brand_default.jpg",
+  },
+  {
+    id: 5,
+    img: "/images/5-brand_default.jpg",
+  },
+  {
+    id: 6,
+    img: "/images/6-brand_default.jpg",
+  }
+
 ];
 
 export const follow = [
@@ -612,5 +612,39 @@ export const socialLinks = [
   { icon: "FaYoutube", url: "#" },
 ];
 
+export const shippingContent = [
+  {
+    id: 1,
+    title: "Returns Policy",
+    content: "You may return most new, unopened items within 30 days of delivery for a full refund. We'll also pay the return shipping costs if the return is a result of our error (you received an incorrect or defective item, etc.). You should expect to receive your refund within four weeks of giving your package to the return shipper, however, in many cases you will receive a refund more quickly. This time period includes the transit time for us to receive your return from the shipper (5 to 10 business days), the time it takes us to process your return once we receive it (3 to 5 business days), and the time it takes your bank to process our refund request (5 to 10 business days). If you need to return an item, simply login to your account, view the order using the 'Complete Orders' link under the My Account menu and click the Return Item(s) button. We'll notify you via e-mail of your refund once we've received and processed the returned item.",
+  },
+  {
+    id: 2,
+    title: "Shipping",
+    content: "We can ship to virtually any address in the world. Note that there are restrictions on some products, and some products cannot be shipped to international destinations. When you place an order, we will estimate shipping and delivery dates for you based on the availability of your items and the shipping options you choose. Depending on the shipping provider you choose, shipping date estimates may appear on the shipping quotes page. Please also note that the shipping rates for many items we sell are weight-based. The weight of any such item can be found on its detail page. To reflect the policies of the shipping companies we use, all weights will be rounded up to the next full pound."
+  }
+]
+
+// Cart pricing config
+export const cartPricing = {
+  shippingFlat: 0,
+  taxRate: 0,
+  currencySymbol: "€",
+};
+
+// Size guide content for modal table
+export const sizeGuide = {
+  headers: ["Size", "XS", "S", "M", "L"],
+  rows: [
+    ["Euro", "32/34", "36", "38", "40"],
+    ["USA", "0/2", "4", "6", "8"],
+    ["Bust(in)", "31-32", "33", "34", "36"],
+    ["Bust(cm)", "80.5-82.5", "84.5", "87", "92"],
+    ["Waist(in)", "24-25", "26", "27", "29"],
+    ["Waist(cm)", "62.5-64.5", "66.5", "69", "74"],
+    ["Hips(in)", "34-35", "36", "37", "39"],
+    ["Hips(cm)", "87.5-89.5", "91.5", "94", "99"],
+  ],
+};
 
 

@@ -1,3 +1,4 @@
+"use client";
 import React, { forwardRef } from 'react';
 import { FiSearch, FiX } from "react-icons/fi";
 import Link from "next/link";
