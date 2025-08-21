@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { cartStore, CartItem } from "@/utils/cartStore";
 import { cartPricing } from "@/utils/constants/constant";
 import { MdDelete } from "react-icons/md";
+import Image from "next/image";
 
 const Page = () => {
   const { cartId } = useParams();
@@ -56,9 +57,11 @@ const Page = () => {
               className="flex items-center gap-6 border p-4 rounded-lg"
             >
               {/* Bigger Image */}
-              <img
+              <Image
                 src={it.img}
                 alt={it.name}
+                width={112}
+                height={152}
                 className="w-28 h-38 object-cover rounded"
               />
 

@@ -199,8 +199,8 @@ const router = useRouter();
           <p>
             The personal data you provide is used to answer queries, process
             orders or allow access to specific information. You have the right
-            to modify and delete all the personal information found in the "My
-            Account" page.
+            to modify and delete all the personal information found in the &quot;My
+            Account&quot; page.
           </p>
         </div>
       </div>

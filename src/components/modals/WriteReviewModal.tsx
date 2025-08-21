@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
+import { IoClose } from "react-icons/io5";
+import Image from "next/image";
 
 interface WriteReviewModalProps {
   open: boolean;
@@ -55,9 +57,11 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({ open, onClose, prod
             {/* Left: product photo and name */}
             <div className="flex flex-col items-center md:items-start">
               <div className="w-full max-w-sm overflow-hidden rounded">
-                <img
+                <Image
                   src={product.img}
                   alt={product.name}
+                  width={400}
+                  height={300}
                   className="w-full h-auto object-cover shadow"
                 />
               </div>

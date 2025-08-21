@@ -1,11 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import {
   products,
   productss,
   shippingContent,
 } from "@/utils/constants/constant";
+import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
 import { MdOutlineMessage, MdOutlineEdit } from "react-icons/md";
 import Countdown from "react-countdown";
@@ -47,6 +48,7 @@ const Page = () => {
   const [showWriteReview, setShowWriteReview] = useState<boolean>(false);
   const [showSizeGuide, setShowSizeGuide] = useState<boolean>(false);
   const [showCart, setShowCart] = useState(false);
+  const cartItems = useCartItems();
 
   const [showPopup, setShowPopup] = useState(false);
   const handleAddToCartPopup = () => {
@@ -54,7 +56,15 @@ const Page = () => {
     setTimeout(() => setShowPopup(false), 2000);
   };
 
-  const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
+  interface CountdownRendererProps {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    completed: boolean;
+  }
+  
+  const renderer = ({ days, hours, minutes, seconds, completed }: CountdownRendererProps) => {
     if (completed) {
       return <span className="text-green-600 font-bold"> Time&apos;s up!</span>;
     } else {
@@ -99,9 +109,11 @@ const Page = () => {
     <>
       <section className="flex p-8 justify-between w-full ">
         <div className="w-[50%] p-6">
-          <img
+          <Image
             src={product.img}
             alt={product.name}
+            width={500}
+            height={500}
             className="w-full  shadow mb-4"
           />
         </div>
@@ -378,7 +390,9 @@ const Page = () => {
           {activeTab === "product" && (
             <div className="space-y-4">
               <div className="overflow-hidden rounded  max-w-sm">
-                <img
+                <Image
+                  width={400}
+                  height={300}
                   src={product.newimg}
                   alt={product.name}
                   className=" h-15 w-15  object-cover"
@@ -431,7 +445,7 @@ const Page = () => {
       <CartModal
         open={showCart}
         onClose={() => setShowCart(false)}
-        items={useCartItems()}
+        items={cartItems}
         onIncQty={(cartId: string) => cartStore.inc(cartId)} // ✅ use cartId
         onDecQty={(cartId: string) => cartStore.dec(cartId)} // ✅ use cartId
         onRemove={(cartId: string) => cartStore.remove(cartId)} // ✅ use cartId

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { productss } from '@/utils/constants/constant'
-import { ProductCardItem, ProductCardProps } from './Card'
+import { products, productss } from '@/utils/constants/constant'
+import { ProductCardItem } from './Card'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import Link from "next/link";
-import { CiUser } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiX } from "react-icons/fi";
 

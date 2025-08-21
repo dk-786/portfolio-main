@@ -25,7 +25,17 @@ interface ShowmodalProps {
       agreeTerms: boolean;
       newsletter: boolean;
     }>
-  >;
+  > | ((formData: {
+      title: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      password: string;
+      confirmPassword: string;
+      captcha: string;
+      agreeTerms: boolean;
+      newsletter: boolean;
+    }) => void);
   generatedCaptcha: string;
   setGeneratedCaptcha: (captcha: string) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;

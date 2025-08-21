@@ -2,7 +2,8 @@
 import React from "react";
 import { cartPricing } from "@/utils/constants/constant";
 import { MdDelete } from "react-icons/md";
-import { useRouter }from "next/navigation";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 
 export type CartItem = {
@@ -33,13 +34,14 @@ const CartModal: React.FC<CartModalProps> = ({
   onDecQty,
   onRemove,
 }) => {
+  const router = useRouter();
+  
   if (!open) return null;
 
   const subtotal = items.reduce((sum, it) => sum + it.price * it.qty, 0);
   const shipping = cartPricing.shippingFlat;
   const taxes = Math.round(subtotal * cartPricing.taxRate * 100) / 100;
   const total = subtotal + shipping + taxes;
-   const router = useRouter();
 
   const format = (n: number) => `${cartPricing.currencySymbol}${n.toFixed(2)}`;
 
@@ -72,9 +74,11 @@ const CartModal: React.FC<CartModalProps> = ({
               key={it.cartId}
               className="flex items-center gap-4 border border-gray-200 p-3 rounded-lg relative"
             >
-              <img
+              <Image
                 src={it.img}
                 alt={it.name}
+                width={64}
+                height={64}
                 className="w-16 h-16 object-cover rounded"
               />
               <div className="flex-1">
