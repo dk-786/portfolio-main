@@ -5,9 +5,15 @@ import { CiUser } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { AiOutlineShopping } from "react-icons/ai";
+import { Star } from "lucide-react"; // for star icons
+import { productss, follow } from "@/utils/constants/constant";
 import { Button } from "@/components/ui/button";
-import { navigationItems, languageOptions, currencyOptions } from "@/utils/constants/constant";
-import { useRouter }from "next/navigation";
+import {
+  navigationItems,
+  languageOptions,
+  currencyOptions,
+} from "@/utils/constants/constant";
+import { useRouter } from "next/navigation";
 import {
   FaFacebook,
   FaInstagram,
@@ -39,7 +45,7 @@ import Showsearch from "../modals/Showsearch";
 import CartModal from "@/components/modals/CartModal";
 import { cartStore } from "@/utils/cartStore";
 import { useCartItems } from "../hookes/useCartItems";
-
+import { shopCategories } from "@/utils/constants/constant";
 
 const Header = () => {
   const [formData, setFormData] = useState({
@@ -60,9 +66,10 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const [showCart, setShowCart] = useState(false);
+  const navMenuRef = React.useRef<HTMLDivElement>(null);
   const [cartQty, setCartQty] = useState(0);
-    const [generatedCaptcha, setGeneratedCaptcha] = useState("");
-const router = useRouter();
+  const [generatedCaptcha, setGeneratedCaptcha] = useState("");
+  const router = useRouter();
   // Generate only on client
   useEffect(() => {
     setGeneratedCaptcha(generateCaptcha());
@@ -77,7 +84,6 @@ const router = useRouter();
     alert(`Password reset link sent to: ${email}`);
     setShowForgotModal(false);
   };
-
 
   const [formDatalogin, setFormDatalogin] = useState({
     email: "",
@@ -129,15 +135,20 @@ const router = useRouter();
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Element;
-      console.log('Click detected, searchRef.current:', searchRef.current, 'target:', target);
+      console.log(
+        "Click detected, searchRef.current:",
+        searchRef.current,
+        "target:",
+        target
+      );
       if (searchRef.current && !searchRef.current.contains(target)) {
-        console.log('Click outside detected, closing search');
+        console.log("Click outside detected, closing search");
         setShowSearch(false);
       }
     }
 
     function handleEscapeKey(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setShowSearch(false);
       }
     }
@@ -156,11 +167,11 @@ const router = useRouter();
     };
   }, [showSearch]);
 
-useEffect(() => {
-  const update = () => setCartQty(cartStore.getTotalQty());
-  update();
-  return cartStore.subscribe(update);
-}, []);
+  useEffect(() => {
+    const update = () => setCartQty(cartStore.getTotalQty());
+    update();
+    return cartStore.subscribe(update);
+  }, []);
 
   return (
     <>
@@ -243,7 +254,10 @@ useEffect(() => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {languageOptions.map((language, index) => (
-                  <DropdownMenuItem key={index} className="cursor-pointer flex items-center gap-2">
+                  <DropdownMenuItem
+                    key={index}
+                    className="cursor-pointer flex items-center gap-2"
+                  >
                     <span>{language.flag}</span>
                     <span>{language.name}</span>
                   </DropdownMenuItem>
@@ -253,7 +267,8 @@ useEffect(() => {
 
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-gray-600 cursor-pointer hover:text-[#ba933e]">
-                {currencyOptions[0].name}<IoIosArrowDown className="mt-1" />
+                {currencyOptions[0].name}
+                <IoIosArrowDown className="mt-1" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {currencyOptions.map((currency, index) => (
@@ -333,78 +348,155 @@ useEffect(() => {
         </Link>
 
         {/* Desktop Navigation - Hidden on Mobile */}
-        <div className="hidden md:flex items-center ">
+        <div className="hidden md:flex  items-center ">
           {navigationItems.map((item, index) => (
-            <NavigationMenu key={index}>
+            <NavigationMenu
+              key={index}
+              ref={navMenuRef}
+              viewport={["Shop", "Collections"].includes(item.title) ? false : true}
+            >
               <NavigationMenuList>
                 <NavigationMenuItem>
                   {item.hasDropdown ? (
                     <>
-                      <NavigationMenuTrigger
-                        className="
-                          bg-transparent
-                          text-1xl font-medium        
-                          hover:text-[#ba933e]
-                          hover:!bg-transparent
-                          focus:!bg-transparent
-                          focus:outline-none
-                          data-[state=open]:!bg-transparent
-                          data-[state=open]:text-[#ba933e]
-                          transition-colors
-                          cursor-pointer
-                          
-                        "
-                      >
+                      <NavigationMenuTrigger className="...">
                         {item.title}
                       </NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="grid w-[150px]   gap-1 p-2">
-                          <li className="flex flex-col">
-                            {item.dropdownItems?.map((dropdownItem, dropdownIndex) => (
-                              <NavigationMenuLink key={dropdownIndex} asChild>
-                                <Link
-                                  href={dropdownItem.href}
-                                  className="
-                                    text-gray-700
-                                    hover:!text-[#ba933e]
-                                    focus:!text-[#ba933e]
-                                    !bg-transparent
-                                    transition-colors
-                                    px-4 py-3
-                                    hover:bg-gray-50
-                                    flex items-center justify-between
-                                    group
-                                  "
-                                >
-                                  <div className="flex flex-col">
-                                    <div className="flex items-center gap-2">
-                                      <span className="font-medium group-hover:text-[#ba933e]">
-                                        {dropdownItem.title}
-                                      </span>
-                                     
-                                    </div>
 
-                                  </div>
-                                </Link>
-                              </NavigationMenuLink>
+                      {item.title === "Shop" ? (
+                        <NavigationMenuContent className="bg-popover p-6 z-50 ">
+                          <div className="mx-auto max-w-screen-xl grid grid-cols-5 gap-6">
+                            {/* Categories */}
+                            {shopCategories.map((category) => (
+                              <div key={category.title}>
+                                <h4 className="mb-2 font-semibold text-sm">
+                                  {category.title}
+                                </h4>
+                                <ul className="space-y-1">
+                                  {category.items.map((catItem) => (
+                                    <li key={catItem.title}>
+                                      <NavigationMenuLink asChild>
+                                        <Link
+                                          href={catItem.href}
+                                          className="block text-sm text-muted-foreground hover:text-foreground transition"
+                                        >
+                                          {catItem.title}
+                                        </Link>
+                                      </NavigationMenuLink>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
                             ))}
-                          </li>
-                        </ul>
-                      </NavigationMenuContent>
+
+                            {/* Popular Products */}
+                            <div className="col-span-1">
+                              <h4 className="mb-3 font-semibold text-sm">
+                                Popular products
+                              </h4>
+                              <div className="space-y-4">
+                                {productss
+                                  .filter((p) => [12, 13, 14].includes(p.id))
+                                  .map((p) => (
+                                    <div
+                                      key={p.id}
+                                      className="flex items-start gap-3 border-b pb-3 last:border-0 cursor-pointer"
+                                      onClick={() => {
+                                        router.push(`/card/${p.id}`);
+                                        // Close navbar after click
+                                        if (navMenuRef.current) {
+                                          const trigger =
+                                            navMenuRef.current.querySelector(
+                                              "[data-state=open]"
+                                            ) as HTMLElement | null;
+                                          trigger?.click();
+                                        }
+                                      }}
+                                    >
+                                      {/* Image */}
+                                      <div className="w-16 h-20 relative shrink-0">
+                                        <Image
+                                          src={p.img}
+                                          alt={p.name}
+                                          fill
+                                          className="object-cover rounded-md"
+                                        />
+                                      </div>
+
+                                      {/* Details */}
+                                      <div className="flex-1 ">
+                                        <h5 className="text-sm font-medium ">
+                                          {p.name}
+                                        </h5>
+                                        <div className="flex items-center text-yellow-500 mt-1 text-xs">
+                                          {[...Array(5)].map((_, i) => (
+                                            <Star
+                                              key={i}
+                                              size={14}
+                                              fill="currentColor"
+                                            />
+                                          ))}
+                                        </div>
+                                        <div className="text-sm font-semibold text-foreground mt-3">
+                                          {p.newPrice}
+                                          {p.oldPrice && (
+                                            <span className="ml-2 text-muted-foreground line-through text-xs">
+                                              {p.oldPrice}
+                                            </span>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ))}
+                              </div>
+                            </div>
+                          </div>
+                        </NavigationMenuContent>
+                      ) : item.title === "Collections" ? (
+                         <NavigationMenuContent className="bg-popover p-6 z-50 ">
+                          <div className="mx-auto max-w-screen-xl grid grid-cols-6 gap-6">
+                            {follow.map((f) => (
+                              <div
+                                key={f.id}
+                                className="relative w-40 h-40 cursor-pointer rounded-md overflow-hidden"
+                              >
+                                <Image
+                                  src={f.img}
+                                  alt={`Collection ${f.id}`}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </NavigationMenuContent>
+                      ) : (
+
+                        <NavigationMenuContent>
+                          <ul className="grid w-[150px] gap-1 p-2">
+                            <li className="flex flex-col">
+                              {item.dropdownItems?.map(
+                                (dropdownItem, dropdownIndex) => (
+                                  <NavigationMenuLink
+                                    key={dropdownIndex}
+                                    asChild
+                                  >
+                                    <Link
+                                      href={dropdownItem.href}
+                                      className="block text-sm text-muted-foreground hover:text-foreground transition"
+                                    >
+                                      {dropdownItem.title}
+                                    </Link>
+                                  </NavigationMenuLink>
+                                )
+                              )}
+                            </li>
+                          </ul>
+                        </NavigationMenuContent>
+                      )}
                     </>
                   ) : (
-                    <Link
-                      href={item.href}
-                      className="
-                        font-medium
-                        text-1xl
-                        text-gray-800
-                        hover:text-[#ba933e]
-                        transition-colors
-                        cursor-pointer
-                        px-4 py-2
-                      "
-                    >
+                    <Link href={item.href || "#"} className="...">
                       {item.title}
                     </Link>
                   )}
@@ -438,7 +530,10 @@ useEffect(() => {
           <div className="flex items-center gap-6">
             {/* Heart with Counter */}
             <div className="relative cursor-pointer">
-              <FaRegHeart className="size-5 hover:text-[#ba933e]" onClick={() =>router.push('/signup')}/>
+              <FaRegHeart
+                className="size-5 hover:text-[#ba933e]"
+                onClick={() => router.push("/signup")}
+              />
               <span
                 className="
          absolute -top-3 -right-3
@@ -453,7 +548,10 @@ useEffect(() => {
               </span>
             </div>
 
-            <div className="relative cursor-pointer" onClick={() => setShowCart(true)}>
+            <div
+              className="relative cursor-pointer"
+              onClick={() => setShowCart(true)}
+            >
               <AiOutlineShopping className="size-6 hover:text-[#ba933e]" />
               <span
                 className="
@@ -478,7 +576,10 @@ useEffect(() => {
 
         {/* Mobile Actions - Visible only on Mobile */}
         <div className="md:hidden flex items-center gap-4 ">
-          <div className="relative cursor-pointer" onClick={() => setShowCart(true)}>
+          <div
+            className="relative cursor-pointer"
+            onClick={() => setShowCart(true)}
+          >
             <AiOutlineShopping className="size-6 cursor-pointer" />
             <span className="absolute -top-2 -right-2  text-xs rounded-full w-4 h-4 flex items-center justify-center">
               {cartQty}

@@ -46,7 +46,6 @@ export const ProductCardItem = ({
     setTimeout(() => setShowPopup(false), 2000);
   };
 
-
   return (
     <div className="flex flex-col h-full w-full">
       {/* Card */}
@@ -64,10 +63,11 @@ export const ProductCardItem = ({
 
         {/* Icons */}
         <div
-          className={`absolute top-3 right-3 flex flex-col gap-2 ${isMobile
+          className={`absolute top-3 right-3 flex flex-col gap-2 ${
+            isMobile
               ? "opacity-100"
               : "opacity-0 group-hover:opacity-100 transition-all duration-300"
-            }`}
+          }`}
         >
           <button className="bg-white shadow p-2 rounded hover:bg-gray-100">
             <FaHeart size={20} className="text-gray-700" />
@@ -82,8 +82,8 @@ export const ProductCardItem = ({
             index === products.length - 1
               ? product.img
               : hovered === product.id
-                ? product.hoverImg || product.img
-                : product.img
+              ? product.hoverImg || product.img
+              : product.img
           }
           alt={product.name || "Product image"}
           width={300}
@@ -94,10 +94,11 @@ export const ProductCardItem = ({
         />
         {/* Buttons */}
         <div
-          className={`absolute bottom-0 left-0 right-0 flex justify-center gap-4 py-3 ${isMobile
+          className={`absolute bottom-0 left-0 right-0 flex justify-center gap-4 py-3 ${
+            isMobile
               ? ""
               : "opacity-0 group-hover:opacity-100 transition-all duration-300"
-            }`}
+          }`}
         >
           <button
             className="bg-black text-white px-4 py-2 flex items-center gap-2 rounded hover:bg-gray-800 cursor-pointer"
@@ -109,8 +110,6 @@ export const ProductCardItem = ({
                   name: product.name,
                   img: product.img,
                   price: parsePriceToNumber(product.newPrice),
-
-
                 },
                 1
               );

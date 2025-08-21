@@ -9,8 +9,7 @@ import Featuresection from "@/components/Featuresection";
 import Blogmain from "@/components/Blogmain";
 import Brandlogo from "@/components/Brandlogo";
 import Follow from "@/components/Follow";
-import Header from "@/components/header/Header";
-import Footer from "@/components/footer/Footer";
+
 
 
 

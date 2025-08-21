@@ -4,6 +4,7 @@ import "react-modern-drawer/dist/index.css";
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiX } from "react-icons/fi";
+import { navigationItems } from "@/utils/constants/constant";
 
 interface MobiledrawerProps {
   onSignIn: () => void;
@@ -22,37 +23,8 @@ const Mobiledrawer = ({ onSignIn, onRegister }: MobiledrawerProps) => {
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
   };
 
-  const navigationItems = {
-    home: {
-      label: "Home",
-      items: ["Home 1", "Home 2", "Home 3"]
-    },
-    shop: {
-      label: "Shop",
-      items: ["Shop 1", "Shop 2", "Shop 3"]
-    },
-    pages: {
-      label: "Pages",
-      items: ["Page 1", "Page 2", "Page 3"]
-    },
-    collections: {
-      label: "Collections",
-      items: ["Collection 1", "Collection 2", "Collection 3"]
-    },
-    blog: {
-      label: "Blog",
-      items: ["Blog 1", "Blog 2", "Blog 3"]
-    },
-    contact: {
-      label: "Contact",
-      items: ["Contact 1", "Contact 2", "Contact 3"]
-    }
-  };
-
   return (
     <div>
-      
-      
       {/* Mobile Menu Toggle Button */}
       <button
         onClick={toggleDrawer}
@@ -74,7 +46,7 @@ const Mobiledrawer = ({ onSignIn, onRegister }: MobiledrawerProps) => {
         <div className="h-full bg-white flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b">
-           <div></div>
+            <div></div>
             <button
               onClick={toggleDrawer}
               className="p-2 hover:bg-gray-100 rounded-full"
@@ -86,46 +58,57 @@ const Mobiledrawer = ({ onSignIn, onRegister }: MobiledrawerProps) => {
           {/* Navigation Links */}
           <div className="flex-1 p-4 space-y-4">
             <div className="space-y-2">
-             
               <ul className="space-y-2">
-                {Object.entries(navigationItems).map(([key, item]) => (
-                  <li key={key}>
+                {navigationItems.map((item, index) => (
+                  <li key={index}>
                     <div className="space-y-1">
-                      <button
-                        onClick={() => toggleDropdown(key)}
-                        className="flex items-center justify-between w-full py-2 p-1 text-gray-800 hover:text-[#ba933e] transition-colors"
-                      >
-                        <span className="text-xl font-bold">{item.label}</span>
-                        <IoIosArrowDown 
-                          className={`transition-transform ${openDropdown === key ? 'rotate-180' : ''}`}
-                          size={16}
-                        />
-                      </button>
-                      {openDropdown === key && (
-                        <div className="pl-4 space-y-1">
-                          {item.items.map((subItem, index) => (
-                            <Link
-                              key={index}
-                              href={`/${key}/${index + 1}`}
-                              className="block py-1 text-sm text-gray-600 hover:text-[#ba933e] transition-colors"
-                              onClick={toggleDrawer}
-                            >
-                              {subItem}
-                            </Link>
-                          ))}
-                        </div>
+                      {item.hasDropdown ? (
+                        <>
+                          <button
+                            onClick={() => toggleDropdown(item.title)}
+                            className="flex items-center justify-between w-full py-2 p-1 text-gray-800 hover:text-[#ba933e] transition-colors"
+                          >
+                            <span className="text-xl font-bold">
+                              {item.title}
+                            </span>
+                            <IoIosArrowDown
+                              className={`transition-transform ${
+                                openDropdown === item.title ? "rotate-180" : ""
+                              }`}
+                              size={16}
+                            />
+                          </button>
+                          {openDropdown === item.title &&
+                            item.dropdownItems && (
+                              <div className="pl-4 space-y-1">
+                                {item.dropdownItems.map((subItem, subIndex) => (
+                                  <Link
+                                    key={subIndex}
+                                    href={subItem.href}
+                                    className="block py-1 text-sm text-gray-600 hover:text-[#ba933e] transition-colors"
+                                    onClick={toggleDrawer}
+                                  >
+                                    {subItem.title}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                        </>
+                      ) : (
+                        <Link
+                          href={item.href || "#"}
+                          className="block py-2 text-xl font-bold text-gray-800 hover:text-[#ba933e] transition-colors"
+                          onClick={toggleDrawer}
+                        >
+                          {item.title}
+                        </Link>
                       )}
                     </div>
                   </li>
                 ))}
               </ul>
             </div>
-
-            
-          
           </div>
-
-         
         </div>
       </Drawer>
     </div>
