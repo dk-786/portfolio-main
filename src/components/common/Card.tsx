@@ -9,7 +9,6 @@ import { products } from "@/utils/constants/constant";
 import { productss } from "@/utils/constants/constant";
 import { cartStore, parsePriceToNumber } from "@/utils/cartStore";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useCartItems } from "../hookes/useCartItems";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import Image from "next/image";
@@ -43,10 +42,12 @@ export const ProductCardItem = ({
   const [showPopup, setShowPopup] = useState(false);
   const router = useRouter();
   const { getConvertedPrice } = useAppContext();
+  
   const handleAddToCartPopup = () => {
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2000);
   };
+
 
   return (
     <div className="flex flex-col h-full w-full">
@@ -193,9 +194,8 @@ const ProductCard = () => {
             key={product.id}
             className="flex flex-col "
             onClick={() => {
-              useCartItems();
-              router.push(`/card/${product.id}`);
-            }}
+            router.push(`/card/${product.id}`);
+          }}
           >
             <ProductCardItem
               product={product}
