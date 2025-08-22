@@ -26,6 +26,7 @@ import SizeGuideModal from "@/components/modals/SizeGuideModal";
 import CartModal from "@/components/modals/CartModal";
 import { cartStore, parsePriceToNumber } from "@/utils/cartStore";
 import { useCartItems } from "@/components/hookes/useCartItems";
+import { useAppContext } from "@/components/context/AppContext";
 
 const Page = () => {
   const params = useParams();
@@ -34,6 +35,7 @@ const Page = () => {
     : (params?.id as string | undefined);
   const [hovered, setHovered] = useState<number | null>(null);
   const productId = Number(idParam);
+  
   const allProducts = [...products, ...productss];
   const product = allProducts.find((p) => p.id === productId);
   const [value, setValue] = useState(0);
@@ -41,6 +43,7 @@ const Page = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const sizes = ["S", "M", "L", "XL"];
+    const { getConvertedPrice } = useAppContext();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<
     "description" | "product" | "details" | "reviews" | "shipping"
@@ -63,8 +66,14 @@ const Page = () => {
     seconds: number;
     completed: boolean;
   }
-  
-  const renderer = ({ days, hours, minutes, seconds, completed }: CountdownRendererProps) => {
+
+  const renderer = ({
+    days,
+    hours,
+    minutes,
+    seconds,
+    completed,
+  }: CountdownRendererProps) => {
     if (completed) {
       return <span className="text-green-600 font-bold"> Time&apos;s up!</span>;
     } else {
@@ -164,12 +173,13 @@ const Page = () => {
               renderer={renderer}
             />
           </div>
+         
           <div className="flex items-center gap-2 p-4">
             <p className="text-gray-400 line-through text-lg">
-              {product.oldPrice}
+              {getConvertedPrice(parsePriceToNumber(product.oldPrice))}
             </p>
             <p className="text-[#a67c00] font-bold text-xl">
-              {product.newPrice}
+              {getConvertedPrice(parsePriceToNumber(product.newPrice))}
             </p>
           </div>
 
