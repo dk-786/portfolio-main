@@ -1,8 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import { posters } from "@/utils/constants/constant";
+import { useAppContext } from "@/components/context/AppContext";
+import { parsePriceToNumber } from "@/utils/parsePrice";
 
 const Poster = () => {
+  const { getConvertedPrice } = useAppContext();
   return (
     <div className="w-full items-center justify-center ">
       {/* First Section */}
@@ -27,19 +30,23 @@ const Poster = () => {
 
               {/* Text Overlay */}
               <div
-                className={`absolute inset-0 flex flex-col justify-center items-start p-4 sm:p-8 ${index === 0 ? "text-black" : "text-white"
-                  }`}
+                className={`absolute inset-0 flex flex-col justify-center items-start p-4 sm:p-8 ${
+                  index === 0 ? "text-black" : "text-white"
+                }`}
               >
                 <p className="text-base sm:text-lg font-semibold">
                   Quick parcel delivery,{" "}
-                  <span className="text-[#a67c00] font-bold">from $25</span>
+                   <span className="text-yellow-600 font-semibold">
+                        from {getConvertedPrice(25)}
+                      </span>
                 </p>
                 <h2 className="text-2xl sm:text-4xl font-bold mt-2 leading-snug">
                   Up to 70% Off <br /> Interior Home Decor
                 </h2>
                 <p
-                  className={`mt-3 text-xs sm:text-sm ${index === 0 ? "text-gray-600" : "text-gray-200"
-                    }`}
+                  className={`mt-3 text-xs sm:text-sm ${
+                    index === 0 ? "text-gray-600" : "text-gray-200"
+                  }`}
                 >
                   Class aptent taciti sociosqu ad litora
                 </p>
@@ -73,6 +80,7 @@ const Poster = () => {
                 <div className="absolute top-4 left-4 sm:top-6 sm:left-6 text-black">
                   {index === 0 && (
                     <>
+                    
                       <h2 className="text-lg sm:text-2xl font-bold">
                         Turning Table
                       </h2>
@@ -80,7 +88,7 @@ const Poster = () => {
                         Class aptent taciti sociosqu
                       </p>
                       <span className="text-yellow-600 font-semibold mt-2 block hover:text-black transition-colors duration-200 text-sm sm:text-base">
-                        From $49.59
+                        {getConvertedPrice(parsePriceToNumber(poster.price))}
                       </span>
                     </>
                   )}
@@ -127,7 +135,7 @@ const Poster = () => {
                     Class aptent taciti sociosqu
                   </p>
                   <span className="text-yellow-600 font-semibold mt-2 block hover:text-black transition-colors duration-200 text-sm sm:text-base">
-                    From $49.59
+                   {getConvertedPrice(parsePriceToNumber(poster.price))}
                   </span>
                 </div>
               </div>
@@ -157,9 +165,13 @@ const Poster = () => {
                 <div className=" bg-transparent rounded-lg sm:rounded-none p-4 sm:p-0 max-w-xs sm:max-w-md lg:max-w-xl text-left">
                   <p className="text-base sm:text-2xl font-semibold">
                     Quick parcel delivery,{" "}
-                    <span className="text-[#a67c00] font-bold">from $25</span>
+                    <span className="text-yellow-600 font-semibold">
+                        from {getConvertedPrice(25)}
+                      </span>
                   </p>
-                  <p className="text-2xl sm:text-5xl font-bold">Shop The New Brands</p>
+                  <p className="text-2xl sm:text-5xl font-bold">
+                    Shop The New Brands
+                  </p>
                   <p className="text-xl sm:text-4xl mb-2">Up to 40% off now.</p>
                   <p className="text-sm sm:text-base mt-1">
                     Class aptent taciti sociosqu ad litora torquent per
@@ -172,7 +184,6 @@ const Poster = () => {
             </div>
           ))}
       </div>
-
     </div>
   );
 };

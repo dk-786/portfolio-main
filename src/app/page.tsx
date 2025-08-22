@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Poster from "@/components/Poster";
 import Products from "@/components/common/Products";
@@ -10,13 +10,10 @@ import Blogmain from "@/components/Blogmain";
 import Brandlogo from "@/components/Brandlogo";
 import Follow from "@/components/Follow";
 
-
-
-
 export default function Home() {
   return (
     <div>
-       <Slider />
+      <Slider />
       <Card />
       <Poster />
       <Products />

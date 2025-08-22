@@ -57,31 +57,37 @@ export const posters = [
     id: 1,
     src: "/images/poster.jpg",
     alt: "Poster 1",
+    price:"21$"
   },
   {
     id: 2,
     src: "/images/poster1.jpg",
     alt: "Poster 2",
+     price:"81$"
   },
   {
     id: 3,
     src: "/images/patti.webp",
     alt: "Poster 3",
+     price:"91$"
   },
   {
     id: 4,
     src: "/images/chair3.jpg",
     alt: "Poster 4",
+     price:"27$"
   },
   {
     id: 5,
     src: "/images/sofa.webp",
     alt: "Poster 5",
+     price:"215$"
   },
   {
     id: 6,
     src: "/images/banner.jpg",
     alt: "Poster 6",
+     price:"24$"
   },
 ];
 
@@ -580,26 +586,21 @@ export const sizeGuide = {
   ],
 };
 
-// src/utils/constants/constant.ts
+// Dropdown item type
 export interface DropdownItem {
   title: string;
   href: string;
 }
 
+// Navigation item type
 export interface NavigationItem {
   title: string;
   href?: string;
   hasDropdown?: boolean;
   dropdownItems?: DropdownItem[];
 }
-// constants.ts
-export interface NavigationItem {
-  title: string;
-  href?: string;
-  hasDropdown?: boolean;
-  dropdownItems?: { title: string; href: string }[];
-}
 
+// Navigation menu items
 export const navigationItems: NavigationItem[] = [
   {
     title: "Home",
@@ -621,34 +622,30 @@ export const navigationItems: NavigationItem[] = [
     title: "Pages",
     hasDropdown: true,
     dropdownItems: [
-      { title: "About Us", href: "/pages/1" },
-      { title: "Terms and conditions of use", href: "/pages/2" },
-      { title: "FAQs", href: "/pages/3" },
-      { title: "Our stores", href: "/pages/3" },
-      { title: "Contact Us", href: "/pages/3" },
-      { title: "Sitemap", href: "/pages/3" },
+      { title: "About Us", href: "/pages/about" },
+      { title: "Terms and conditions of use", href: "/pages/terms" },
+      { title: "FAQs", href: "/pages/faqs" },
+      { title: "Our stores", href: "/pages/stores" },
+      { title: "Contact Us", href: "/pages/contact" },
+      { title: "Sitemap", href: "/pages/sitemap" },
     ],
   },
-
   {
     title: "Collections",
     hasDropdown: true,
-    dropdownItems: [
-      { title: "Collection 1", href: "/collections/1" },
-      { title: "Collection 2", href: "/collections/2" },
-      { title: "Collection 3", href: "/collections/3" },
-    ],
   },
   {
     title: "Blog",
     hasDropdown: true,
     dropdownItems: [
-      { title: "Blog 1", href: "/blog/1" },
-      { title: "Blog 2", href: "/blog/2" },
-      { title: "Blog 3", href: "/blog/3" },
+      { title: "Blog Grid", href: "/blog/1" },
+      { title: "Blog Category", href: "/blog/2" },
+      { title: "Blog Details", href: "/blog/3" },
     ],
   },
 ];
+
+// Shop mega menu categories
 export interface ShopCategory {
   title: string;
   items: { title: string; href: string }[];
@@ -690,15 +687,56 @@ export const shopCategories: ShopCategory[] = [
       { title: "Layout 02 - Left thumb", href: "/shop/products/layout-02" },
       { title: "Layout 03 - Right thumb", href: "/shop/products/layout-03" },
       { title: "Layout 04 - No thumb", href: "/shop/products/layout-04" },
-      {
-        title: "Layout 05 - No thumb center",
-        href: "/shop/products/layout-05",
-      },
-      {
-        title: "Layout 06 - No thumb fullwidth",
-        href: "/shop/products/layout-06",
-      },
+      { title: "Layout 05 - No thumb center", href: "/shop/products/layout-05" },
+      { title: "Layout 06 - No thumb fullwidth", href: "/shop/products/layout-06" },
       { title: "Layout 07 - Gallery", href: "/shop/products/layout-07" },
     ],
   },
 ];
+
+// Popular products
+export const productsss = [
+  { id: 12, name: "Product 12", img: "/p12.jpg", newPrice: "$99", oldPrice: "$120" },
+  { id: 13, name: "Product 13", img: "/p13.jpg", newPrice: "$89" },
+  { id: 14, name: "Product 14", img: "/p14.jpg", newPrice: "$79", oldPrice: "$99" },
+];
+
+// Collections grid
+export const collections = [
+  { id: 1, img: "/c1.jpg" },
+  { id: 2, img: "/c2.jpg" },
+  { id: 3, img: "/c3.jpg" },
+  { id: 4, img: "/c4.jpg" },
+  { id: 5, img: "/c5.jpg" },
+  { id: 6, img: "/c6.jpg" },
+];
+
+// utils/constants/constant.ts
+
+export const sliderData = [
+  {
+    desktopImage: "/images/1.jpg",
+    mobileImage: "/images/4.jpg",
+    price: 25,
+    title: "Normann Copenhagen -",
+    subtitle: "Craft salt and pepper grinder",
+    offer: null,
+  },
+  {
+    desktopImage: "/images/2.jpg",
+    mobileImage: "/images/5.jpg",
+    price: 25,
+    title: "Wood Minimal Office Chair",
+    subtitle: "Extra 40% off now",
+    offer: "40% off",
+  },
+  {
+    desktopImage: "/images/3.jpg",
+    mobileImage: "/images/6.jpg",
+    price: 25,
+    title: "Everyone's Talking About",
+    subtitle: "Sweeper and funnel",
+    offer: null,
+  },
+];
+

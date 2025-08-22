@@ -9,11 +9,12 @@ import { products } from "@/utils/constants/constant";
 import { productss } from "@/utils/constants/constant";
 import { cartStore, parsePriceToNumber } from "@/utils/cartStore";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useCartItems } from "../hookes/useCartItems";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import Image from "next/image";
-
 import "swiper/css/navigation";
+import { useAppContext } from "@/components/context/AppContext";
 
 // Common Card Component
 export interface ProductCardProps {
@@ -41,6 +42,7 @@ export const ProductCardItem = ({
 }: ProductCardProps) => {
   const [showPopup, setShowPopup] = useState(false);
   const router = useRouter();
+  const { getConvertedPrice } = useAppContext();
   const handleAddToCartPopup = () => {
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2000);
@@ -138,9 +140,11 @@ export const ProductCardItem = ({
         </h3>
         <div className="flex items-center gap-2">
           <p className="text-gray-400 line-through text-sm">
-            {product.oldPrice}
+            {getConvertedPrice(parsePriceToNumber(product.oldPrice))}
           </p>
-          <p className="text-[#a67c00] font-bold text-lg">{product.newPrice}</p>
+          <p className="text-[#a67c00] font-bold text-lg">
+            {getConvertedPrice(parsePriceToNumber(product.newPrice))}
+          </p>
         </div>
       </div>
     </div>
@@ -188,7 +192,10 @@ const ProductCard = () => {
           <div
             key={product.id}
             className="flex flex-col "
-            onClick={() => router.push(`/card/${product.id}`)}
+            onClick={() => {
+              useCartItems();
+              router.push(`/card/${product.id}`);
+            }}
           >
             <ProductCardItem
               product={product}
