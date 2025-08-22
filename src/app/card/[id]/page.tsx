@@ -35,7 +35,7 @@ const Page = () => {
     : (params?.id as string | undefined);
   const [hovered, setHovered] = useState<number | null>(null);
   const productId = Number(idParam);
-  
+
   const allProducts = [...products, ...productss];
   const product = allProducts.find((p) => p.id === productId);
   const [value, setValue] = useState(0);
@@ -43,7 +43,7 @@ const Page = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const sizes = ["S", "M", "L", "XL"];
-    const { getConvertedPrice } = useAppContext();
+  const { getConvertedPrice } = useAppContext();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<
     "description" | "product" | "details" | "reviews" | "shipping"
@@ -78,7 +78,7 @@ const Page = () => {
       return <span className="text-green-600 font-bold"> Time&apos;s up!</span>;
     } else {
       return (
-        <div className=" text-xl text-gray-500 font-semibold  w-60">
+        <div className="text-xl text-gray-500 font-semibold w-60">
           <div className="flex gap-4 text-xl text-gray-500 font-semibold">
             <div>
               <span className="w-12 h-12 border-1 border-gray-400 flex justify-center bg-gray-200 items-center">
@@ -116,27 +116,32 @@ const Page = () => {
 
   return (
     <>
-      <section className="flex p-8 justify-between w-full ">
-        <div className="w-[50%] p-6">
+      <section className="flex flex-col md:flex-row md:p-8 p-4 md:justify-between w-full">
+       
+        <div className="w-full md:w-[50%] p-6">
+       
           <Image
             src={product.img}
             alt={product.name}
             width={500}
             height={500}
-            className="w-full  shadow mb-4"
+            className="w-full shadow mb-4"
           />
         </div>
-        <div className="w-[50%] py-4 ">
-          <h1 className="w-full text-3xl font-bold mb-4 px-4">
+        <div className="w-full md:w-[50%] py-4">
+          {/* Made details section full width on mobile */}
+          <h1 className="w-full text-2xl md:text-3xl font-bold mb-4 px-4">
             {product.name}
           </h1>
-          <div className="flex gap-4 p-4">
+          {/* Adjusted font size for mobile */}
+          <div className="flex flex-wrap gap-4 p-4">
+            {/* Added flex-wrap to prevent overflow on small screens */}
             <div className="flex items-center ">
               {[1, 2, 3, 4, 5].map((n) => (
                 <button
                   key={n}
                   onClick={() => setValue(n)}
-                  className=" text-left  cursor-pointer "
+                  className=" text-left  cursor-pointer "
                   aria-label={`Rate ${n} star${n > 1 ? "s" : ""}`}
                 >
                   <AiFillStar
@@ -147,15 +152,15 @@ const Page = () => {
                 </button>
               ))}
             </div>
-            <span className=" flex  text-gray-400 items-center">|</span>
-            <div className="flex  items-center mt-1  text-gray-600 gap-1 cursor-pointer">
+            <span className=" flex text-gray-400 items-center">|</span>
+            <div className="flex items-center mt-1 text-gray-600 gap-1 cursor-pointer">
               <MdOutlineMessage />
               <span>Read Reviews</span>
               <span>(1)</span>
             </div>
-            <span className=" flex  text-gray-400 items-center">|</span>
+            <span className=" flex text-gray-400 items-center">|</span>
             <div
-              className="flex  items-center mt-1  text-gray-600 gap-1 cursor-pointer"
+              className="flex items-center mt-1 text-gray-600 gap-1 cursor-pointer"
               onClick={() => setShowWriteReview(true)}
             >
               <MdOutlineEdit />
@@ -163,7 +168,8 @@ const Page = () => {
             </div>
           </div>
 
-          <span className="text-gray-600  p-4 ">
+          <span className="text-gray-600 p-4 block">
+            {/* Added block to make it a block-level element for better flow */}
             Regular fit, round neckline, short sleeves. Made of extra long
             staple pima cotton.
           </span>
@@ -173,7 +179,7 @@ const Page = () => {
               renderer={renderer}
             />
           </div>
-         
+
           <div className="flex items-center gap-2 p-4">
             <p className="text-gray-400 line-through text-lg">
               {getConvertedPrice(parsePriceToNumber(product.oldPrice))}
@@ -191,8 +197,9 @@ const Page = () => {
               <button
                 key={size}
                 onClick={() => setSelectedSize(size)}
-                className={`w-8 h-8 border-2 flex justify-center items-center transition-colors duration-200 cursor-pointer
-            ${selectedSize === size ? "border-[#ba933e]" : "border-gray-400"}`}
+                className={`w-8 h-8 border-2 flex justify-center items-center transition-colors duration-200 cursor-pointer ${
+                  selectedSize === size ? "border-[#ba933e]" : "border-gray-400"
+                }`}
               >
                 {size}
               </button>
@@ -204,24 +211,27 @@ const Page = () => {
             {/* White Button */}
             <button
               onClick={() => setSelected("white")}
-              className={`w-8 h-8 border-2 rounded-full flex justify-center items-center transition-colors duration-200 bg-white  cursor-pointer
-          ${selected === "white" ? "border-[#ba933e]" : "border-gray-400"}`}
+              className={`w-8 h-8 border-2 rounded-full flex justify-center items-center transition-colors duration-200 bg-white cursor-pointer ${
+                selected === "white" ? "border-[#ba933e]" : "border-gray-400"
+              }`}
             ></button>
 
             {/* Black Button */}
             <button
               onClick={() => setSelected("black")}
-              className={`w-8 h-8 border-2 rounded-full flex justify-center items-center transition-colors duration-200 bg-gray-600 cursor-pointer
-          ${selected === "black" ? "border-[#ba933e]" : "border-gray-400"}`}
+              className={`w-8 h-8 border-2 rounded-full flex justify-center items-center transition-colors duration-200 bg-gray-600 cursor-pointer ${
+                selected === "black" ? "border-[#ba933e]" : "border-gray-400"
+              }`}
             ></button>
           </div>
 
           <h1 className="w-full text-xl text-black font-bold p-4">Quantity</h1>
-          <div className="flex gap-4 p-4">
-            <div className="flex  border-2 w-30 h-12  px-4 justify-between">
+          <div className="flex  sm:flex-row gap-4 p-4">
+           
+            <div className="flex border-2 w-30 h-12 px-4 justify-between">
               <button
                 onClick={() => setCount((prev) => Math.max(1, prev - 1))}
-                className=" text-black  font-bold cursor-pointer"
+                className=" text-black font-bold cursor-pointer"
               >
                 -
               </button>
@@ -230,7 +240,7 @@ const Page = () => {
               </span>
               <button
                 onClick={() => setCount(count + 1)}
-                className=" text-black  font-bold cursor-pointer"
+                className=" text-black font-bold cursor-pointer"
               >
                 +
               </button>
@@ -244,13 +254,19 @@ const Page = () => {
                     name: product.name,
                     img: product.img,
                     price: parsePriceToNumber(product.newPrice),
-                    size: selectedSize ?? undefined, // ✅ ensure null, not undefined
-                    color: selected ?? undefined, // ✅ ensure null, not undefined
+                    size: selectedSize ?? undefined,
+                    color: selected ?? undefined,
                   },
                   Math.max(1, count)
                 );
                 setShowCart(false);
                 handleAddToCartPopup();
+
+                // Add this line to scroll to the top of the page
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
               }}
             >
               Add to cart
@@ -261,48 +277,53 @@ const Page = () => {
               </div>
             )}
           </div>
-          <div className="flex gap-4 px-4">
+          <div className="flex flex-wrap gap-4 px-4">
+            {/* Added flex-wrap for the additional links to prevent overflow on mobile. */}
             <div
-              className="flex text-sm  items-center mt-1  text-gray-600 gap-1 cursor-pointer hover:text-black"
+              className="flex text-sm items-center mt-1 text-gray-600 gap-1 cursor-pointer hover:text-black"
               onClick={() => setShowSizeGuide(true)}
             >
               <CgRuler />
               <span>Size Guide </span>
             </div>
-            <span className=" flex text-sm  text-gray-400 items-center">|</span>
-            <div className="flex text-sm items-center mt-1  text-gray-600 gap-1 cursor-pointer hover:text-black">
+            <span className="flex text-sm text-gray-400 items-center">|</span>
+            <div className="flex text-sm items-center mt-1 text-gray-600 gap-1 cursor-pointer hover:text-black">
               <FaRegHeart />
               <span>Add to Watchlist </span>
             </div>
-            <span className=" flex  text-gray-400 items-center">|</span>
-            <div className="flex text-sm items-center mt-1  text-gray-600 gap-1 cursor-pointer hover:text-black">
+            <span className="flex text-gray-400 items-center">|</span>
+            <div className="flex text-sm items-center mt-1 text-gray-600 gap-1 cursor-pointer hover:text-black">
               <FaRegCircleQuestion />
               <span>Add to Compare </span>
             </div>
           </div>
           <div className="w-full border-1 mt-6 "></div>
           <div className="p-5 ">
-            <div className="flex gap-4 p-1">
+            <div className="flex flex-wrap gap-4 p-1">
+              {/* Added flex-wrap */}
               <span className=" text-bold">In Stock</span>
               <span className="text-green-700">290 items</span>
             </div>
-            <div className="flex gap-4 p-1">
+            <div className="flex flex-wrap gap-4 p-1">
+              {/* Added flex-wrap */}
               <span className=" text-bold">Reference</span>
               <span className="text-gray-500">demo_1</span>
             </div>
-            <div className="flex gap-4 p-1">
+            <div className="flex flex-wrap gap-4 p-1">
+              {/* Added flex-wrap */}
               <span className=" text-bold">Brand</span>
               <span className="text-gray-500">Studio Design</span>
             </div>
-            <div className="flex gap-4 p-1">
+            <div className="flex flex-wrap gap-4 p-1">
+              {/* Added flex-wrap */}
               <span className=" text-bold">Categories :</span>
               <span className="text-gray-500">
                 Home Furniture Lighting Lamp
               </span>
             </div>
-            <div className="flex gap-4 p-1 items-center">
+            <div className="flex flex-wrap gap-4 p-1 items-center">
+              {/* Added flex-wrap */}
               <span className="font-bold">Share :</span>
-
               <Link
                 href="https://www.facebook.com"
                 target="_blank"
@@ -313,7 +334,6 @@ const Page = () => {
                   size={20}
                 />
               </Link>
-
               <Link
                 href="https://www.twitter.com"
                 target="_blank"
@@ -321,7 +341,6 @@ const Page = () => {
               >
                 <FaTwitter className="text-blue-400 cursor-pointer" size={20} />
               </Link>
-
               <Link
                 href="https://picsart.com"
                 target="_blank"
@@ -338,10 +357,12 @@ const Page = () => {
       </section>
 
       <section>
-        <div className="flex items-center justify-between px-14 gap-4">
+        <div className="flex items-center justify-between px-4 md:px-14 gap-4">
+          {/* Changed px-14 to px-4 for mobile */}
           <div className="flex-1 border-1 border-gray-200"></div>
 
-          <div className="flex gap-8 font-bold text-lg text-black ">
+          <div className="flex gap-4 md:gap-8 font-bold text-base md:text-lg text-black overflow-x-auto whitespace-nowrap scrollbar-hide">
+           
             <span
               onClick={() => setActiveTab("description")}
               className={`cursor-pointer duration-300 ${
@@ -362,7 +383,6 @@ const Page = () => {
             >
               Product Details
             </span>
-
             <span
               onClick={() => setActiveTab("reviews")}
               className={`cursor-pointer duration-300 ${
@@ -384,10 +404,10 @@ const Page = () => {
               Shipping & Return
             </span>
           </div>
-
           <div className="flex-1 border-1 border-gray-200"></div>
         </div>
-        <div className="px-14 py-8 text-sm leading-7 text-gray-700">
+        <div className="px-4 md:px-14 py-8 text-sm leading-7 text-gray-700">
+          {/* Changed px-14 to px-4 for mobile */}
           {activeTab === "description" && (
             <div className="space-y-4">
               <span className="ml-2 font-semibold text-gray-500">
@@ -396,16 +416,17 @@ const Page = () => {
             </div>
           )}
         </div>
-        <div className="px-14  text-sm leading-7 text-gray-700">
+        <div className="px-4 md:px-14 text-sm leading-7 text-gray-700">
+          {/* Changed px-14 to px-4 for mobile */}
           {activeTab === "product" && (
             <div className="space-y-4">
-              <div className="overflow-hidden rounded  max-w-sm">
+              <div className="overflow-hidden rounded max-w-sm">
                 <Image
                   width={400}
                   height={300}
                   src={product.newimg}
                   alt={product.name}
-                  className=" h-15 w-15  object-cover"
+                  className=" h-15 w-15 object-cover"
                 />
               </div>
               <div>
@@ -419,7 +440,8 @@ const Page = () => {
             </div>
           )}
         </div>
-        <div className="px-14  text-sm leading-7 text-gray-700">
+        <div className="px-4 md:px-14 text-sm leading-7 text-gray-700">
+          {/* Changed px-14 to px-4 for mobile */}
           {activeTab === "reviews" && (
             <div
               className="flex gap-2 cursor-pointer"
@@ -430,9 +452,10 @@ const Page = () => {
             </div>
           )}
         </div>
-        <div className="px-14  text-sm leading-7 text-gray-700">
+        <div className="px-4 md:px-14 text-sm leading-7 text-gray-700">
+          {/* Changed px-14 to px-4 for mobile */}
           {activeTab === "shipping" && (
-            <div className=" flex flex-col gap-2 cursor-pointer">
+            <div className="flex flex-col gap-2 cursor-pointer">
               {shippingContent.map((item) => (
                 <div key={item.id} className="mb-2">
                   <span className="font-bold text-xl">{item.title}</span>
@@ -461,44 +484,46 @@ const Page = () => {
         onRemove={(cartId: string) => cartStore.remove(cartId)} // ✅ use cartId
       />
 
-      <section className="md:p-6 p-0">
+      <section className="md:p-6 p-4">
+        {/* Adjusted padding for mobile */}
         <style>{`
-        .swiper-button-next,
-        .swiper-button-prev {
-          width: 40px !important;
-          height: 40px !important;
-          background-color: #6666 !important;
-          hover-background-color: #ba933e !important;
-          border-radius: 50%;
-          color: white !important;
-        }
+          .swiper-button-next,
+          .swiper-button-prev {
+            width: 40px !important;
+            height: 40px !important;
+            background-color: #6666 !important;
+            hover-background-color: #ba933e !important;
+            border-radius: 50%;
+            color: white !important;
+          }
 
-        .swiper-button-next:after,
-        .swiper-button-prev:after {
-          font-size: 12px !important;
-          font-weight: bold;
-        }
+          .swiper-button-next:after,
+          .swiper-button-prev:after {
+            font-size: 12px !important;
+            font-weight: bold;
+          }
 
-        .swiper-button-next:hover,
-        .swiper-button-prev:hover {
-          background-color: #a67c2a !important;
-        }
+          .swiper-button-next:hover,
+          .swiper-button-prev:hover {
+            background-color: #a67c2a !important;
+          }
 
-        .swiper-pagination-bullet {
-          background-color: #ba933e !important;
-          opacity: 0.5 !important;
-        }
+          .swiper-pagination-bullet {
+            background-color: #ba933e !important;
+            opacity: 0.5 !important;
+          }
 
-        .swiper-pagination-bullet-active {
-          background-color: #ba933e !important;
-          opacity: 1 !important;
-        }
+          .swiper-pagination-bullet-active {
+            background-color: #ba933e !important;
+            opacity: 1 !important;
+          }
 
-        .swiper-pagination-bullet:hover {
-          background-color: #a67c2a !important;
-        }
-      `}</style>
-        <h2 className="text-3xl font-bold text-center mt-18 md:mb-22">
+          .swiper-pagination-bullet:hover {
+            background-color: #a67c2a !important;
+          }
+        `}</style>
+        <h2 className="text-xl md:text-3xl font-bold text-center mt-12 md:mt-18 mb-8 md:mb-22">
+          {/* Adjusted font size and margin for mobile */}
           You might also like
         </h2>
         <div className="p-4">

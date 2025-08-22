@@ -5,7 +5,80 @@ import { useAppContext } from "@/components/context/AppContext";
 import { parsePriceToNumber } from "@/utils/parsePrice";
 
 const Poster = () => {
-  const { getConvertedPrice } = useAppContext();
+  const { getConvertedPrice, language } = useAppContext();
+
+  // 🔹 Text translations
+  const translations: Record<string, any> = {
+    en: {
+      quickDelivery: "Quick parcel delivery,",
+      from: "from",
+      upTo: "Up to 70% Off Interior Home Decor",
+      desc: "Class aptent taciti sociosqu ad litora",
+      shop: "Shop Collection →",
+      turningTable: "Turning Table",
+      woodChair: "Wood Chair",
+      extraOff: "Extra 40% off",
+      nutshellChair: "Modern Nutshell Lounge Chair",
+      shopBrands: "Shop The New Brands",
+      discount: "Up to 40% off now.",
+    },
+    es: {
+      quickDelivery: "Entrega rápida de paquetes,",
+      from: "desde",
+      upTo: "Hasta 70% de descuento en decoración del hogar",
+      desc: "Clase aptent taciti sociosqu ad litora",
+      shop: "Comprar colección →",
+      turningTable: "Mesa giratoria",
+      woodChair: "Silla de madera",
+      extraOff: "40% extra de descuento",
+      nutshellChair: "Silla moderna de caparazón",
+      shopBrands: "Compra las nuevas marcas",
+      discount: "Hasta 40% de descuento ahora.",
+    },
+    ar: {
+      quickDelivery: "توصيل سريع للطرود،",
+      from: "من",
+      upTo: "خصم يصل إلى 70٪ على ديكور المنزل",
+      desc: "كلاس أبتنت تاكتي سوسيوسكو أد ليتورا",
+      shop: "تسوق المجموعة →",
+      turningTable: "طاولة دوارة",
+      woodChair: "كرسي خشبي",
+      extraOff: "خصم إضافي 40%",
+      nutshellChair: "كرسي صالة حديث",
+      shopBrands: "تسوق الماركات الجديدة",
+      discount: "خصم حتى 40% الآن.",
+    },
+    pt: {
+      quickDelivery: "Entrega rápida de encomendas,",
+      from: "de",
+      upTo: "Até 70% de desconto em decoração de interiores",
+      desc: "Classe aptent taciti sociosqu ad litora",
+      shop: "Comprar coleção →",
+      turningTable: "Mesa giratória",
+      woodChair: "Cadeira de madeira",
+      extraOff: "40% de desconto extra",
+      nutshellChair: "Poltrona moderna em casca de noz",
+      shopBrands: "Compre as novas marcas",
+      discount: "Até 40% de desconto agora.",
+    },
+    ru: {
+      quickDelivery: "Быстрая доставка посылок,",
+      from: "от",
+      upTo: "Скидки до 70% на домашний декор",
+      desc: "Класс аптент такити социоску ад литора",
+      shop: "Купить коллекцию →",
+      turningTable: "Вращающийся стол",
+      woodChair: "Деревянный стул",
+      extraOff: "Дополнительная скидка 40%",
+      nutshellChair: "Современное кресло-раковина",
+      shopBrands: "Покупайте новые бренды",
+      discount: "Скидки до 40% сейчас.",
+    },
+  };
+
+  // Pick the right translation
+  const t = translations[language] || translations.en;
+
   return (
     <div className="w-full items-center justify-center ">
       {/* First Section */}
@@ -17,7 +90,7 @@ const Poster = () => {
               key={poster.id}
               className="relative w-full overflow-hidden md:rounded-none rounded-xl group"
             >
-              {/* Image Wrapper with controlled height */}
+              {/* Image */}
               <div className="w-full h-[400px] sm:h-[400px] md:h-[500px] overflow-hidden">
                 <Image
                   src={poster.src}
@@ -35,23 +108,23 @@ const Poster = () => {
                 }`}
               >
                 <p className="text-base sm:text-lg font-semibold">
-                  Quick parcel delivery,{" "}
-                   <span className="text-yellow-600 font-semibold">
-                        from {getConvertedPrice(25)}
-                      </span>
+                  {t.quickDelivery}{" "}
+                  <span className="text-yellow-600 font-semibold">
+                    {t.from} {getConvertedPrice(25)}
+                  </span>
                 </p>
                 <h2 className="text-2xl sm:text-4xl font-bold mt-2 leading-snug">
-                  Up to 70% Off <br /> Interior Home Decor
+                  {t.upTo}
                 </h2>
                 <p
                   className={`mt-3 text-xs sm:text-sm ${
                     index === 0 ? "text-gray-600" : "text-gray-200"
                   }`}
                 >
-                  Class aptent taciti sociosqu ad litora
+                  {t.desc}
                 </p>
                 <button className="mt-4 sm:mt-5 px-4 sm:px-6 py-2 sm:py-3 rounded-md font-semibold text-white bg-black hover:bg-[#a67c00] transition">
-                  Shop Collection →
+                  {t.shop}
                 </button>
               </div>
             </div>
@@ -80,13 +153,10 @@ const Poster = () => {
                 <div className="absolute top-4 left-4 sm:top-6 sm:left-6 text-black">
                   {index === 0 && (
                     <>
-                    
                       <h2 className="text-lg sm:text-2xl font-bold">
-                        Turning Table
+                        {t.turningTable}
                       </h2>
-                      <p className="text-xs sm:text-sm mt-1">
-                        Class aptent taciti sociosqu
-                      </p>
+                      <p className="text-xs sm:text-sm mt-1">{t.desc}</p>
                       <span className="text-yellow-600 font-semibold mt-2 block hover:text-black transition-colors duration-200 text-sm sm:text-base">
                         {getConvertedPrice(parsePriceToNumber(poster.price))}
                       </span>
@@ -95,13 +165,11 @@ const Poster = () => {
                   {index === 1 && (
                     <>
                       <h2 className="text-lg sm:text-2xl font-bold">
-                        Wood Chair
+                        {t.woodChair}
                       </h2>
-                      <p className="text-xs sm:text-sm mt-1">
-                        Class aptent taciti sociosqu
-                      </p>
+                      <p className="text-xs sm:text-sm mt-1">{t.desc}</p>
                       <span className="text-yellow-600 font-semibold mt-2 block hover:text-black transition-colors duration-200 text-sm sm:text-base">
-                        Extra 40% off
+                        {t.extraOff}
                       </span>
                     </>
                   )}
@@ -129,13 +197,11 @@ const Poster = () => {
 
                 <div className="absolute top-4 left-4 sm:top-6 sm:left-6 text-black">
                   <h2 className="text-lg sm:text-2xl font-bold">
-                    Modern Nutshell Lounge Chair
+                    {t.nutshellChair}
                   </h2>
-                  <p className="text-xs sm:text-sm mt-1">
-                    Class aptent taciti sociosqu
-                  </p>
+                  <p className="text-xs sm:text-sm mt-1">{t.desc}</p>
                   <span className="text-yellow-600 font-semibold mt-2 block hover:text-black transition-colors duration-200 text-sm sm:text-base">
-                   {getConvertedPrice(parsePriceToNumber(poster.price))}
+                    {getConvertedPrice(parsePriceToNumber(poster.price))}
                   </span>
                 </div>
               </div>
@@ -143,6 +209,7 @@ const Poster = () => {
         </div>
       </div>
 
+      {/* Third Section */}
       <div className="mt-5">
         {posters
           .filter((poster) => [6].includes(poster.id))
@@ -164,20 +231,18 @@ const Poster = () => {
               <div className="absolute inset-0 flex items-center justify-end px-4 sm:px-12 py-8">
                 <div className=" bg-transparent rounded-lg sm:rounded-none p-4 sm:p-0 max-w-xs sm:max-w-md lg:max-w-xl text-left">
                   <p className="text-base sm:text-2xl font-semibold">
-                    Quick parcel delivery,{" "}
+                    {t.quickDelivery}{" "}
                     <span className="text-yellow-600 font-semibold">
-                        from {getConvertedPrice(25)}
-                      </span>
+                      {t.from} {getConvertedPrice(25)}
+                    </span>
                   </p>
                   <p className="text-2xl sm:text-5xl font-bold">
-                    Shop The New Brands
+                    {t.shopBrands}
                   </p>
-                  <p className="text-xl sm:text-4xl mb-2">Up to 40% off now.</p>
-                  <p className="text-sm sm:text-base mt-1">
-                    Class aptent taciti sociosqu ad litora torquent per
-                  </p>
+                  <p className="text-xl sm:text-4xl mb-2">{t.discount}</p>
+                  <p className="text-sm sm:text-base mt-1">{t.desc}</p>
                   <button className="mt-4 sm:mt-5 px-4 sm:px-6 py-2 sm:py-3 rounded-md font-semibold text-white bg-black hover:bg-[#a67c00] transition">
-                    Shop Collection →
+                    {t.shop}
                   </button>
                 </div>
               </div>

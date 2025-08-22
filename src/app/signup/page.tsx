@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter }from "next/navigation";
+import { useRouter } from "next/navigation";
+
 const Page = () => {
   const [form, setForm] = useState({
     title: "",
@@ -13,7 +14,7 @@ const Page = () => {
     terms: false,
     newsletter: false,
   });
-const router = useRouter();
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -26,12 +27,18 @@ const router = useRouter();
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full items-center justify-center min-h-screen  p-6">
-      <h2 className="text-2xl font-semibold mb-4">Create an account</h2>
-      <div className="w-[800px] max-w-lg border-1 p-8 ">
-        <p className="text-sm mb-6">
+    <div className="flex flex-col gap-2 w-full items-center justify-center min-h-screen p-4 sm:p-6">
+      <h2 className="text-2xl font-semibold mb-4 text-center">Create an account</h2>
+
+      {/* ✅ Responsive container */}
+      <div className="w-full max-w-[800px] border p-6 sm:p-8   bg-white">
+        <p className="text-sm mb-6 text-center sm:text-left">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-600 hover:underline" onClick={() =>router.push('/login')}>
+          <a
+            href="/login"
+            className="text-blue-600 hover:underline"
+            onClick={() => router.push("/login")}
+          >
             Log in instead!
           </a>
         </p>
@@ -39,10 +46,8 @@ const router = useRouter();
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Social Title */}
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Social title
-            </label>
-            <div className="flex items-center gap-6">
+            <label className="block text-sm font-medium mb-1">Social title</label>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6 gap-2">
               <label className="flex items-center gap-2">
                 <input
                   type="radio"
@@ -50,7 +55,7 @@ const router = useRouter();
                   value="Mr."
                   checked={form.title === "Mr."}
                   onChange={handleChange}
-                  className="text-blue-600 "
+                  className="text-blue-600"
                 />
                 Mr.
               </label>
@@ -61,7 +66,7 @@ const router = useRouter();
                   value="Mrs."
                   checked={form.title === "Mrs."}
                   onChange={handleChange}
-                  className="text-blue-600 "
+                  className="text-blue-600"
                 />
                 Mrs.
               </label>
@@ -77,7 +82,7 @@ const router = useRouter();
               value={form.firstName}
               onChange={handleChange}
               placeholder="John"
-              className="w-full border  px-3 py-2"
+              className="w-full border px-3 py-2 rounded"
               pattern="[A-Za-z. ]+"
               required
             />
@@ -95,7 +100,7 @@ const router = useRouter();
               value={form.lastName}
               onChange={handleChange}
               placeholder="Doe"
-              className="w-full border  px-3 py-2 "
+              className="w-full border px-3 py-2 rounded"
               pattern="[A-Za-z. ]+"
               required
             />
@@ -113,7 +118,7 @@ const router = useRouter();
               value={form.email}
               onChange={handleChange}
               placeholder="you@example.com"
-              className="w-full border  px-3 py-2 "
+              className="w-full border px-3 py-2 rounded"
               required
             />
           </div>
@@ -127,7 +132,7 @@ const router = useRouter();
               value={form.password}
               onChange={handleChange}
               placeholder="********"
-              className="w-full border  px-3 py-2 "
+              className="w-full border px-3 py-2 rounded"
               required
             />
           </div>
@@ -140,14 +145,14 @@ const router = useRouter();
               name="birthdate"
               value={form.birthdate}
               onChange={handleChange}
-              className="w-full border  px-3 py-2 "
+              className="w-full border px-3 py-2 rounded"
             />
             <p className="text-xs text-gray-500">E.g.: 05/31/1970</p>
           </div>
 
           {/* Checkboxes */}
           <div className="space-y-2">
-            <label className="flex items-center gap-2 ">
+            <label className="flex items-center gap-2">
               <input
                 type="checkbox"
                 name="offers"
@@ -199,8 +204,8 @@ const router = useRouter();
           <p>
             The personal data you provide is used to answer queries, process
             orders or allow access to specific information. You have the right
-            to modify and delete all the personal information found in the &quot;My
-            Account&quot; page.
+            to modify and delete all the personal information found in the
+            &quot;My Account&quot; page.
           </p>
         </div>
       </div>
