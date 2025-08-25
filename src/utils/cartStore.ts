@@ -1,4 +1,5 @@
 "use client";
+import { v4 as uuidv4 } from 'uuid';
 export type CartItem = {
   cartId: string; 
   id: number;       
@@ -40,7 +41,7 @@ class CartStore {
     const newItem: CartItem = {
       ...item,
       qty: Math.max(1, qty),
-      cartId: crypto.randomUUID(), // 👈 always new id
+      cartId: uuidv4(),
     };
     this.items.push(newItem);
     this.notify();

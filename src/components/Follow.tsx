@@ -47,7 +47,7 @@ const Follow = () => {
             >
                 {follow.map((item) => (
                     <SwiperSlide key={item.id}>
-                        <div className='relative aspect-square overflow-hidden rounded-lg'>
+                        <div className='relative aspect-square overflow-hidden'>
                             <Image 
                                 src={item.img}
                                 alt={`Instagram post ${item.id}`}

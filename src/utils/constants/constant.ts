@@ -740,3 +740,20 @@ export const sliderData = [
   },
 ];
 
+
+export const sameCategory = [
+  { id: 1, title: "At risus pretium urna tortor metus fringilla" },
+  { id: 2, title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum" },
+  { id: 3, title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum" },
+  { id: 4, title: "Morbi condimentum molestie Nam enim odio sodales" },
+  { id: 5, title: "Turpis at eleifend leo mi elit Aenean porta ac sed faucibus" },
+];
+
+export const relatedTags = [
+  { id: 1, title: "Morbi condimentum molestie Nam enim odio sodales" },
+  { id: 2, title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum" },
+  { id: 3, title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum" },
+  { id: 4, title: "Ipsum cursus vestibulum at interdum Vivamus" },
+  { id: 5, title: "At risus pretium urna tortor metus fringilla" },
+];
+

@@ -20,7 +20,7 @@ const Page = () => {
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col gap-6  items-center justify-center p-6 h-dvh text-lg">
+      <div className="flex flex-col gap-6 items-center justify-center p-6 h-dvh text-lg">
         Your cart is empty
         <button
           className="bg-gray-300 text-black px-8 py-2 rounded hover:bg-gray-200 cursor-pointer"
@@ -41,45 +41,41 @@ const Page = () => {
   const format = (n: number) => `${cartPricing.currencySymbol}${n.toFixed(2)}`;
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
-      <p className="text-gray-500 mb-6">
+    <div className="p-4 sm:p-6">
+      <h1 className="text-2xl font-bold mb-2 sm:mb-4">Your Cart</h1>
+      <p className="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
         Cart ID : <span className="font-mono">{cartId}</span>
       </p>
 
-      {/* Left + Right Section */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+      {/* Layout - stack on mobile, grid on desktop */}
+      <div className="flex flex-col md:grid md:grid-cols-3 gap-6 sm:gap-8">
         {/* LEFT - Items */}
         <div className="md:col-span-2 space-y-4">
           {items.map((it) => (
             <div
               key={it.cartId}
-              className="flex items-center gap-6 border p-4 rounded-lg"
+              className="flex flex-row items-center gap-4 sm:gap-6 border p-4 rounded-lg"
             >
-              {/* Bigger Image */}
+              {/* Image */}
               <Image
                 src={it.img}
                 alt={it.name}
-                width={112}
-                height={152}
-                className="w-28 h-38 object-cover rounded"
+                width={100}
+                height={120}
+                className="w-24 h-28 object-cover rounded"
               />
 
               {/* Product details + counter */}
-              <div className="flex-1 flex  justify-between">
+              <div className="flex-1 flex flex-col justify-between gap-2">
                 <div>
-                  <div className="text-xl text-gray-800">{it.name}</div>
+                  <div className="text-base sm:text-lg text-gray-800">{it.name}</div>
                   {it.size || it.color ? (
                     <div className="text-xs flex flex-col text-gray-500">
-                      {it.size && (
-                        <span className="text-sm">Size: {it.size}</span>
-                      )}
+                      {it.size && <span>Size: {it.size}</span>}
                       {it.color && <span>Color: {it.color}</span>}
                     </div>
                   ) : null}
-                  <div className="text-sm text-gray-600">
-                    {format(it.price)}
-                  </div>
+                  <div className="text-sm text-gray-600">{format(it.price)}</div>
                 </div>
 
                 {/* Qty Controls */}
@@ -111,7 +107,7 @@ const Page = () => {
         </div>
 
         {/* RIGHT - Totals */}
-        <div className="border rounded-lg p-6 h-fit space-y-4">
+        <div className="border rounded-lg p-4 sm:p-6 h-fit space-y-4">
           <div className="space-y-2 text-sm text-gray-700">
             <div className="flex justify-between">
               <span>Subtotal</span>
@@ -132,17 +128,20 @@ const Page = () => {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-center gap-3 pt-4 border-t">
-            <button className="bg-black w-full  text-white px-8 py-2 rounded hover:bg-black/80 cursor-pointer" onClick={() => router.push(`/checkout/${items[0]?.cartId}`)}>
-             Proceed to Checkout
+          <div className="flex flex-col gap-3 pt-4 border-t">
+            <button
+              className="bg-black w-full text-white px-8 py-2 rounded hover:bg-black/80 cursor-pointer"
+              onClick={() => router.push(`/checkout/${items[0]?.cartId}`)}
+            >
+              Proceed to Checkout
+            </button>
+            <button
+              className="w-full bg-gray-200 text-black px-8 py-2 rounded hover:bg-gray-200 cursor-pointer"
+              onClick={() => router.push("/")}
+            >
+              Continue Shopping
             </button>
           </div>
-          <button
-            className="w-full bg-gray-200 text-black px-8 py-2 rounded hover:bg-gray-200 cursor-pointer"
-            onClick={() => router.push("/")}
-          >
-            Continue Shopping
-          </button>
         </div>
       </div>
     </div>

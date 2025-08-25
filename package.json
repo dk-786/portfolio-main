@@ -32,7 +32,8 @@
     "react-modern-drawer": "^1.4.0",
     "react-simple-star-rating": "^5.1.7",
     "swiper": "^11.2.10",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { MdOutlineWifiCalling3 } from "react-icons/md";
-import Link from "next/link";
 import { CiUser } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
@@ -53,8 +52,14 @@ const Header = () => {
   // ✅ Import language & currency from context
   const { language, setLanguage, currency, setCurrency } = useAppContext();
 
+  type HeaderTexts = {
+  freeShipping: string;
+  shopNow: string;
+  signIn: string;
+  register: string;
+};
   // ✅ Translations
-  const texts: Record<string, any> = {
+  const texts: Record<string, HeaderTexts> = {
     en: {
       freeShipping: "Free shipping on all orders over $79",
       shopNow: "Shop Now!",
@@ -241,10 +246,13 @@ const Header = () => {
         </div>
 
         <div className="flex items-center text-sm gap-2">
-          <span className=" flex text-gray-600">{texts[language].freeShipping}</span>
+          <span className=" flex text-gray-600">
+            {texts[language].freeShipping}
+          </span>
           <Button
             size="sm"
-            className="bg-[#ba933e] hover:bg-[#a47f32] text-white h-7 cursor-pointer"
+            className="bg-[#ba933e] hover:bg-black text-white h-7 cursor-pointer"
+            onClick={() => router.push("/")}
           >
             {texts[language].shopNow}
           </Button>
@@ -278,18 +286,41 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-5">
-            <Link href="/" className="text-gray-600 hover:text-[#ba933e]">
+            <button
+              onClick={() =>
+                window.open(
+                  "https://portfolio-main-lake-eta.vercel.app/",
+                  "_blank"
+                )
+              }
+              className="text-gray-600 hover:text-[#ba933e]"
+            >
               <FaFacebook size="18px" />
-            </Link>
-            <Link href="/" className="text-gray-600 hover:text-[#ba933e]">
+            </button>
+            <button
+              onClick={() =>
+                window.open("https://portfolio-main-lake-eta.vercel.app/", "_blank")
+              }
+              className="text-gray-600 hover:text-[#ba933e]"
+            >
               <FaInstagram size="18px" />
-            </Link>
-            <Link href="/" className="text-gray-600 hover:text-[#ba933e]">
+            </button>
+            <button
+              onClick={() =>
+                window.open("https://portfolio-main-lake-eta.vercel.app/", "_blank")
+              }
+              className="text-gray-600 hover:text-[#ba933e]"
+            >
               <FaTwitter size="18px" />
-            </Link>
-            <Link href="/" className="text-gray-600 hover:text-[#ba933e]">
+            </button>
+            <button
+              onClick={() =>
+                window.open("https://portfolio-main-lake-eta.vercel.app/", "_blank")
+              }
+              className="text-gray-600 hover:text-[#ba933e]"
+            >
               <FaBasketballBall size="18px" />
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -325,7 +356,10 @@ const Header = () => {
         </div>
 
         {/* Logo */}
-        <div className="flex  items-center justify-center flex-1 md:flex-none p-6" onClick={() => router.push("/")} >
+        <div
+          className="flex  items-center justify-center flex-1 md:flex-none p-6"
+          onClick={() => router.push("/")}
+        >
           <Image src="/logo.jpg" alt="Logo" width={120} height={40} priority />
         </div>
 

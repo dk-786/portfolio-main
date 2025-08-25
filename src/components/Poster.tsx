@@ -6,16 +6,29 @@ import { parsePriceToNumber } from "@/utils/parsePrice";
 
 const Poster = () => {
   const { getConvertedPrice, language } = useAppContext();
+  type PosterTranslationKeys = {
+  quickDelivery: string;
+  from: string;
+  upTo: string;
+  desc: string;
+  shop: string;
+  turningTable: string;
+  woodChair: string;
+  extraOff: string;
+  nutshellChair: string;
+  shopBrands: string;
+  discount: string;
+};
 
   // 🔹 Text translations
-  const translations: Record<string, any> = {
+  const translations: Record<string, PosterTranslationKeys> = {
     en: {
       quickDelivery: "Quick parcel delivery,",
       from: "from",
       upTo: "Up to 70% Off Interior Home Decor",
       desc: "Class aptent taciti sociosqu ad litora",
       shop: "Shop Collection →",
-      turningTable: "Turning Table",
+      turningTable: "Turning Table", 
       woodChair: "Wood Chair",
       extraOff: "Extra 40% off",
       nutshellChair: "Modern Nutshell Lounge Chair",
@@ -88,7 +101,7 @@ const Poster = () => {
           .map((poster, index) => (
             <div
               key={poster.id}
-              className="relative w-full overflow-hidden md:rounded-none rounded-xl group"
+              className="relative w-full overflow-hidden group"
             >
               {/* Image */}
               <div className="w-full h-[400px] sm:h-[400px] md:h-[500px] overflow-hidden">
@@ -140,7 +153,7 @@ const Poster = () => {
             .map((poster, index) => (
               <div
                 key={poster.id}
-                className="relative w-full overflow-hidden md:rounded-none rounded-xl group"
+                className="relative w-full overflow-hidden  group"
               >
                 <Image
                   src={poster.src}
@@ -185,7 +198,7 @@ const Poster = () => {
             .map((poster) => (
               <div
                 key={poster.id}
-                className="relative w-full overflow-hidden rounded-xl  group"
+                className="relative w-full overflow-hidden   group"
               >
                 <Image
                   src={poster.src}

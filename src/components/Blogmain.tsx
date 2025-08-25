@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import { Blogmain1 } from '@/utils/constants/constant'
 import Image from 'next/image'
@@ -5,8 +6,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { useRouter } from 'next/navigation';
 
 const Blogmain = () => {
+     const router = useRouter();
     return (
         <div className='w-full p-4 md:p-6'>
             <h2 className="text-3xl font-bold text-center mt-14 md:mt-22 p-2">Latest From Blog</h2>
@@ -61,7 +64,9 @@ const Blogmain = () => {
                                             {feature.description}
                                         </p>
                                     </div>
-                                    <button className=" px-8 py-3 rounded-sm text-black border-1 hover:bg-[#ba933e] cursor-pointer text-sm mt-6 transition-all duration-300 hover:text-white">
+                                    <button className=" px-8 py-3 rounded-sm text-black border-1 hover:bg-[#ba933e] cursor-pointer text-sm mt-6 transition-all duration-300 hover:text-white"
+                                   onClick={() => router.push(`/sabcategory/${feature.id}`)}
+>
                                         Read More
                                     </button>
                                 </div>
