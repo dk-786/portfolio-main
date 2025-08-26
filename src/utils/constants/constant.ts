@@ -6,8 +6,7 @@ export const products = [
     discount: "-20%",
     name: "Storm Small Jug",
     oldPrice: "€21.97",
-    dicription:
-      "The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
+    dicription:"The best is yet to come! Start the day off right with a positive thought. 8,2cm diameter / 9,5cm height / 0.43kg. Dishwasher-proof.",
     newPrice: "€17.58",
     newimg: "/images/1-brand_default.jpg",
     stock: "100",
@@ -57,37 +56,37 @@ export const posters = [
     id: 1,
     src: "/images/poster.jpg",
     alt: "Poster 1",
-    price:"21$"
+    price: "21$"
   },
   {
     id: 2,
     src: "/images/poster1.jpg",
     alt: "Poster 2",
-     price:"81$"
+    price: "81$"
   },
   {
     id: 3,
     src: "/images/patti.webp",
     alt: "Poster 3",
-     price:"91$"
+    price: "91$"
   },
   {
     id: 4,
     src: "/images/chair3.jpg",
     alt: "Poster 4",
-     price:"27$"
+    price: "27$"
   },
   {
     id: 5,
     src: "/images/sofa.webp",
     alt: "Poster 5",
-     price:"215$"
+    price: "215$"
   },
   {
     id: 6,
     src: "/images/banner.jpg",
     alt: "Poster 6",
-     price:"24$"
+    price: "24$"
   },
 ];
 
@@ -755,5 +754,73 @@ export const relatedTags = [
   { id: 3, title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum" },
   { id: 4, title: "Ipsum cursus vestibulum at interdum Vivamus" },
   { id: 5, title: "At risus pretium urna tortor metus fringilla" },
+];
+
+// Popular Articles for sidebar
+export const popularArticles = [
+  {
+    id: 1,
+    img: "/images/b-2.jpg",
+    title: "Modern Furniture Design Trends for 2024",
+    date: "Dec 15, 2024"
+  },
+  {
+    id: 2,
+    img: "/images/b-3.jpg",
+    title: "Sustainable Materials in Home Decor",
+    date: "Dec 12, 2024"
+  },
+  {
+    id: 3,
+    img: "/images/b-4.jpg",
+    title: "Minimalist Living Room Ideas",
+    date: "Dec 10, 2024"
+  },
+  {
+    id: 4,
+    img: "/images/b-6.jpg",
+    title: "Choosing the Perfect Dining Table",
+    date: "Dec 8, 2024"
+  },
+  {
+    id: 5,
+    img: "/images/b-7.jpg",
+    title: "Lighting Solutions for Small Spaces",
+    date: "Dec 5, 2024"
+  }
+];
+
+// Recent Articles for sidebar
+export const recentArticles = [
+  {
+    id: 6,
+    img: "/images/b-8.jpg",
+    title: "Kitchen Organization Tips and Tricks",
+    date: "Dec 18, 2024"
+  },
+  {
+    id: 7,
+    img: "/images/b-9.jpg",
+    title: "Bedroom Furniture Essentials",
+    date: "Dec 16, 2024"
+  },
+  {
+    id: 8,
+    img: "/images/i1.jpg",
+    title: "Outdoor Furniture Maintenance Guide",
+    date: "Dec 14, 2024"
+  },
+  {
+    id: 9,
+    img: "/images/i2.jpg",
+    title: "Color Psychology in Interior Design",
+    date: "Dec 12, 2024"
+  },
+  {
+    id: 10,
+    img: "/images/i3.jpg",
+    title: "Smart Home Integration with Furniture",
+    date: "Dec 10, 2024"
+  }
 ];
 
