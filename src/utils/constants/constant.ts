@@ -493,31 +493,14 @@ export const brandlogo = [
 ];
 
 export const follow = [
-  {
-    id: 1,
-    img: "/images/i1.jpg",
-  },
-  {
-    id: 2,
-    img: "/images/i2.jpg",
-  },
-  {
-    id: 3,
-    img: "/images/i3.jpg",
-  },
-  {
-    id: 4,
-    img: "/images/i4.jpg",
-  },
-  {
-    id: 5,
-    img: "/images/i5.jpg",
-  },
-  {
-    id: 6,
-    img: "/images/i6.jpg",
-  },
+  { id: 1, img: "/images/i1.jpg", title: "Artisan Appeal" },
+  { id: 2, img: "/images/i2.jpg", title: "Boho Bliss" },
+  { id: 3, img: "/images/i3.jpg", title: "Decor Art" },
+  { id: 4, img: "/images/i4.jpg", title: "Chairs" },
+  { id: 5, img: "/images/i5.jpg", title: "Furniture" },
+  { id: 6, img: "/images/i6.jpg", title: "Boho Bliss" },
 ];
+
 
 // footerData.js
 export const footerLinks = {
@@ -613,6 +596,7 @@ export const navigationItems: NavigationItem[] = [
       { title: "Home 6", href: "/home/6" },
     ],
   },
+
   {
     title: "Shop",
     hasDropdown: true,
@@ -702,15 +686,14 @@ export const productsss = [
 
 // Collections grid
 export const collections = [
-  { id: 1, img: "/c1.jpg" },
-  { id: 2, img: "/c2.jpg" },
-  { id: 3, img: "/c3.jpg" },
-  { id: 4, img: "/c4.jpg" },
-  { id: 5, img: "/c5.jpg" },
-  { id: 6, img: "/c6.jpg" },
+  { id: 1, img: "/images/i1.jpg", title: "Artisan Appeal" },
+  { id: 2, img: "/images/i2.jpg", title: "Boho Bliss" },
+  { id: 3, img: "/images/i3.jpg", title: "Decor Art" },
+  { id: 4, img: "/images/i4.jpg", title: "Chairs" },
+  { id: 5, img: "/images/i5.jpg", title: "Furniture" },
+  { id: 6, img: "/images/i6.jpg", title: "Boho Bliss" },
 ];
 
-// utils/constants/constant.ts
 
 export const sliderData = [
   {
@@ -823,4 +806,46 @@ export const recentArticles = [
     date: "Dec 10, 2024"
   }
 ];
+export interface ChairItem {
+  id: number;
+  title: string;
+  img: string;
+  description: string;
+}
 
+export const CHAIRS: ChairItem[] = [
+  {
+    id: 1,
+    title: "Artisan Appeal",
+    img: "/images/chairbig.jpg",
+    description:
+      "Handcrafted design with warm wood tones and a timeless silhouette that elevates any space.",
+  },
+  {
+    id: 2,
+    title: "Boho Bliss",
+    img: "/images/chair.jpg",
+    description:
+      "Relaxed textures and airy lines—perfect for cozy corners and layered, eclectic decor.",
+  },
+  {
+    id: 3,
+    title: "Compact Comfort",
+    img: "/images/smallchair1.jpg",
+    description:
+      "A small footprint with full comfort, ideal for apartments and reading nooks.",
+  },
+];
+
+export const FILTERS = {
+  availability: [
+    { label: "In stock", count: 10 },
+    { label: "Not available", count: 1 },
+  ],
+  price: { min: 10, max: 32, currency: "€" },
+  categories: [
+    { label: "Artisan Appeal", count: 3 },
+    { label: "Boho Bliss", count: 8 },
+  ],
+  colors: ["White", "Black"],
+};

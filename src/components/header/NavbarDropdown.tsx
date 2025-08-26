@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   navigationItems,
   shopCategories,
@@ -14,6 +15,7 @@ import { FaAngleDown } from "react-icons/fa6";
 
 const NavbarDropdown = () => {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const router = useRouter();
 
   return (
     <nav className="bg-white relative ">
@@ -118,25 +120,30 @@ const NavbarDropdown = () => {
 
               {/* Collections Mega Menu */}
               {item.title === "Collections" && openMenu === "Collections" && (
-                <div className="absolute top-full max-w-screen-xl w-screen  bg-popover left-1/2 -translate-x-1/2 shadow p-6 z-50 !overflow-x-hidden">
-                  <div className="container mx-auto  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                    {follow.map((c) => (
+                <div className="absolute top-full max-w-screen-xl w-screen bg-popover left-1/2 -translate-x-1/2 shadow p-6 z-50 !overflow-x-hidden">
+                  <div className="container mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    {collections.map((c) => (
                       <div
                         key={c.id}
-                        className="relative w-40 h-40 rounded-md overflow-hidden"
+                        className="flex flex-col items-center cursor-pointer"
+                        onClick={() => {router.push(`/chairs?id=${c.id}`); setOpenMenu(null)}}
                       >
-                        <Image
-                          src={c.img}
-                          alt={`Collection ${c.id}`}
-                          fill
-                          className="object-cover"
-                        />
+                        <div className="relative w-40 h-40  overflow-hidden">
+                          <Image
+                            src={c.img}
+                            alt={c.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <span className="mt-2 text-center text-sm font-medium">
+                          {c.title}
+                        </span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
-
               {/* Simple Dropdown */}
               {item.dropdownItems &&
                 item.title !== "Shop" &&

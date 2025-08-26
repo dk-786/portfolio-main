@@ -4,7 +4,7 @@ import { sameCategory, relatedTags } from "@/utils/constants/constant";
 const BlogRelated = () => {
   return (
     <div className="lg:flex md:mt-12 mt-2">
-      {/* In Same Category */}
+     
       <div className="flex flex-col w-full">
         <h1 className="text-lg md:text-xl font-bold text-black mb-4 py-4 md:py-0">
           In Same Category
