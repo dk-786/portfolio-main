@@ -7,7 +7,6 @@ import {
   navigationItems,
   shopCategories,
   productss,
-  follow,
   collections,
 } from "@/utils/constants/constant";
 import { Star } from "lucide-react";
@@ -78,7 +77,8 @@ const NavbarDropdown = () => {
                           .map((p) => (
                             <div
                               key={p.id}
-                              className="flex gap-3 border-b pb-3 last:border-0"
+                              className="flex gap-3 border-b pb-3 last:border-0 cursor-pointer"
+                              onClick={() => {router.push(`/card/${p.id}`); setOpenMenu(null)}}
                             >
                               <div className="w-16 h-20 relative shrink-0">
                                 <Image
@@ -126,7 +126,7 @@ const NavbarDropdown = () => {
                       <div
                         key={c.id}
                         className="flex flex-col items-center cursor-pointer"
-                        onClick={() => {router.push(`/chairs?id=${c.id}`); setOpenMenu(null)}}
+                        onClick={() => {router.push(`/collection/${c.id}`); setOpenMenu(null)}}
                       >
                         <div className="relative w-40 h-40  overflow-hidden">
                           <Image

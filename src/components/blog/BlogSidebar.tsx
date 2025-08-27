@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { PopularArticles, RecentArticles } from "@/components/articles";
@@ -41,7 +42,7 @@ const BlogSidebar = ({ popularArticles, recentArticles }: BlogSidebarProps) => {
     );
 
   return (
-    <aside className="w-full md:w-80 lg:w-90 md:pr-6">
+    <aside className="w-full md:w-80 lg:w-90 md:pr-6 ">
       <h1 className="text-base md:text-lg font-bold mb-4">Home</h1>
       <ul className="space-y-3 md:space-y-4 pt-4 md:pt-6 pb-4 md:pb-6 border-b">
         {categories.map((cat, i) => (

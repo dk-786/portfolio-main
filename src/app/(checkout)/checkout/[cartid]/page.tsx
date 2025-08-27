@@ -60,7 +60,7 @@ const Page: React.FC = () => {
       {/* LEFT - Form */}
       <form
         onSubmit={handleSubmit}
-        className="lg:col-span-2 space-y-6 border rounded-xl p-6 shadow-sm"
+        className="lg:col-span-2 space-y-6 border p-6 "
       >
         <h1 className="text-2xl font-bold mb-4">Checkout</h1>
 
@@ -168,7 +168,7 @@ const Page: React.FC = () => {
       </form>
 
       {/* RIGHT - Order Summary */}
-      <div className="border rounded-xl p-6 shadow-sm h-fit space-y-4">
+      <div className="border p-6 h-fit space-y-4">
         <h2 className="text-lg font-semibold">Order Summary</h2>
         <div className="space-y-3 text-sm text-gray-700">
           {items.map((it) => (

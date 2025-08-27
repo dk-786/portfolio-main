@@ -683,8 +683,6 @@ export const productsss = [
   { id: 13, name: "Product 13", img: "/p13.jpg", newPrice: "$89" },
   { id: 14, name: "Product 14", img: "/p14.jpg", newPrice: "$79", oldPrice: "$99" },
 ];
-
-// Collections grid
 export const collections = [
   { id: 1, img: "/images/i1.jpg", title: "Artisan Appeal" },
   { id: 2, img: "/images/i2.jpg", title: "Boho Bliss" },
@@ -693,7 +691,6 @@ export const collections = [
   { id: 5, img: "/images/i5.jpg", title: "Furniture" },
   { id: 6, img: "/images/i6.jpg", title: "Boho Bliss" },
 ];
-
 
 export const sliderData = [
   {

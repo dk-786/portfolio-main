@@ -1,7 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import { Blogmain1, popularArticles, recentArticles } from "@/utils/constants/constant";
+import {
+  Blogmain1,
+  popularArticles,
+  recentArticles,
+} from "@/utils/constants/constant";
 import {
   BlogSidebar,
   BlogHeader,
@@ -19,13 +23,11 @@ const Page = () => {
 
   return (
     <div className="w-full max-w-8xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 p-4 md:p-10">
-      {/* LEFT SIDEBAR */}
-      <BlogSidebar 
-        popularArticles={popularArticles} 
-        recentArticles={recentArticles} 
+      <BlogSidebar
+        popularArticles={popularArticles}
+        recentArticles={recentArticles}
       />
 
-      {/* RIGHT CONTENT */}
       <div className="flex-1">
         <BlogHeader blog={blog} />
         <BlogRelated />

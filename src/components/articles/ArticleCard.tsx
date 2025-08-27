@@ -10,7 +10,7 @@ interface ArticleCardProps {
 
 const ArticleCard = ({ id, img, title, date }: ArticleCardProps) => {
   return (
-    <Link href={`/sabcategory/${id}`} className="block">
+    <Link href={`/category/${id}`} className="block">
       <div className="flex gap-3 mb-4 hover:bg-gray-50 p-2  transition-colors">
         <div className="flex-shrink-0">
           <Image

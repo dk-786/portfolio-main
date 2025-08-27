@@ -65,7 +65,7 @@ const Blogmain = () => {
                                         </p>
                                     </div>
                                     <button className=" px-8 py-3 rounded-sm text-black border-1 hover:bg-[#ba933e] cursor-pointer text-sm mt-6 transition-all duration-300 hover:text-white"
-                                   onClick={() => router.push(`/sabcategory/${feature.id}`)}
+                                   onClick={() => router.push(`/category/${feature.id}`)}
 >
                                         Read More
                                     </button>

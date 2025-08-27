@@ -16,7 +16,7 @@ const RecentArticles = ({ articles }: RecentArticlesProps) => {
         Recent Articles
       </h2>
       <div className="space-y-2 border-b ">
-        {articles.slice(0, 3).map((article) => (
+        {articles.slice(0, 2).map((article) => (
           <ArticleCard
             key={article.id}
             id={article.id}
