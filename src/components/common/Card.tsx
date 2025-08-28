@@ -14,22 +14,40 @@ import "swiper/css";
 import Image from "next/image";
 import "swiper/css/navigation";
 import { useAppContext } from "@/components/context/AppContext";
+import { Product } from "@/types/product";
+
+/** addToCart now uses Product rather than any */
+const addToCart = (product: Product, onSuccess?: () => void) => {
+  if (!product.available) {
+    alert("This item is out of stock.");
+    return;
+  }
+
+  cartStore.add(
+    {
+      id: product.id as number,
+      name: (product.name as string) || "",
+      img: (product.img as string) || "",
+      price: parsePriceToNumber(String(product.newPrice ?? "")),
+    },
+    1
+  );
+
+  if (onSuccess) onSuccess();
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
 
 // Common Card Component
 export interface ProductCardProps {
-  product: {
-    id: number;
-    img: string;
-    hoverImg?: string;
-    discount: string;
-    name: string;
-    oldPrice: string;
-    newPrice: string;
-  };
+  product: Product;
   isMobile?: boolean;
   hovered: number | null;
   setHovered: (id: number | null) => void;
   index: number;
+  gridCols?: number;
 }
 
 export const ProductCardItem = ({
@@ -38,27 +56,31 @@ export const ProductCardItem = ({
   hovered,
   setHovered,
   index,
+  gridCols,
 }: ProductCardProps) => {
   const [showPopup, setShowPopup] = useState(false);
   const router = useRouter();
   const { getConvertedPrice } = useAppContext();
-  
+
   const handleAddToCartPopup = () => {
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2000);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
-
 
   return (
     <div className="flex flex-col h-full w-full">
       {/* Card */}
       <div
         className="overflow-hidden h-100 shadow relative group bg-white flex-1 flex flex-col cursor-pointer"
-        onMouseEnter={() => setHovered(product.id)}
+        onMouseEnter={() => setHovered(Number(product.id))}
         onMouseLeave={() => setHovered(null)}
       >
         {/* Discount Badge - Only show on desktop */}
-        {!isMobile && (
+        {!isMobile && product.discount && (
           <span className="absolute top-3 left-3 bg-[#a67c00] text-white text-sm font-semibold px-2 py-1 rounded">
             {product.discount}
           </span>
@@ -82,19 +104,20 @@ export const ProductCardItem = ({
 
         <Image
           src={
-            index === products.length - 1
-              ? product.img
-              : hovered === product.id
-              ? product.hoverImg || product.img
-              : product.img
+            index === (products as Product[]).length - 1
+              ? (product.img as string)
+              : hovered === Number(product.id)
+              ? (product.hoverImg as string) || (product.img as string)
+              : (product.img as string)
           }
-          alt={product.name || "Product image"}
+          alt={(product.name as string) || "Product image"}
           width={300}
           height={300}
           className={`w-full ${isMobile ? "h-auto" : "h-full"} object-cover`}
           onClick={() => router.push(`/card/${product.id}`)}
-          unoptimized // important if src is coming from DB or API
+          unoptimized
         />
+
         {/* Buttons */}
         <div
           className={`absolute bottom-0 left-0 right-0 flex justify-center gap-4 py-3 ${
@@ -104,29 +127,37 @@ export const ProductCardItem = ({
           }`}
         >
           <button
-            className="bg-black text-white px-4 py-2 flex items-center gap-2 rounded hover:bg-gray-800 cursor-pointer"
+            disabled={!product.available}
+            className={`px-4 py-2 flex items-center gap-2 rounded text-white font-semibold ${
+              product.available
+                ? "bg-black hover:bg-gray-800 cursor-pointer"
+                : "bg-gray-400 cursor-not-allowed"
+            }`}
             onClick={(e) => {
               e.stopPropagation();
-              cartStore.add(
-                {
-                  id: product.id,
-                  name: product.name,
-                  img: product.img,
-                  price: parsePriceToNumber(product.newPrice),
-                },
-                1
-              );
-              handleAddToCartPopup();
+              addToCart(product, handleAddToCartPopup);
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
             }}
           >
-            <BsCart /> Add to cart
+            <BsCart />
+            {product.available ? "Add to Cart" : "Out of Stock"}
           </button>
+
           {!isMobile && (
-            <button className="bg-black text-white px-4 py-2 flex items-center gap-2 rounded hover:bg-gray-800 cursor-pointer">
-              <AiOutlineEye /> Quick view
+            <button
+              className={`bg-black text-white flex items-center justify-center rounded hover:bg-gray-800 cursor-pointer
+               ${gridCols === 4 ? "p-2" : "px-4 py-2 gap-2"}`}
+            >
+              <AiOutlineEye />
+              {gridCols !== 4 && "Quick view"}
             </button>
           )}
         </div>
+
+        {/* Success popup */}
         {showPopup && (
           <div className="fixed top-0 left-0 w-full bg-green-600 text-white text-center py-3 z-50 shadow-md">
             ✅ Added to cart successfully!
@@ -141,10 +172,10 @@ export const ProductCardItem = ({
         </h3>
         <div className="flex items-center gap-2">
           <p className="text-gray-400 line-through text-sm">
-            {getConvertedPrice(parsePriceToNumber(product.oldPrice))}
+            {getConvertedPrice(parsePriceToNumber(String(product.oldPrice ?? "")))}
           </p>
           <p className="text-[#a67c00] font-bold text-lg">
-            {getConvertedPrice(parsePriceToNumber(product.newPrice))}
+            {getConvertedPrice(parsePriceToNumber(String(product.newPrice ?? "")))}
           </p>
         </div>
       </div>
@@ -155,6 +186,10 @@ export const ProductCardItem = ({
 const ProductCard = () => {
   const [hovered, setHovered] = useState<number | null>(null);
   const router = useRouter();
+
+  // annotate arrays as Product[] for proper typing in map callbacks
+  const mobileList = productss as Product[];
+  const desktopList = products as Product[];
 
   return (
     <div className="md:p-6 p-0">
@@ -173,7 +208,7 @@ const ProductCard = () => {
           navigation={false}
           className=" w-full"
         >
-          {productss.map((product, idx) => (
+          {mobileList.map((product: Product, idx: number) => (
             <SwiperSlide key={product.id} className="!w-full p-6">
               <ProductCardItem
                 product={product}
@@ -189,13 +224,13 @@ const ProductCard = () => {
 
       {/* Grid for desktop */}
       <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 p-6">
-        {products.map((product, idx) => (
+        {desktopList.map((product: Product, idx: number) => (
           <div
             key={product.id}
             className="flex flex-col "
             onClick={() => {
-            router.push(`/card/${product.id}`);
-          }}
+              router.push(`/card/${product.id}`);
+            }}
           >
             <ProductCardItem
               product={product}

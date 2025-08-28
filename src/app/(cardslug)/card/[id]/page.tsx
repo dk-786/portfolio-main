@@ -50,6 +50,10 @@ const Page = () => {
   const handleAddToCartPopup = () => {
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2000);
+     window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleAddToCart = () => {

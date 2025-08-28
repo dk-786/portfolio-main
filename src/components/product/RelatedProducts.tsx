@@ -1,21 +1,13 @@
+// src/components/product/RelatedProducts.tsx
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { ProductCardItem } from "@/components/common/Card";
-
-interface Product {
-  id: number;
-  img: string;
-  hoverImg?: string;
-  discount: string;
-  name: string;
-  oldPrice: string;
-  newPrice: string;
-}
+import { Product } from "@/types/product"; // <- import the shared Product type
 
 interface RelatedProductsProps {
-  productss: Product[];
+  productss: Product[];               // use shared Product type
   hovered: number | null;
   setHovered: (index: number | null) => void;
 }

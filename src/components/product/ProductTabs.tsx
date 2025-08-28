@@ -8,7 +8,7 @@ interface Product {
   img: string;
   newimg: string;
   dicription: string;
-  stock: string;
+ stock: number | string;
 }
 
 interface ProductTabsProps {
