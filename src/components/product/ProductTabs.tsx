@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { MdOutlineEdit } from "react-icons/md";
 import { shippingContent } from "@/utils/constants/constant";

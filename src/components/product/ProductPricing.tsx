@@ -1,3 +1,4 @@
+"use client";
 interface ProductPricingProps {
   oldPrice: string;
   newPrice: string;

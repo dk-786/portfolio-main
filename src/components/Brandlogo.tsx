@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import { brandlogo } from '@/utils/constants/constant'
 import Image from 'next/image'

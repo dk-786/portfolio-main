@@ -1,3 +1,4 @@
+"use client";
 import ArticleCard from "./ArticleCard";
 
 interface RecentArticlesProps {

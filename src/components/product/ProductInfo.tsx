@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import { TbBrandPicsart } from "react-icons/tb";

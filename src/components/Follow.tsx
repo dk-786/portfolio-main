@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import { follow } from '@/utils/constants/constant'
 import Image from 'next/image'

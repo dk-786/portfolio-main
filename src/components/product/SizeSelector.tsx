@@ -1,3 +1,4 @@
+"use client";
 interface SizeSelectorProps {
   sizes: string[];
   selectedSize: string | null;

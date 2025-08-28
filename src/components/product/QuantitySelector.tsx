@@ -1,3 +1,4 @@
+"use client";
 interface QuantitySelectorProps {
   count: number;
   setCount: (count: number | ((prev: number) => number)) => void;

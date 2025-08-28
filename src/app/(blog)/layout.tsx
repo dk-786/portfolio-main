@@ -1,7 +1,5 @@
 import React from "react";
 import { AppProvider } from "@/components/context/AppContext";
-import BlogSidebar from "@/components/blog/BlogSidebar";
-import { popularArticles, recentArticles } from "@/utils/constants/constant";
 import BlogPoster from "@/components/blog/BlogPoster";
 
 export const metadata = {

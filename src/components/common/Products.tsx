@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { productss } from "@/utils/constants/constant";
 import { ProductCardItem } from "./Card";

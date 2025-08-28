@@ -1,3 +1,4 @@
+"use client";
 import { CgRuler } from "react-icons/cg";
 import { FaRegHeart, FaRegCircleQuestion } from "react-icons/fa6";
 

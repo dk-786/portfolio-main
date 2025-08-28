@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { FaPlane, FaCreditCard, FaUndo } from "react-icons/fa";
 import { features } from "@/utils/constants/constant";

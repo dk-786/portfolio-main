@@ -1,4 +1,4 @@
-// src/components/product/RelatedProducts.tsx
+"use client"
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";

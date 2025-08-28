@@ -1,3 +1,4 @@
+"use client";
 interface ColorSelectorProps {
   selected: string | null;
   setSelected: (color: string) => void;

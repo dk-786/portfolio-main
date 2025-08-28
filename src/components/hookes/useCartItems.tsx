@@ -1,3 +1,4 @@
+"use client";
 import { CartItem, cartStore } from "@/utils/cartStore";
 import { useEffect, useState } from "react";
 

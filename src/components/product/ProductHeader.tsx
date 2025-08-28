@@ -1,3 +1,4 @@
+"use client";
 import { AiFillStar } from "react-icons/ai";
 import { MdOutlineMessage, MdOutlineEdit } from "react-icons/md";
 
