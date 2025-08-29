@@ -61,7 +61,7 @@ export default function ClientSwiper({
                   mod2;
                 if (exported2) resolved.push(exported2);
               } catch {
-                // console.warn("Failed to import swiper module", m);
+             
               }
             }
           } else {
