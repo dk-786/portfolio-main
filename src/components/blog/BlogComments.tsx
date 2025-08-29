@@ -11,7 +11,6 @@ const BlogComments = ({ comments, setComments }: BlogCommentsProps) => {
     fullName: "",
     email: "",
     comment: "",
-    captcha: "",
   });
 
   const handleChange = (
@@ -26,7 +25,7 @@ const BlogComments = ({ comments, setComments }: BlogCommentsProps) => {
     if (!formData.comment.trim()) return;
 
     setComments([...comments, formData.comment]);
-    setFormData({ fullName: "", email: "", comment: "", captcha: "" });
+    setFormData({ fullName: "", email: "", comment: "" });
   };
 
   return (

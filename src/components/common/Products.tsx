@@ -1,4 +1,4 @@
-"use client";
+
 import React, { useState } from "react";
 import { productss } from "@/utils/constants/constant";
 import { ProductCardItem } from "./Card";
@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/grid"; 
 import { useRouter } from "next/navigation";
+import ClientSwiper from "../ClientSwiper";
 
 const Products = () => {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -22,7 +23,7 @@ const Products = () => {
 
       {/* Mobile Swiper */}
       <div className="block md:hidden">
-        <Swiper
+        <ClientSwiper
           modules={[Navigation]}
           slidesPerView={1}
           spaceBetween={0}
@@ -41,12 +42,12 @@ const Products = () => {
               />
             </SwiperSlide>
           ))}
-        </Swiper>
+        </ClientSwiper>
       </div>
 
       {/* Desktop Swiper grid: 2 rows x 4 cols */}
       <div className="hidden md:block p-6">
-        <Swiper
+        <ClientSwiper
           modules={[Navigation, Grid]}
           slidesPerView={4}
           grid={{ rows: 2, fill: "row" }}
@@ -71,7 +72,7 @@ const Products = () => {
               />
             </SwiperSlide>
           ))}
-        </Swiper>
+        </ClientSwiper>
       </div>
     </div>
   );

@@ -10,6 +10,8 @@ import Blogmain from "@/components/Blogmain";
 import Brandlogo from "@/components/Brandlogo";
 import Follow from "@/components/Follow";
 
+
+
 export default function Home() {
   return (
     <div>

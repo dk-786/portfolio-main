@@ -1,11 +1,11 @@
-"use client"
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { ProductCardItem } from "@/components/common/Card";
-import { Product } from "@/types/product"; // <- import the shared Product type
-
+import { Product } from "@/types/product";
+import ClientSwiper from "../ClientSwiper";
 interface RelatedProductsProps {
   productss: Product[];               // use shared Product type
   hovered: number | null;
@@ -55,7 +55,7 @@ const RelatedProducts = ({ productss, hovered, setHovered }: RelatedProductsProp
         You might also like
       </h2>
       <div className="p-4">
-        <Swiper
+        <ClientSwiper
           modules={[Navigation]}
           navigation
           loop
@@ -80,7 +80,7 @@ const RelatedProducts = ({ productss, hovered, setHovered }: RelatedProductsProp
               />
             </SwiperSlide>
           ))}
-        </Swiper>
+        </ClientSwiper>
       </div>
     </section>
   );

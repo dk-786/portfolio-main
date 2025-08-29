@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/collections/Navbar";
 import { ProductCardItem } from "@/components/common/Card";
@@ -8,23 +8,31 @@ import Image from "next/image";
 import { FiList, FiGrid } from "react-icons/fi";
 import { Product } from "@/types/product";
 
-/** Local combined product list */
+/** combined products */
 const allProducts: Product[] = [
   ...(products as Product[]),
   ...(productss as Product[]),
 ];
 
-function parseListParam(value: string | null) {
-  if (!value) return [];
-  return value
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
+function normalize(s: string) {
+  return String(s ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-");
 }
 
 export default function CollectionViewClient() {
   const params = useParams();
-  const id = String(params?.id ?? "");
+
+  const rawParam = String(params?.id ?? ""); // e.g. "Lighting%20Lamp" or "lighting-lamp" or "6"
+  const decoded = (() => {
+    try {
+      return decodeURIComponent(rawParam);
+    } catch {
+      return rawParam;
+    }
+  })();
+  const param = normalize(decoded);
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -36,10 +44,44 @@ export default function CollectionViewClient() {
 
   useEffect(() => {
     setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
+    const t = setTimeout(() => setLoading(false), 700);
+    return () => clearTimeout(t);
   }, [priceRange]);
 
+  // find collection by id OR title (normalized)
+  const collection = useMemo(() => {
+    return collections.find((c) => {
+      const idNormalized = normalize(String(c.id));
+      const titleNormalized = normalize(String(c.title));
+      return idNormalized === param || titleNormalized === param;
+    });
+  }, [param]);
+
+  // if collection not found, products might still match by category === id (legacy)
+  const baseProducts = useMemo(() => {
+    if (collection) {
+      // match product.category to collection.id OR collection.title (normalized)
+      const idNorm = normalize(String(collection.id));
+      const titleNorm = normalize(String(collection.title));
+      return allProducts.filter((p) => {
+        const cat = normalize(String(p.category ?? ""));
+        return cat === idNorm || cat === titleNorm;
+      });
+    }
+    // fallback: treat param as a category slug
+    return allProducts.filter(
+      (p) => normalize(String(p.category ?? "")) === param
+    );
+  }, [collection]);
+
+  // parse filters from search params (kept same as your logic)
+  function parseListParam(value: string | null) {
+    if (!value) return [];
+    return value
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
   const filters = useMemo(() => {
     return {
       inStock: searchParams.get("inStock") === "true" || false,
@@ -52,16 +94,8 @@ export default function CollectionViewClient() {
     };
   }, [searchParams]);
 
-  const collection = collections.find((c) => String(c.id) === id);
-
   const filtered = useMemo(() => {
-    const base = collection
-      ? allProducts.filter(
-          (p) => p.category?.toLowerCase() === collection.title?.toLowerCase()
-        )
-      : allProducts;
-
-    return base.filter((p) => {
+    return baseProducts.filter((p) => {
       if (
         filters.inStock === true &&
         filters.notAvailable === false &&
@@ -74,7 +108,6 @@ export default function CollectionViewClient() {
         p.available
       )
         return false;
-
       if (
         filters.categories.length &&
         (!p.category || !filters.categories.includes(p.category))
@@ -108,32 +141,32 @@ export default function CollectionViewClient() {
 
       return true;
     });
-  }, [collection, filters, priceRange]);
+  }, [baseProducts, filters, priceRange]);
 
   const sorted = useMemo(() => {
     const copy = [...filtered];
     switch (sortBy) {
       case "price_low_high":
-        copy.sort((a: Product, b: Product) => {
-          const pa = parseFloat(String(a.newPrice ?? "").replace(/[^0-9.-]+/g, "")) || 0;
-          const pb = parseFloat(String(b.newPrice ?? "").replace(/[^0-9.-]+/g, "")) || 0;
-          return pa - pb;
-        });
+        copy.sort(
+          (a, b) =>
+            (parseFloat(String(a.newPrice).replace(/[^0-9.-]+/g, "")) || 0) -
+            (parseFloat(String(b.newPrice).replace(/[^0-9.-]+/g, "")) || 0)
+        );
         break;
       case "price_high_low":
-        copy.sort((a: Product, b: Product) => {
-          const pa = parseFloat(String(a.newPrice ?? "").replace(/[^0-9.-]+/g, "")) || 0;
-          const pb = parseFloat(String(b.newPrice ?? "").replace(/[^0-9.-]+/g, "")) || 0;
-          return pb - pa;
-        });
+        copy.sort(
+          (a, b) =>
+            (parseFloat(String(b.newPrice).replace(/[^0-9.-]+/g, "")) || 0) -
+            (parseFloat(String(a.newPrice).replace(/[^0-9.-]+/g, "")) || 0)
+        );
         break;
       case "name_az":
-        copy.sort((a: Product, b: Product) =>
+        copy.sort((a, b) =>
           String(a.name ?? "").localeCompare(String(b.name ?? ""))
         );
         break;
       case "name_za":
-        copy.sort((a: Product, b: Product) =>
+        copy.sort((a, b) =>
           String(b.name ?? "").localeCompare(String(a.name ?? ""))
         );
         break;
@@ -144,7 +177,6 @@ export default function CollectionViewClient() {
   }, [filtered, sortBy]);
 
   const productCount = sorted.length;
-
   const gridClass =
     gridCols === 2
       ? "md:grid-cols-2"
@@ -153,21 +185,25 @@ export default function CollectionViewClient() {
       : "md:grid-cols-4";
 
   return (
-    <div className="w-full flex ">
-      <Navbar id={id} priceRange={priceRange} setPriceRange={setPriceRange} />
+    <div className="w-full flex">
+      <Navbar
+        id={rawParam}
+        priceRange={priceRange}
+        setPriceRange={setPriceRange}
+      />
 
       {loading && (
         <div className="fixed top-0 left-0 w-screen h-screen bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin" />
         </div>
       )}
 
-      <div className="container  flex flex-col px-12">
-        <div className=" flex flex-col w-full mx-auto py-16">
+      <div className="container flex flex-col px-12">
+        <div className="flex flex-col w-full mx-auto py-16">
           <h1 className="text-base md:text-xl font-bold mb-4">
-            {collection?.title}
+            {collection?.title ?? rawParam}
           </h1>
-          {collection && collection.img && (
+          {collection?.img && (
             <Image
               src={collection.img}
               alt={collection.title}
@@ -182,7 +218,7 @@ export default function CollectionViewClient() {
           </span>
         </div>
 
-        <div className="flex-1 container mx-auto ">
+        <div className="flex-1 container mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
               <div className="text-sm text-gray-600">
@@ -190,7 +226,7 @@ export default function CollectionViewClient() {
                 {productCount === 1 ? "" : "s"}.
               </div>
 
-              <div className="flex items-center gap-2 border rounded px-2 py-1 ">
+              <div className="flex items-center gap-2 border rounded px-2 py-1">
                 <button
                   onClick={() => {
                     setViewMode("list");
@@ -295,7 +331,7 @@ export default function CollectionViewClient() {
                 {sorted.map((p: Product, idx: number) => (
                   <div
                     key={p.id}
-                    className="cursor-pointer "
+                    className="cursor-pointer"
                     onClick={() => router.push(`/card/${p.id}`)}
                   >
                     <ProductCardItem

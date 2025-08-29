@@ -914,7 +914,7 @@ export const collections = [
   { id: 3, img: "/images/i3.jpg", title: "Decor Art" },
   { id: 4, img: "/images/i4.jpg", title: "Chairs" },
   { id: 5, img: "/images/i5.jpg", title: "Furniture" },
-  { id: 6, img: "/images/i6.jpg", title: "Boho Bliss" },
+  { id: 6, img: "/images/i6.jpg", title: "Lighting Lamp" },
 ];
 
 export const sliderData = [

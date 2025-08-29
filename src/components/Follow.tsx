@@ -1,12 +1,10 @@
-"use client";
+
 import React from 'react'
 import { follow } from '@/utils/constants/constant'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import ClientSwiper from "./ClientSwiper";
 
 const Follow = () => {
   return (
@@ -29,7 +27,7 @@ const Follow = () => {
          </div>
 
          <div className='md:hidden'>
-            <Swiper
+            <ClientSwiper
                 modules={[Navigation, Pagination, Autoplay]}
                 spaceBetween={10}
                 slidesPerView={2}
@@ -58,7 +56,7 @@ const Follow = () => {
                         </div>
                     </SwiperSlide>
                 ))}
-            </Swiper>
+            </ClientSwiper>
          </div>
     </div>
   )

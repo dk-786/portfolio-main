@@ -15,6 +15,7 @@ import {
 } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import Image from "next/image";
+import { useId } from "react";
 import Mobiledrawer from "../Mobiledrawer";
 import Showmodal from "../modals/Showmodal";
 import Showmodaleye from "../modals/Showmodaleye";
@@ -27,6 +28,7 @@ import NavbarDropdown from "./NavbarDropdown";
 import { useAppContext } from "@/components/context/AppContext";
 
 const Header = () => {
+  const id = useId();
   const [formData, setFormData] = useState({
     title: "Mr",
     firstName: "",
@@ -46,18 +48,18 @@ const Header = () => {
   const searchRef = useRef<HTMLDivElement>(null);
   const [showCart, setShowCart] = useState(false);
   const [cartQty, setCartQty] = useState(0);
-  const [generatedCaptcha, setGeneratedCaptcha] = useState("");
   const router = useRouter();
+const [generatedCaptcha, setGeneratedCaptcha] = useState<string>("");
 
   // ✅ Import language & currency from context
   const { language, setLanguage, currency, setCurrency } = useAppContext();
 
   type HeaderTexts = {
-  freeShipping: string;
-  shopNow: string;
-  signIn: string;
-  register: string;
-};
+    freeShipping: string;
+    shopNow: string;
+    signIn: string;
+    register: string;
+  };
   // ✅ Translations
   const texts: Record<string, HeaderTexts> = {
     en: {
@@ -91,14 +93,33 @@ const Header = () => {
       register: "Регистрация",
     },
   };
-
-  useEffect(() => {
-    setGeneratedCaptcha(generateCaptcha());
-  }, []);
-
-  function generateCaptcha() {
-    return Math.random().toString(36).substring(2, 7).toUpperCase();
+  function generateCaptcha(): string {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  // Client (browser) secure random
+  if (typeof window !== "undefined" && window.crypto && window.crypto.getRandomValues) {
+    const bytes = new Uint8Array(6);
+    window.crypto.getRandomValues(bytes);
+    let result = "";
+    for (let i = 0; i < bytes.length; i++) {
+      result += chars[bytes[i] % chars.length];
+    }
+    return result;
   }
+   let result = "";
+  for (let i = 0; i < 6; i++) {
+    result += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return result;
+}
+
+useEffect(() => {
+  setGeneratedCaptcha(generateCaptcha());
+}, []);
+
+function refreshCaptcha() {
+  setGeneratedCaptcha(generateCaptcha());
+}
+
 
   const handleSubmitForgot = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -179,6 +200,8 @@ const Header = () => {
       document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [showSearch]);
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => setIsClient(true), []);
 
   useEffect(() => {
     const update = () => setCartQty(cartStore.getTotalQty());
@@ -299,7 +322,10 @@ const Header = () => {
             </button>
             <button
               onClick={() =>
-                window.open("https://portfolio-main-lake-eta.vercel.app/", "_blank")
+                window.open(
+                  "https://portfolio-main-lake-eta.vercel.app/",
+                  "_blank"
+                )
               }
               className="text-gray-600 hover:text-[#ba933e]"
             >
@@ -307,7 +333,10 @@ const Header = () => {
             </button>
             <button
               onClick={() =>
-                window.open("https://portfolio-main-lake-eta.vercel.app/", "_blank")
+                window.open(
+                  "https://portfolio-main-lake-eta.vercel.app/",
+                  "_blank"
+                )
               }
               className="text-gray-600 hover:text-[#ba933e]"
             >
@@ -315,7 +344,10 @@ const Header = () => {
             </button>
             <button
               onClick={() =>
-                window.open("https://portfolio-main-lake-eta.vercel.app/", "_blank")
+                window.open(
+                  "https://portfolio-main-lake-eta.vercel.app/",
+                  "_blank"
+                )
               }
               className="text-gray-600 hover:text-[#ba933e]"
             >
@@ -341,10 +373,12 @@ const Header = () => {
       <div className=" flex items-center justify-between gap-3  px-4 ">
         {/* Mobile Menu */}
         <div className="md:hidden">
-          <Mobiledrawer
-            onSignIn={() => setShowModaleye(true)}
-            onRegister={() => setShowModal(true)}
-          />
+          {isClient && (
+            <Mobiledrawer
+              onSignIn={() => setShowModaleye(true)}
+              onRegister={() => setShowModal(true)}
+            />
+          )}
         </div>
 
         {/* Mobile Search */}

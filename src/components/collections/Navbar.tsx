@@ -3,6 +3,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { collections, products, productss } from "@/utils/constants/constant";
 import PriceRangeFilter from "./PriceRangeFilter";
+import { TurningTableCard } from "@/components/sidebar";
+
 
 interface NavbarProps {
   id: string;
@@ -38,6 +40,10 @@ const defaultFilters = {
 };
 
 const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const router = useRouter();
   const collection = collections.find((c) => String(c.id) === id);
 
@@ -76,10 +82,13 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
   };
 
   const toggleAvailability = (key: "inStock" | "notAvailable") =>
-    setFilters((s) => (({
-      ...s,
-      availability: { ...s.availability, [key]: !s.availability[key] },
-    } as typeof filters)));
+    setFilters(
+      (s) =>
+        ({
+          ...s,
+          availability: { ...s.availability, [key]: !s.availability[key] },
+        } as typeof filters)
+    );
 
   // safer unique collector without any
   const unique = <K extends keyof Product>(key: K) => {
@@ -96,10 +105,19 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
   };
 
   const allCategories = useMemo(() => unique("category"), [collectionProducts]);
-  const allCompositions = useMemo(() => unique("composition"), [collectionProducts]);
-  const allProperties = useMemo(() => unique("properties"), [collectionProducts]);
+  const allCompositions = useMemo(
+    () => unique("composition"),
+    [collectionProducts]
+  );
+  const allProperties = useMemo(
+    () => unique("properties"),
+    [collectionProducts]
+  );
   const allBrands = useMemo(() => unique("brand"), [collectionProducts]);
-  const allPaperTypes = useMemo(() => unique("paperType"), [collectionProducts]);
+  const allPaperTypes = useMemo(
+    () => unique("paperType"),
+    [collectionProducts]
+  );
 
   // counts with explicit typing
   const counts = useMemo(() => {
@@ -123,10 +141,17 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
       if (p.available) c.availability.inStock++;
       else c.availability.notAvailable++;
 
-      if (p.category) c.categories[String(p.category)] = (c.categories[String(p.category)] || 0) + 1;
-      if (p.composition) c.composition[String(p.composition)] = (c.composition[String(p.composition)] || 0) + 1;
-      if (p.brand) c.brand[String(p.brand)] = (c.brand[String(p.brand)] || 0) + 1;
-      if (p.paperType) c.paperType[String(p.paperType)] = (c.paperType[String(p.paperType)] || 0) + 1;
+      if (p.category)
+        c.categories[String(p.category)] =
+          (c.categories[String(p.category)] || 0) + 1;
+      if (p.composition)
+        c.composition[String(p.composition)] =
+          (c.composition[String(p.composition)] || 0) + 1;
+      if (p.brand)
+        c.brand[String(p.brand)] = (c.brand[String(p.brand)] || 0) + 1;
+      if (p.paperType)
+        c.paperType[String(p.paperType)] =
+          (c.paperType[String(p.paperType)] || 0) + 1;
 
       (p.properties ?? []).forEach((prop) => {
         c.property[String(prop)] = (c.property[String(prop)] || 0) + 1;
@@ -141,41 +166,63 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
       if (!filters.availability.inStock && p.available) return false;
       if (!filters.availability.notAvailable && !p.available) return false;
 
-      if (filters.categories.length && (!p.category || !filters.categories.includes(String(p.category)))) return false;
-      if (filters.composition.length && (!p.composition || !filters.composition.includes(String(p.composition)))) return false;
+      if (
+        filters.categories.length &&
+        (!p.category || !filters.categories.includes(String(p.category)))
+      )
+        return false;
+      if (
+        filters.composition.length &&
+        (!p.composition || !filters.composition.includes(String(p.composition)))
+      )
+        return false;
 
       if (filters.property.length) {
-        const hasAny = (p.properties ?? []).some((pp) => filters.property.includes(String(pp)));
+        const hasAny = (p.properties ?? []).some((pp) =>
+          filters.property.includes(String(pp))
+        );
         if (!hasAny) return false;
       }
 
-      if (filters.brand.length && (!p.brand || !filters.brand.includes(String(p.brand)))) return false;
-      if (filters.paperType.length && (!p.paperType || !filters.paperType.includes(String(p.paperType)))) return false;
+      if (
+        filters.brand.length &&
+        (!p.brand || !filters.brand.includes(String(p.brand)))
+      )
+        return false;
+      if (
+        filters.paperType.length &&
+        (!p.paperType || !filters.paperType.includes(String(p.paperType)))
+      )
+        return false;
 
       return true;
     });
   }, [filters, collectionProducts]);
-
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const params = new URLSearchParams();
 
     if (!filters.availability.inStock || !filters.availability.notAvailable) {
       params.set("inStock", String(filters.availability.inStock));
       params.set("notAvailable", String(filters.availability.notAvailable));
     }
-    if (filters.categories.length) params.set("categories", filters.categories.join(","));
-    if (filters.composition.length) params.set("composition", filters.composition.join(","));
-    if (filters.property.length) params.set("property", filters.property.join(","));
+    if (filters.categories.length)
+      params.set("categories", filters.categories.join(","));
+    if (filters.composition.length)
+      params.set("composition", filters.composition.join(","));
+    if (filters.property.length)
+      params.set("property", filters.property.join(","));
     if (filters.brand.length) params.set("brand", filters.brand.join(","));
-    if (filters.paperType.length) params.set("paperType", filters.paperType.join(","));
+    if (filters.paperType.length)
+      params.set("paperType", filters.paperType.join(","));
 
-    const base = typeof window !== "undefined" ? window.location.pathname : "/";
+    const base = window.location.pathname; // use window instead of usePathname()
     const qs = params.toString();
     const url = qs ? `${base}?${qs}` : base;
 
     router.replace(url, { scroll: false });
   }, [filters, router]);
-
   const clearAll = () => setFilters({ ...defaultFilters });
 
   return (
@@ -195,7 +242,9 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
               Clear All
             </button>
             <span className="text-sm text-gray-500">
-              Showing {filteredProducts.length} of {collectionProducts.length}
+              {mounted
+                ? `Showing ${filteredProducts.length} of ${collectionProducts.length}`
+                : null}
             </span>
           </div>
         </div>
@@ -221,30 +270,32 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
         <div>
           <h3 className="font-medium mb-3">Categories</h3>
           <ul className="grid grid-cols-2 gap-2">
-            {allCategories.map((f) => (
-              <FilterButton
-                key={f}
-                label={f}
-                count={counts.categories[f] || 0}
-                active={filters.categories.includes(f)}
-                onClick={() => handleToggleArray("categories", f)}
-              />
-            ))}
+            {mounted &&
+              allCategories.map((f) => (
+                <FilterButton
+                  key={f}
+                  label={f}
+                  count={counts.categories[f] || 0}
+                  active={filters.categories.includes(f)}
+                  onClick={() => handleToggleArray("categories", f)}
+                />
+              ))}
           </ul>
         </div>
 
         <div>
           <h3 className="font-medium mb-3">Composition</h3>
           <ul className="grid grid-cols-2 gap-2">
-            {allCompositions.map((f) => (
-              <FilterButton
-                key={f}
-                label={f}
-                count={counts.composition[f] || 0}
-                active={filters.composition.includes(f)}
-                onClick={() => handleToggleArray("composition", f)}
-              />
-            ))}
+            {mounted &&
+              allCompositions.map((f) => (
+                <FilterButton
+                  key={f}
+                  label={f}
+                  count={counts.composition[f] || 0}
+                  active={filters.composition.includes(f)}
+                  onClick={() => handleToggleArray("composition", f)}
+                />
+              ))}
           </ul>
         </div>
 
@@ -258,48 +309,52 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
         <div>
           <h3 className="font-medium mb-3">Property</h3>
           <ul className="grid grid-cols-2 gap-2">
-            {Object.keys(counts.property).map((f) => (
-              <FilterButton
-                key={f}
-                label={f}
-                count={counts.property[f] || 0}
-                active={filters.property.includes(f)}
-                onClick={() => handleToggleArray("property", f)}
-              />
-            ))}
+            {mounted &&
+              Object.keys(counts.property).map((f) => (
+                <FilterButton
+                  key={f}
+                  label={f}
+                  count={counts.property[f] || 0}
+                  active={filters.property.includes(f)}
+                  onClick={() => handleToggleArray("property", f)}
+                />
+              ))}
           </ul>
         </div>
 
         <div>
           <h3 className="font-medium mb-3">Brand</h3>
           <ul className="grid grid-cols-2 gap-2">
-            {allBrands.map((f) => (
-              <FilterButton
-                key={f}
-                label={f}
-                count={counts.brand[f] || 0}
-                active={filters.brand.includes(f)}
-                onClick={() => handleToggleArray("brand", f)}
-              />
-            ))}
+            {mounted &&
+              allBrands.map((f) => (
+                <FilterButton
+                  key={f}
+                  label={f}
+                  count={counts.brand[f] || 0}
+                  active={filters.brand.includes(f)}
+                  onClick={() => handleToggleArray("brand", f)}
+                />
+              ))}
           </ul>
         </div>
 
         <div>
           <h3 className="font-medium mb-3">Paper Type</h3>
           <ul className="grid grid-cols-2 gap-2">
-            {allPaperTypes.map((f) => (
-              <FilterButton
-                key={f}
-                label={f}
-                count={counts.paperType[f] || 0}
-                active={filters.paperType.includes(f)}
-                onClick={() => handleToggleArray("paperType", f)}
-              />
-            ))}
+            {mounted &&
+              allPaperTypes.map((f) => (
+                <FilterButton
+                  key={f}
+                  label={f}
+                  count={counts.paperType[f] || 0}
+                  active={filters.paperType.includes(f)}
+                  onClick={() => handleToggleArray("paperType", f)}
+                />
+              ))}
           </ul>
         </div>
       </section>
+      <TurningTableCard />
     </div>
   );
 };

@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { PopularArticles, RecentArticles } from "@/components/articles";
 import { TurningTableCard } from "@/components/sidebar";
+import { useRouter } from "next/navigation";
+import { collections } from "@/utils/constants/constant";
 
 const categories = [
   { title: "Furniture", sub: ["Lighting Lamp", "Decor Art"] },
@@ -29,7 +31,10 @@ interface BlogSidebarProps {
 
 const BlogSidebar = ({ popularArticles, recentArticles }: BlogSidebarProps) => {
   const [openCategoryIndexes, setOpenCategoryIndexes] = useState<number[]>([]);
-  const [openBlogCategoryIndexes, setOpenBlogCategoryIndexes] = useState<number[]>([]);
+  const [openBlogCategoryIndexes, setOpenBlogCategoryIndexes] = useState<
+    number[]
+  >([]);
+  const router = useRouter();
 
   const toggleCategory = (index: number) =>
     setOpenCategoryIndexes((prev) =>
@@ -66,6 +71,14 @@ const BlogSidebar = ({ popularArticles, recentArticles }: BlogSidebarProps) => {
                   <li
                     key={j}
                     className="text-gray-500 hover:text-[#ba933e] cursor-pointer text-sm"
+                    onClick={() => {
+                      const item = collections.find((col) => col.title === s);
+                      if (item) {
+                        router.push(`/collection/${item.id}`);
+                      } else {
+                        router.push(`/collection/${encodeURIComponent(s)}`);
+                      }
+                    }}
                   >
                     {s}
                   </li>
@@ -102,6 +115,9 @@ const BlogSidebar = ({ popularArticles, recentArticles }: BlogSidebarProps) => {
                   <li
                     key={j}
                     className="text-gray-500 hover:text-[#ba933e] cursor-pointer text-sm"
+                    onClick={() =>
+                      router.push(`/collections/${encodeURIComponent(s)}`)
+                    }
                   >
                     {s}
                   </li>

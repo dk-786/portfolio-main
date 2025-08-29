@@ -1,4 +1,4 @@
-"use client";
+
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaHeart } from "react-icons/fa";
@@ -15,6 +15,7 @@ import Image from "next/image";
 import "swiper/css/navigation";
 import { useAppContext } from "@/components/context/AppContext";
 import { Product } from "@/types/product";
+import ClientSwiper from "@/components/ClientSwiper";
 
 /** addToCart now uses Product rather than any */
 const addToCart = (product: Product, onSuccess?: () => void) => {
@@ -200,7 +201,7 @@ const ProductCard = () => {
 
       {/* Swiper for mobile, grid for desktop */}
       <div className="block md:hidden ">
-        <Swiper
+        <ClientSwiper
           modules={[Navigation]}
           slidesPerView={1}
           spaceBetween={0}
@@ -219,7 +220,7 @@ const ProductCard = () => {
               />
             </SwiperSlide>
           ))}
-        </Swiper>
+        </ClientSwiper>
       </div>
 
       {/* Grid for desktop */}

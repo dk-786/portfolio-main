@@ -1,5 +1,6 @@
 "use client";
 import Countdown from "react-countdown";
+import { useEffect, useState } from "react";
 
 interface CountdownRendererProps {
   days: number;
@@ -10,6 +11,13 @@ interface CountdownRendererProps {
 }
 
 const CountdownTimer = () => {
+  // Client-only current date
+  const [currentDate, setCurrentDate] = useState("");
+
+  useEffect(() => {
+    setCurrentDate(new Date().toLocaleDateString());
+  }, []);
+
   const renderer = ({
     days,
     hours,
@@ -55,6 +63,11 @@ const CountdownTimer = () => {
 
   return (
     <div className="p-4 text-center">
+      {/* Show client-only date above the countdown */}
+      {currentDate && (
+        <p className="mb-2 text-gray-700 font-medium">Today: {currentDate}</p>
+      )}
+
       <Countdown
         date={new Date("2025-12-31T23:59:59")}
         renderer={renderer}

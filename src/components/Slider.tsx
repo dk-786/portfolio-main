@@ -1,14 +1,11 @@
-"use client";
+
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 import Image from "next/image";
 import { useAppContext } from "@/components/context/AppContext";
 import { sliderData } from "@/utils/constants/constant"; 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
+import ClientSwiper from "./ClientSwiper";
 const Slider = () => {
   const { getConvertedPrice } = useAppContext();
   return (
@@ -44,7 +41,7 @@ const Slider = () => {
           background-color: #a67c2a !important;
         }
       `}</style>
-      <Swiper
+      <ClientSwiper
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         effect="fade"
         navigation={true}
@@ -115,7 +112,7 @@ const Slider = () => {
             </div>
           </SwiperSlide>
         ))}
-      </Swiper>
+      </ClientSwiper>
     </div>
   );
 };

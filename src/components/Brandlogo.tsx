@@ -1,12 +1,10 @@
-"use client";
+
 import React from 'react'
 import { brandlogo } from '@/utils/constants/constant'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import ClientSwiper from "./ClientSwiper";
 
 const Brandlogo = () => {
   return (
@@ -28,12 +26,12 @@ const Brandlogo = () => {
             
             {/* Mobile Swiper */}
             <div className='md:hidden'>
-                <Swiper
+                <ClientSwiper
                     modules={[Navigation, Pagination, Autoplay]}
                     spaceBetween={30}
                     slidesPerView={1}
                     autoplay={{ delay: 4000 }}
-                    loop={true}
+                     loop={true}
                     className="brand-swiper"
                 >
                     {brandlogo.map((brand) => (
@@ -48,7 +46,7 @@ const Brandlogo = () => {
                             </div>
                         </SwiperSlide>
                     ))}
-                </Swiper>
+                </ClientSwiper>
             </div>
         </div>
     </section>

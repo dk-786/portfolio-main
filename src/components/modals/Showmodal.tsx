@@ -143,7 +143,7 @@ const Showmodal: React.FC<ShowmodalProps> = ({
 
           {/* Captcha */}
           <div className="flex items-center gap-3">
-            <span className="bg-gray-200 px-4 py-2 font-bold rounded">
+            <span className="bg-gray-200 px-4 py-2 font-bold rounded" suppressHydrationWarning>
               {generatedCaptcha || "....."}
             </span>
             <button

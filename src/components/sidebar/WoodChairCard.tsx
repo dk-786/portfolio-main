@@ -47,6 +47,7 @@ const WoodChairCard = () => {
           alt="Wood Chair"
           width={300}
           height={200}
+          priority
           className="w-full h-48 object-cover transform transition-transform duration-500 ease-in-out group-hover:scale-110"
         />
         
