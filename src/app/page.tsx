@@ -12,6 +12,7 @@ import Follow from "@/components/Follow";
 
 
 
+
 export default function Home() {
   return (
     <div>
@@ -24,6 +25,7 @@ export default function Home() {
       <Blogmain />
       <Brandlogo />
       <Follow />
+      
     </div>
   );
 }

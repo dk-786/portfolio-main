@@ -391,7 +391,7 @@ function refreshCaptcha() {
 
         {/* Logo */}
         <div
-          className="flex  items-center justify-center flex-1 md:flex-none p-6"
+          className="flex  items-center justify-center flex-1 md:flex-none p-6 cursor-pointer"
           onClick={() => router.push("/")}
         >
           <Image src="/logo.jpg" alt="Logo" width={120} height={40} priority />
