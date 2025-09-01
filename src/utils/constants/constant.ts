@@ -813,12 +813,9 @@ export const navigationItems: NavigationItem[] = [
     title: "Home",
     hasDropdown: true,
     dropdownItems: [
-      { title: "Home 1", href: "/home/1" },
-      { title: "Home 2", href: "/home/2" },
-      { title: "Home 3", href: "/home/3" },
-      { title: "Home 4", href: "/home/4" },
-      { title: "Home 5", href: "/home/5" },
-      { title: "Home 6", href: "/home/6" },
+      { title: "Home 1", href: "/" },
+      { title: "Home 2", href: "/homeOne" },
+      { title: "Home 3", href: "/homeTwo" },
     ],
   },
 
@@ -863,10 +860,10 @@ export const shopCategories: ShopCategory[] = [
   {
     title: "Collection Layout",
     items: [
-      { title: "Collection Layout 01", href: "/shop/collections/layout-01" },
-      { title: "Collection Layout 02", href: "/shop/collections/layout-02" },
-      { title: "Collection Layout 03", href: "/shop/collections/layout-03" },
-      { title: "Collection Layout 04", href: "/shop/collections/layout-04" },
+      { title: "Collection Layout 01", href: "/collectionlayoutone" },
+      { title: "Collection Layout 02", href: "/collectionlayoutone" },
+      { title: "Collection Layout 03", href: "/collectionlayoutone" },
+      { title: "Collection Layout 04", href: "/collectionlayoutone" },
     ],
   },
   {
@@ -919,6 +916,7 @@ export const collections = [
 
 export const sliderData = [
   {
+    id: 1,
     desktopImage: "/images/1.jpg",
     mobileImage: "/images/4.jpg",
     price: 25,
@@ -927,6 +925,7 @@ export const sliderData = [
     offer: null,
   },
   {
+    id: 2,
     desktopImage: "/images/2.jpg",
     mobileImage: "/images/5.jpg",
     price: 25,
@@ -935,6 +934,7 @@ export const sliderData = [
     offer: "40% off",
   },
   {
+    id: 3,
     desktopImage: "/images/3.jpg",
     mobileImage: "/images/6.jpg",
     price: 25,
@@ -942,7 +942,63 @@ export const sliderData = [
     subtitle: "Sweeper and funnel",
     offer: null,
   },
+  // ✅ New images from public/otherHome
+  {
+    id: 4,
+    desktopImage: "/otherHome/slide_1.jpg",
+    mobileImage: "/otherHome/slide_1.jpg",
+    price: 30,
+    title: "Modern Sofa Set",
+    subtitle: "Comfort & Style",
+    offer: "20% off",
+  },
+  {
+    id: 5,
+    desktopImage: "/otherHome/slide_2.jpg",
+    mobileImage: "/otherHome/slide_2.jpg",
+    price: 45,
+    title: "Smart Table Lamp",
+    subtitle: "Illuminate your space",
+    offer: null,
+  },
+  {
+    id: 6,
+    desktopImage: "/otherHome/slide_3.jpg",
+    mobileImage: "/otherHome/slide_3.jpg",
+    price: 60,
+    title: "Kitchen Essentials",
+    subtitle: "Cook like a pro",
+    offer: "15% off",
+  },
+  {
+    id: 7,
+    desktopImage: "/otherHome/slide_4.jpg",
+    mobileImage: "/otherHome/slide_4.jpg",
+    price: 99,
+    title: "Luxury Armchair",
+    subtitle: "Elegant comfort",
+    offer: null,
+  },
+  {
+    id: 8,
+    desktopImage: "/otherHome/slide_5.jpg",
+    mobileImage: "/otherHome/slide_5.jpg",
+    price: 120,
+    title: "Designer Dining Set",
+    subtitle: "Perfect for family meals",
+    offer: "10% off",
+  },
+  {
+    id: 9,
+    desktopImage: "/otherHome/slide_6.jpg",
+    mobileImage: "/otherHome/slide_6.jpg",
+    price: 75,
+    title: "Wall Art Collection",
+    subtitle: "Decorate your home",
+    offer: null,
+  },
 ];
+
 
 
 export const sameCategory = [
@@ -1071,3 +1127,44 @@ export const FILTERS = {
   ],
   colors: ["White", "Black"],
 };
+
+// src/components/utils/constants/constant.ts
+
+export const shopByCategoryData = [
+  {
+    id: 1,
+    image: "/otherHome/banner_1.jpg",
+    title: "Sofas",
+    items: 12,
+    colSpan: "col-span-4 row-span-6",
+  },
+  {
+    id: 2,
+    image: "/otherHome/banner_2.jpg",
+    title: "Furniture",
+    items: 8,
+    colSpan: "col-span-2 row-span-3 col-start-1 row-start-7",
+  },
+  {
+    id: 3,
+    image: "/otherHome/banner_3.jpg",
+    title: "Lighting",
+    items: 12,
+    colSpan: "col-span-2 row-span-3 col-start-3 row-start-7",
+  },
+  {
+    id: 4,
+    image: "/otherHome/banner_4.jpg",
+    title: "Chair",
+    items: 12,
+    colSpan: "col-span-2 row-span-3 col-start-5 row-start-1",
+  },
+  {
+    id: 5,
+    image: "/otherHome/banner_5.jpg",
+    title: "Decoration",
+    items: 12,
+    colSpan: "col-span-2 row-span-6 col-start-5 row-start-4",
+  },
+];
+

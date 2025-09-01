@@ -150,7 +150,7 @@ const NavbarDropdown = () => {
                 item.title !== "Collections" &&
                 openMenu === item.title && (
                   <div className="absolute top-full left-0   bg-popover shadow p-6 w-48 z-50">
-                    <ul className="space-y-1">
+                    <ul className="space-y-2">
                       {item.dropdownItems.map((drop) => (
                         <li key={drop.title}>
                           <Link

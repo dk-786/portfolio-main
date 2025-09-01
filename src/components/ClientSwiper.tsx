@@ -4,16 +4,24 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import type { SwiperProps } from "swiper/react";
 
-const Swiper = dynamic(() => import("swiper/react").then(m => m.Swiper), {
+const Swiper = dynamic(() => import("swiper/react").then((m) => m.Swiper), {
   ssr: false,
 });
-const SwiperSlide = dynamic(() => import("swiper/react").then(m => m.SwiperSlide), {
-  ssr: false,
-});
+const SwiperSlide = dynamic(
+  () => import("swiper/react").then((m) => m.SwiperSlide),
+  {
+    ssr: false,
+  }
+);
 
 type ClientSwiperProps = SwiperProps & {
   children?: React.ReactNode;
   className?: string;
+};
+
+type NamedType = {
+  displayName?: string;
+  name?: string;
 };
 
 export default function ClientSwiper({
@@ -38,13 +46,20 @@ export default function ClientSwiper({
       {...swiperProps}
       loop={shouldLoop}
     >
-      {childrenArray.map((child, i) =>
-        (child as any).type?.displayName === "SwiperSlide" ? (
-          child
-        ) : (
-          <SwiperSlide key={i}>{child}</SwiperSlide>
-        )
-      )}
+      {childrenArray.map((child, i) => {
+        // If it's a valid React element, inspect its .type for a displayName/name
+        if (React.isValidElement(child)) {
+          const childType = child.type as NamedType;
+          if (
+            childType.displayName === "SwiperSlide" ||
+            childType.name === "SwiperSlide"
+          ) {
+            return child;
+          }
+        }
+        // otherwise wrap in a SwiperSlide
+        return <SwiperSlide key={i}>{child}</SwiperSlide>;
+      })}
     </Swiper>
   );
 }

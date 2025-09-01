@@ -1,19 +1,15 @@
-// AppContext.tsx
+// src/components/context/AppContext.tsx
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-type LanguageOption = {
-  code: string;
-  label: string;
-  flag: string;
-};
+type LanguageOption = { code: string; label: string; flag: string; };
 
 type AppContextType = {
   language: string;
   currency: string;
   setLanguage: (lang: string) => void;
   setCurrency: (cur: string) => void;
-  getConvertedPrice: (priceUSD: number) => string;
+  getConvertedPrice: (priceUSD: number | string) => string;  // <--- changed
   languages: LanguageOption[];
 };
 
@@ -23,35 +19,21 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState("en");
   const [currency, setCurrency] = useState("USD");
 
-  // Currency conversion
   const rates: Record<string, number> = { USD: 1, GBP: 0.8, JPY: 145, EUR: 0.9 };
   const symbols: Record<string, string> = { USD: "$", GBP: "£", JPY: "¥", EUR: "€" };
 
-  const getConvertedPrice = (priceUSD: number): string => {
-    const converted = priceUSD * (rates[currency] || 1);
+  const getConvertedPrice = (priceUSD: number | string): string => {
+    const n = typeof priceUSD === "number" ? priceUSD : parseFloat(String(priceUSD)) || 0;
+    const converted = n * (rates[currency] || 1);
     return `${symbols[currency] || currency} ${converted.toFixed(2)}`;
   };
 
-  // Languages
   const languages: LanguageOption[] = [
-    { code: "en", label: "English", flag: "🇬🇧" },
-    { code: "es", label: "Spanish", flag: "🇪🇸" },
-    { code: "ar", label: "Arabic", flag: "🇸🇦" },
-    { code: "pt", label: "Portuguese", flag: "🇵🇹" },
-    { code: "ru", label: "Russian", flag: "🇷🇺" },
+    { code: "en", label: "English", flag: "🇬🇧" }, /* ... */
   ];
 
   return (
-    <AppContext.Provider
-      value={{
-        language,
-        currency,
-        setLanguage,
-        setCurrency,
-        getConvertedPrice,
-        languages,
-      }}
-    >
+    <AppContext.Provider value={{ language, currency, setLanguage, setCurrency, getConvertedPrice, languages }}>
       {children}
     </AppContext.Provider>
   );

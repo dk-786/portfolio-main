@@ -228,7 +228,7 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
   return (
     <div className="w-full max-w-[27%] mx-auto p-4 md:p-8">
       <div className="text-base mb-6 md:text-lg font-bold py-8 border-b ">
-        {collection?.title ?? "No Title Found"}
+        {collection?.title ?? "Home"}
       </div>
 
       <section className="md:col-span-3 space-y-8 w-full ">

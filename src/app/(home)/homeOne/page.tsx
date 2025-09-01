@@ -11,17 +11,19 @@ import Brandlogo from "@/components/Brandlogo";
 import Follow from "@/components/Follow";
 import { sliderData } from "@/utils/constants/constant";
 import { useAppContext } from "@/components/context/AppContext";
-
+import ShopByCategory from "@/components/ShopByCategory";
 
 export default function Home() {
   const { getConvertedPrice } = useAppContext();
-  const commonSliderData = sliderData.filter((item) =>
-  [1, 2, 3].includes(item.id)
-);
-    
+
+  const homeSliderData = sliderData.filter((item) =>
+    [4, 5, 6].includes(item.id)
+  );
+
   return (
     <div>
-      <Slider  data={commonSliderData}  getConvertedPrice={getConvertedPrice}/>
+      <Slider data={homeSliderData} getConvertedPrice={getConvertedPrice} />
+      <ShopByCategory />
       <Card />
       <Poster />
       <Products />
@@ -30,7 +32,6 @@ export default function Home() {
       <Blogmain />
       <Brandlogo />
       <Follow />
-      
     </div>
   );
 }
