@@ -115,7 +115,7 @@ const TurningTableCard = () => {
               <div className="absolute top-4 left-4 sm:top-6 sm:left-6 text-black">
                 {index === 0 && (
                   <>
-                    <h2 className="text-lg sm:text-2xl font-bold">
+                    <h2 className="text-lg sm:text-2xl font-extrabold">
                       {t.turningTable}
                     </h2>
                     <p className="text-xs sm:text-sm mt-1">{t.desc}</p>

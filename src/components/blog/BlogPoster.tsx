@@ -9,17 +9,28 @@ const BlogPoster = () => {
   const segments = pathname.split("/").filter(Boolean); // ["blog", "chairs", "123"]
 
   return (
-    <div className="w-full h-[350px] relative">
+    <div className="w-full md:h-[350px] h-[250px] relative">
       {/* Background image */}
-      <Image
-        src="/images/1.jpg"
-        alt="Blog header image"
-        fill
-        className="object-cover hidden md:block"
-      />
+      <>
+        {/* Desktop image */}
+        <Image
+          src="/images/1.jpg"
+          alt="Blog header image"
+          fill
+          className="object-cover hidden md:block"
+        />
+
+        {/* Mobile image */}
+        <Image
+          src="/images/1.jpg"
+          alt="Blog header image mobile"
+          fill
+          className="object-cover !h-60 block md:hidden"
+        />
+      </>
 
       {/* Overlay content */}
-      <div className="absolute left-6 top-1/2 -translate-y-1/2 text-black p-4">
+      <div className="absolute md:left-6 md:top-1/2 md:-translate-y-1/2   top-1/3 text-black p-4">
         {/* Dynamic Breadcrumbs */}
         <nav className="flex items-center space-x-2 text-sm md:text-base font-medium">
           <Link href="/" className="hover:underline">
@@ -43,8 +54,6 @@ const BlogPoster = () => {
             );
           })}
         </nav>
-
-       
       </div>
     </div>
   );

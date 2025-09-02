@@ -1,18 +1,18 @@
-"use client";
+import React from "react";
 import { AppProvider } from "@/components/context/AppContext";
+import BlogPoster from "@/components/blog/BlogPoster";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const metadata = {
+  title: "My Next.js App",
+  description: "Generated with Next.js",
+};
+
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html>
-      <body>
-        <AppProvider>
-          {children}
-        </AppProvider>
-      </body>
-    </html>
+    <div>
+      <AppProvider>
+        {children}
+      </AppProvider>
+    </div>
   );
 }

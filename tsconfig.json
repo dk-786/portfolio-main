@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(collectionlayout)/collectionlayoutone"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx","swiper.d.ts" , ".next/types/**/*.ts", "src/app/(collectionlayout)/collectionlayoutone"],
   "exclude": ["node_modules"]
 }

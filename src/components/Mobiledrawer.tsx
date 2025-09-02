@@ -1,11 +1,15 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiX } from "react-icons/fi";
-import { navigationItems } from "@/utils/constants/constant";
+import {
+  navigationItems,
+  shopCategories,
+  collections,
+} from "@/utils/constants/constant";
 
 interface MobiledrawerProps {
   onSignIn: () => void;
@@ -23,6 +27,19 @@ const Mobiledrawer = ({ onSignIn, onRegister }: MobiledrawerProps) => {
   const toggleDropdown = (dropdownName: string) => {
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
   };
+
+  // 🔒 Prevent background scroll when drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
     <div>
@@ -45,8 +62,8 @@ const Mobiledrawer = ({ onSignIn, onRegister }: MobiledrawerProps) => {
         className="z-50"
       >
         <div className="h-full bg-white flex flex-col">
-          {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b">
+          {/* Header (Fixed) */}
+          <div className="flex items-center justify-between p-4 border-b flex-shrink-0">
             <div></div>
             <button
               onClick={toggleDrawer}
@@ -56,59 +73,99 @@ const Mobiledrawer = ({ onSignIn, onRegister }: MobiledrawerProps) => {
             </button>
           </div>
 
-          {/* Navigation Links */}
-          <div className="flex-1 p-4 space-y-4">
-            <div className="space-y-2">
-              <ul className="space-y-2">
-                {navigationItems.map((item, index) => (
-                  <li key={index}>
-                    <div className="space-y-1">
-                      {item.hasDropdown ? (
-                        <>
-                          <button
-                            onClick={() => toggleDropdown(item.title)}
-                            className="flex items-center justify-between w-full py-2 p-1 text-gray-800 hover:text-[#ba933e] transition-colors"
-                          >
-                            <span className="text-xl font-bold">
-                              {item.title}
-                            </span>
-                            <IoIosArrowDown
-                              className={`transition-transform ${
-                                openDropdown === item.title ? "rotate-180" : ""
-                              }`}
-                              size={16}
-                            />
-                          </button>
-                          {openDropdown === item.title &&
-                            item.dropdownItems && (
-                              <div className="pl-4 space-y-1">
-                                {item.dropdownItems.map((subItem, subIndex) => (
-                                  <Link
-                                    key={subIndex}
-                                    href={subItem.href}
-                                    className="block py-1 text-sm text-gray-600 hover:text-[#ba933e] transition-colors"
-                                    onClick={toggleDrawer}
-                                  >
-                                    {subItem.title}
-                                  </Link>
-                                ))}
-                              </div>
-                            )}
-                        </>
-                      ) : (
-                        <Link
-                          href={item.href || "#"}
-                          className="block py-2 text-xl font-bold text-gray-800 hover:text-[#ba933e] transition-colors"
-                          onClick={toggleDrawer}
+          {/* Navigation Links (Scrollable Section inside drawer only) */}
+          <div className="flex-1 overflow-y-auto p-4">
+            <ul className="space-y-2">
+              {navigationItems.map((item, index) => (
+                <li key={index}>
+                  <div className="space-y-1">
+                    {item.hasDropdown ? (
+                      <>
+                        <button
+                          onClick={() => toggleDropdown(item.title)}
+                          className="flex items-center justify-between w-full py-2 p-1 text-gray-800 hover:text-[#ba933e] transition-colors"
                         >
-                          {item.title}
-                        </Link>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                          <span className="text-md font-bold">
+                            {item.title}
+                          </span>
+                          <IoIosArrowDown
+                            className={`transition-transform ${
+                              openDropdown === item.title ? "rotate-180" : ""
+                            }`}
+                            size={16}
+                          />
+                        </button>
+
+                        {/* Dropdown Handling */}
+                        {openDropdown === item.title && (
+                          <div className="pl-4 space-y-1">
+                            {/* Case 1: normal dropdownItems */}
+                            {item.dropdownItems &&
+                              item.dropdownItems.map((subItem, subIndex) => (
+                                <Link
+                                  key={subIndex}
+                                  href={subItem.href}
+                                  className="block py-1 text-sm text-gray-600 hover:text-[#ba933e] transition-colors"
+                                  onClick={toggleDrawer}
+                                >
+                                  {subItem.title}
+                                </Link>
+                              ))}
+
+                            {/* Case 2: Shop mega menu */}
+                            {item.title === "Shop" &&
+                              shopCategories.map((cat, catIndex) => (
+                                <div key={catIndex} className="mt-2">
+                                  <span className="font-semibold text-gray-800">
+                                    {cat.title}
+                                  </span>
+                                  <div className="pl-2">
+                                    {cat.items.map((shopItem, shopIndex) => (
+                                      <Link
+                                        key={shopIndex}
+                                        href={shopItem.href}
+                                        className="block py-1 text-sm text-gray-600 hover:text-[#ba933e] transition-colors"
+                                        onClick={toggleDrawer}
+                                      >
+                                        {shopItem.title}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </div>
+                              ))}
+
+                            {/* Case 3: Collections */}
+                            {item.title === "Collections" &&
+                              collections.map((col) => (
+                                <Link
+                                  key={col.id}
+                                  href={`/collection/${col.id}`}
+                                  className="block py-1 text-sm text-gray-600 hover:text-[#ba933e] transition-colors mt-4"
+                                  onClick={toggleDrawer}
+                                >
+                                  <img
+                                    src={col.img}
+                                    alt={col.title}
+                                    className="w-60 h-60 object-cover rounded"
+                                  />
+                                </Link>
+                              ))}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <Link
+                        href={item.href || "#"}
+                        className="block py-2 text-xl font-bold text-gray-800 hover:text-[#ba933e] transition-colors"
+                        onClick={toggleDrawer}
+                      >
+                        {item.title}
+                      </Link>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </Drawer>

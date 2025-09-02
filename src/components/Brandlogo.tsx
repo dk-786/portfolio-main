@@ -8,7 +8,7 @@ import ClientSwiper from "./ClientSwiper";
 
 const Brandlogo = () => {
   return (
-    <section className='px-4 sm:px-12'>
+    <section className='px-4 lg:px-12'>
         <div className='border-y-1 border-gray-200 w-full p-4'>
             {/* Desktop Layout */}
             <div className='hidden md:flex justify-between items-center'>
@@ -25,23 +25,23 @@ const Brandlogo = () => {
             </div>
             
             {/* Mobile Swiper */}
-            <div className='md:hidden'>
+            <div className='md:hidden '>
                 <ClientSwiper
                     modules={[Navigation, Pagination, Autoplay]}
                     spaceBetween={30}
                     slidesPerView={1}
                     autoplay={{ delay: 4000 }}
                      loop={true}
-                    className="brand-swiper"
+                    className="brand-swiper  h-50"
                 >
                     {brandlogo.map((brand) => (
                         <SwiperSlide key={brand.id}>
-                            <div className='flex justify-center items-center p-8'>
+                            <div className='flex justify-center items-center p-8 '>
                                 <Image 
                                 src={brand.img}
                                  alt={brand.img} 
-                                 width={300} 
-                                 height={300} 
+                                 width={320} 
+                                 height={320} 
                                  />
                             </div>
                         </SwiperSlide>

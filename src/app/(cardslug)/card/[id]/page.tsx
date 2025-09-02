@@ -85,7 +85,7 @@ const Page = () => {
 
   return (
     <>
-      <section className="flex flex-col md:flex-row md:p-8 p-4 md:justify-between w-full">
+      <section className="flex flex-col md:flex-row md:p-8  md:justify-between w-full">
         <ProductImage img={product.img} name={product.name} />
         
         <div className="w-full md:w-[50%] py-4">

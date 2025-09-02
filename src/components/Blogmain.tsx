@@ -1,3 +1,4 @@
+// Blogmain.tsx
 "use client";
 
 import React from "react";
@@ -5,15 +6,15 @@ import { Blogmain1 } from "@/utils/constants/constant";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ClientSwiper from "./ClientSwiper";
-import { Navigation } from "swiper/modules";
-import { SwiperSlide } from "swiper/react"; // <-- This import is crucial
+// Correctly import SwiperSlide from swiper/react
+import { SwiperSlide } from "swiper/react";
 
 const Blogmain = () => {
   const router = useRouter();
   const slides = Array.isArray(Blogmain1) ? Blogmain1.filter(Boolean) : [];
 
   return (
-    <div className="w-full p-4 md:p-6">
+    <div className="w-full p-6 md:p-6">
       <h2 className="text-3xl font-bold text-center mt-14 md:mt-22 p-2">
         Latest From Blog
       </h2>
@@ -23,20 +24,20 @@ const Blogmain = () => {
 
       <div className="md:p-6 gap-6 lg:h-[90dvh]">
         <ClientSwiper
-          modules={[Navigation]}
+          navigation={false}
           slidesPerView={1}
           spaceBetween={20}
           loop={slides.length > 1}
           breakpoints={{
-            640: { slidesPerView: 2, spaceBetween: 20 },
-            768: { slidesPerView: 2, spaceBetween: 30 },
-            1024: { slidesPerView: 3, spaceBetween: 30 },
+            "640": { slidesPerView: 2, spaceBetween: 20 },
+            "768": { slidesPerView: 2, spaceBetween: 30 },
+            "1024": { slidesPerView: 3, spaceBetween: 30 },
           }}
           className="w-full"
         >
           {slides.map((feature, index) => (
-            // Wrap your content with SwiperSlide
-            <SwiperSlide key={index}> 
+            // Wrap your content with SwiperSlide, as required by the React API
+            <SwiperSlide key={index}>
               <div className="bg-white overflow-hidden">
                 <div className="w-full">
                   <Image

@@ -1,65 +1,54 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import type { SwiperProps } from "swiper/react";
+import React from "react";
+import { Swiper } from "swiper/react";
+import "../app/globals.css"; 
+import { Navigation } from "swiper/modules";
+import { SwiperModule ,SwiperOptions} from "swiper/types";
 
-const Swiper = dynamic(() => import("swiper/react").then((m) => m.Swiper), {
-  ssr: false,
-});
-const SwiperSlide = dynamic(
-  () => import("swiper/react").then((m) => m.SwiperSlide),
-  {
-    ssr: false,
-  }
-);
-
-type ClientSwiperProps = SwiperProps & {
-  children?: React.ReactNode;
+// Define props type with specific types for Swiper configuration
+type ClientSwiperProps = {
+  children: React.ReactNode;
   className?: string;
+  modules?: SwiperModule[];
+  navigation?: boolean;
+  loop?: boolean;
+  grid?: { rows: number; fill: "row" | "column" };
+  spaceBetween?: number;
+  slidesPerView?: number | "auto";
+  autoplay?: boolean | { delay?: number; disableOnInteraction?: boolean };
+  breakpoints?: Record<string, SwiperOptions>;
+  slidesPerGroup?: number;
+  style?: React.CSSProperties;
 };
 
-type NamedType = {
-  displayName?: string;
-  name?: string;
-};
-
-export default function ClientSwiper({
+const ClientSwiper: React.FC<ClientSwiperProps> = ({
   children,
-  className,
-  modules = [],
-  ...swiperProps
-}: ClientSwiperProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted) return null;
-
-  const childrenArray = React.Children.toArray(children).filter(Boolean);
-  const shouldLoop = !!swiperProps.loop && childrenArray.length > 1;
-
+  className = "",
+  navigation = false,
+  loop = false,
+  spaceBetween = 0,
+  slidesPerView = 1,
+  breakpoints,
+  slidesPerGroup,
+  style,
+}) => {
   return (
     <Swiper
+      // Modules are passed here
+      modules={[Navigation]}
+      navigation={navigation}
+      loop={loop}
+      spaceBetween={spaceBetween}
+      slidesPerView={slidesPerView}
+      breakpoints={breakpoints}
+      slidesPerGroup={slidesPerGroup}
       className={className}
-      modules={modules as SwiperProps["modules"]}
-      {...swiperProps}
-      loop={shouldLoop}
+      style={style}
     >
-      {childrenArray.map((child, i) => {
-        // If it's a valid React element, inspect its .type for a displayName/name
-        if (React.isValidElement(child)) {
-          const childType = child.type as NamedType;
-          if (
-            childType.displayName === "SwiperSlide" ||
-            childType.name === "SwiperSlide"
-          ) {
-            return child;
-          }
-        }
-        // otherwise wrap in a SwiperSlide
-        return <SwiperSlide key={i}>{child}</SwiperSlide>;
-      })}
+      {children}
     </Swiper>
   );
-}
+};
+
+export default ClientSwiper;
