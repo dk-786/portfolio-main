@@ -74,11 +74,11 @@ const Mobiledrawer = ({ onSignIn, onRegister }: MobiledrawerProps) => {
           </div>
 
           {/* Navigation Links (Scrollable Section inside drawer only) */}
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 overflow-y-auto w-full ">
             <ul className="space-y-2">
               {navigationItems.map((item, index) => (
                 <li key={index}>
-                  <div className="space-y-1">
+                  <div className="space-y-1  border-b p-2">
                     {item.hasDropdown ? (
                       <>
                         <button
@@ -105,7 +105,7 @@ const Mobiledrawer = ({ onSignIn, onRegister }: MobiledrawerProps) => {
                                 <Link
                                   key={subIndex}
                                   href={subItem.href}
-                                  className="block py-1 text-sm text-gray-600 hover:text-[#ba933e] transition-colors"
+                                  className="block py-1 text-md text-gray-600 hover:text-[#ba933e] transition-colors"
                                   onClick={toggleDrawer}
                                 >
                                   {subItem.title}
@@ -116,15 +116,15 @@ const Mobiledrawer = ({ onSignIn, onRegister }: MobiledrawerProps) => {
                             {item.title === "Shop" &&
                               shopCategories.map((cat, catIndex) => (
                                 <div key={catIndex} className="mt-2">
-                                  <span className="font-semibold text-gray-800">
+                                  <span className="font-semibold text-md text-gray-800">
                                     {cat.title}
                                   </span>
-                                  <div className="pl-2">
+                                  <div className="pl-4  space-y-2  my-2">
                                     {cat.items.map((shopItem, shopIndex) => (
                                       <Link
                                         key={shopIndex}
                                         href={shopItem.href}
-                                        className="block py-1 text-sm text-gray-600 hover:text-[#ba933e] transition-colors"
+                                        className="block py-1 text-md text-gray-600 hover:text-[#ba933e] transition-colors"
                                         onClick={toggleDrawer}
                                       >
                                         {shopItem.title}
@@ -140,7 +140,7 @@ const Mobiledrawer = ({ onSignIn, onRegister }: MobiledrawerProps) => {
                                 <Link
                                   key={col.id}
                                   href={`/collection/${col.id}`}
-                                  className="block py-1 text-sm text-gray-600 hover:text-[#ba933e] transition-colors mt-4"
+                                  className="block  ml-1 py-1 text-sm text-gray-600 hover:text-[#ba933e] transition-colors mt-4"
                                   onClick={toggleDrawer}
                                 >
                                   <img

@@ -159,6 +159,7 @@ const openFilterModal = () => {
   return (
     <>
       {/* 🚀 Desktop View (unchanged) */}
+        
       <div className="hidden lg:flex w-full">
         <Navbar
           id={rawParam}

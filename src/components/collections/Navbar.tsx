@@ -69,12 +69,12 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
 
   return (
     <div className="w-full md:max-w-[27%] mx-auto p-6 md:p-8">
-      <div className="text-base mb-6 md:text-lg font-bold py-8 border-b">
+      <div className="text-base mb-6 md:text-lg font-bold py-8 border-b hidden md:block">
         {collection?.title ?? "Home"}
       </div>
 
       <section className="md:col-span-3 space-y-8 w-full">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">Filter By</h2>
           <div className="flex items-center gap-2">
             <button
