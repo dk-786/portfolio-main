@@ -27,12 +27,12 @@ const ProductList: React.FC<Props> = ({
     (currentPage - 1) * productsPerPage,
     currentPage * productsPerPage
   );
-
+ const { getConvertedPrice } = useAppContext();
   const gridClass =
     gridCols === 2 ? "md:grid-cols-2" : gridCols === 3 ? "md:grid-cols-3" : "md:grid-cols-4";
 
   if (viewMode === "list") {
-    const { getConvertedPrice } = useAppContext();
+   
     return (
       <div className="space-y-6">
         {paginated.map((p) => (

@@ -8,7 +8,7 @@ type AppContextType = {
   currency: string;
   setLanguage: (lang: string) => void;
   setCurrency: (cur: string) => void;
-  getConvertedPrice: (priceUSD: number) => string;
+  getConvertedPrice: (price: string | number) => string;
   languages: LanguageOption[];
 };
 
@@ -21,13 +21,24 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const rates: Record<string, number> = { USD: 1, GBP: 0.8, JPY: 145, EUR: 0.9 };
   const symbols: Record<string, string> = { USD: "$", GBP: "£", JPY: "¥", EUR: "€" };
 
-  // Use useMemo to recreate the function when currency changes
+  // Flexible function that accepts string or number
   const getConvertedPrice = useMemo(() => {
-    return (priceUSD: number): string => {
-      const converted = priceUSD * (rates[currency] || 1);
+    return (price: string | number): string => {
+      let num = 0;
+
+      if (typeof price === "string") {
+        // remove currency symbols and commas, parse to float
+        num = parseFloat(price.replace(/[^0-9.-]+/g, ""));
+      } else {
+        num = price;
+      }
+
+      if (isNaN(num)) num = 0; // fallback if parsing fails
+
+      const converted = num * (rates[currency] || 1);
       return `${symbols[currency] || currency} ${converted.toFixed(2)}`;
     };
-  }, [currency]); // Dependencies: recreate when currency changes
+  }, [currency]);
 
   const languages: LanguageOption[] = [
     { code: "en", label: "English", flag: "🇬🇧" },
