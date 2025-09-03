@@ -7,7 +7,7 @@ import SizeGuideModal from "@/components/modals/SizeGuideModal";
 import CartModal from "@/components/modals/CartModal";
 import { cartStore, parsePriceToNumber } from "@/utils/cartStore";
 import { useCartItems } from "@/components/hookes/useCartItems";
-import { useAppContext } from "@/components/context/AppContext";
+import { useAppContext } from "@/components/context/AppContext"; 
 import {
   ProductImage,
   ProductHeader,
@@ -37,7 +37,7 @@ const Page = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const sizes = ["S", "M", "L", "XL"];
-  const { getConvertedPrice } = useAppContext();
+  const { getConvertedPrice } = useAppContext(); // ✅ Correct usage
   const [activeTab, setActiveTab] = useState<
     "description" | "product" | "details" | "reviews" | "shipping"
   >("description");
@@ -50,7 +50,7 @@ const Page = () => {
   const handleAddToCartPopup = () => {
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2000);
-     window.scrollTo({
+    window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
@@ -58,7 +58,7 @@ const Page = () => {
 
   const handleAddToCart = () => {
     if (!product) return;
-    
+
     cartStore.add(
       {
         id: product.id,
@@ -82,12 +82,11 @@ const Page = () => {
   if (!product) {
     return <h1 className="text-center">Product Not Found</h1>;
   }
-
   return (
     <>
       <section className="flex flex-col md:flex-row md:p-8  md:justify-between w-full">
         <ProductImage img={product.img} name={product.name} />
-        
+
         <div className="w-full md:w-[50%] py-4">
           <ProductHeader
             name={product.name}
@@ -95,34 +94,30 @@ const Page = () => {
             setValue={setValue}
             onWriteReview={() => setShowWriteReview(true)}
           />
-          
+
           <CountdownTimer />
-          
+
           <ProductPricing
-            oldPrice={product.oldPrice}
-            newPrice={product.newPrice}
+            oldPrice={parsePriceToNumber(product.oldPrice)}
+            newPrice={parsePriceToNumber(product.newPrice)}
             getConvertedPrice={getConvertedPrice}
-            parsePriceToNumber={parsePriceToNumber}
           />
-          
+
           <SizeSelector
             sizes={sizes}
             selectedSize={selectedSize}
             setSelectedSize={setSelectedSize}
           />
-          
-          <ColorSelector
-            selected={selected}
-            setSelected={setSelected}
-          />
-          
+
+          <ColorSelector selected={selected} setSelected={setSelected} />
+
           <QuantitySelector
             count={count}
             setCount={setCount}
             onAddToCart={handleAddToCart}
             showPopup={showPopup}
           />
-          
+
           <ProductActions onSizeGuide={() => setShowSizeGuide(true)} />
           <ProductInfo />
         </div>

@@ -71,6 +71,7 @@ export const ProductCardItem = ({
       behavior: "smooth",
     });
   };
+  
 
   return (
     <div className="flex flex-col h-full w-full">

@@ -11,6 +11,7 @@ import ViewModeToggle from "./components/ViewModeToggle";
 import SortSelect from "./components/SortSelect";
 import ProductList from "./components/ProductList";
 import { TurningTableCard } from "@/components/sidebar";
+import { useAppContext } from "@/components/context/AppContext";
 import Pagination from "./components/Pagination";
 
 const allProducts: Product[] = [...products, ...productss];
@@ -28,6 +29,7 @@ function PageContent() {
   const param = normalize(decodeURIComponent(rawParam));
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { getConvertedPrice } = useAppContext();
   const [filterOpen, setFilterOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [gridCols, setGridCols] = useState<number>(4);

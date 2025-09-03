@@ -10,10 +10,8 @@ export const metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <AppProvider>
-        <BlogPoster />
-        {children}
-      </AppProvider>
+      <BlogPoster />
+      {children}
     </div>
   );
 }

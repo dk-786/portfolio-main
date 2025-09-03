@@ -15,7 +15,7 @@ type Props = {
 };
 
 const CollectionGrid: React.FC<Props> = ({
-  collectionsArray = collections, // default to imported collections
+  collectionsArray = collections, //
   router,
 }) => {
   return (

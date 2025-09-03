@@ -7,6 +7,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import ClientSwiper from "./ClientSwiper";
 
 const Follow = () => {
+   
   return (
     <div className='p-6  sm:px-12 mb-15'>
          <h2 className="text-3xl font-bold text-center mt-14 md:mt-18 p-2">Follow us on Instagram</h2>

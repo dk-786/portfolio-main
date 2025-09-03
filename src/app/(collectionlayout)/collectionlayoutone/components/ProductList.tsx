@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Product } from "@/types/product";
 import { ProductCardItem } from "@/components/common/Card";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "@/components/context/AppContext";
 
 type Props = {
   products: Product[];
@@ -31,6 +32,7 @@ const ProductList: React.FC<Props> = ({
     gridCols === 2 ? "md:grid-cols-2" : gridCols === 3 ? "md:grid-cols-3" : "md:grid-cols-4";
 
   if (viewMode === "list") {
+    const { getConvertedPrice } = useAppContext();
     return (
       <div className="space-y-6">
         {paginated.map((p) => (
@@ -49,8 +51,12 @@ const ProductList: React.FC<Props> = ({
               <h3 className="text-xl font-semibold mb-2">{p.name}</h3>
               <p className="text-gray-600 mb-4">{p.dicription}</p>
               <div className="flex items-center gap-4">
-                <div className="text-gray-400 line-through">{p.oldPrice}</div>
-                <div className="text-[#a67c00] font-bold text-lg">{p.newPrice}</div>
+             <div className="text-gray-400 line-through">
+  {p.oldPrice ? getConvertedPrice(Number(p.oldPrice)) : null}
+</div>
+<div className="text-[#a67c00] font-bold text-lg">
+  {getConvertedPrice(Number(p.newPrice))}
+</div>
               </div>
               <div className="mt-4">
                 <button

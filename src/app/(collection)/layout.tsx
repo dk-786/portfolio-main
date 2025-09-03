@@ -1,5 +1,4 @@
 import React from "react";
-import { AppProvider } from "@/components/context/AppContext";
 import BlogPoster from "@/components/blog/BlogPoster";
 
 export const metadata = {
@@ -10,10 +9,8 @@ export const metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <AppProvider>
-        <BlogPoster />
-        {children}
-      </AppProvider>
+      <BlogPoster />
+      {children}
     </div>
   );
 }

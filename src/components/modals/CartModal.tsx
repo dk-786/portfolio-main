@@ -4,14 +4,14 @@ import { cartPricing } from "@/utils/constants/constant";
 import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-
+import { useAppContext } from "@/components/context/AppContext";
 
 export type CartItem = {
   cartId: string;
   id: number;
   name: string;
   img: string;
-  price: number;
+  price: number; 
   qty: number;
   size?: string;
   color?: string;
@@ -35,15 +35,14 @@ const CartModal: React.FC<CartModalProps> = ({
   onRemove,
 }) => {
   const router = useRouter();
-  
+  const { getConvertedPrice } = useAppContext(); 
+
   if (!open) return null;
 
-  const subtotal = items.reduce((sum, it) => sum + it.price * it.qty, 0);
-  const shipping = cartPricing.shippingFlat;
-  const taxes = Math.round(subtotal * cartPricing.taxRate * 100) / 100;
-  const total = subtotal + shipping + taxes;
-
-  const format = (n: number) => `${cartPricing.currencySymbol}${n.toFixed(2)}`;
+  const subtotalUSD = items.reduce((sum, it) => sum + it.price * it.qty, 0);
+  const shippingUSD = cartPricing.shippingFlat;
+  const taxesUSD = Math.round(subtotalUSD * cartPricing.taxRate * 100) / 100;
+  const totalUSD = subtotalUSD + shippingUSD + taxesUSD;
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -89,7 +88,10 @@ const CartModal: React.FC<CartModalProps> = ({
                     {it.color && <span>Color: {it.color}</span>}
                   </div>
                 ) : null}
-                <div className="text-sm text-gray-600">{format(it.price)}</div>
+                
+                <div className="text-sm text-gray-600">
+                  {getConvertedPrice(it.price)}
+                </div>
               </div>
               <div className="flex items-center gap-3">
                 <button
@@ -120,29 +122,41 @@ const CartModal: React.FC<CartModalProps> = ({
           <div className="border-t pt-4 space-y-1 text-sm text-gray-700">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>{format(subtotal)}</span>
+              <span>{getConvertedPrice(subtotalUSD)}</span>
             </div>
             <div className="flex justify-between">
               <span>Shipping</span>
-              <span>{format(shipping)}</span>
+              <span>{getConvertedPrice(shippingUSD)}</span>
             </div>
             <div className="flex justify-between">
               <span>Taxes</span>
-              <span>{format(taxes)}</span>
+              <span>{getConvertedPrice(taxesUSD)}</span>
             </div>
             <div className="flex justify-between font-semibold text-black pt-2 text-base">
               <span>Total</span>
-              <span>{format(total)}</span>
+              <span>{getConvertedPrice(totalUSD)}</span>
             </div>
           </div>
         </div>
 
         {/* Actions */}
         <div className="px-6 pb-6 flex items-center justify-center gap-4 border-t pt-4 ">
-          <button className="bg-black text-white px-8 py-2 rounded hover:bg-black/80 cursor-pointer"   onClick={() =>{ onClose(); router.push(`/cart/${items[0]?.cartId}`)}}>
+          <button
+            className="bg-black text-white px-8 py-2 rounded hover:bg-black/80 cursor-pointer"
+            onClick={() => {
+              onClose();
+              router.push(`/cart/${items[0]?.cartId}`);
+            }}
+          >
             View cart
           </button>
-          <button className="bg-black text-white px-8 py-2 rounded hover:bg-black/80 cursor-pointer" onClick={() =>{onClose(); router.push(`/checkout/${items[0]?.cartId}`)}}>
+          <button
+            className="bg-black text-white px-8 py-2 rounded hover:bg-black/80 cursor-pointer"
+            onClick={() => {
+              onClose();
+              router.push(`/checkout/${items[0]?.cartId}`);
+            }}
+          >
             Checkout
           </button>
         </div>
