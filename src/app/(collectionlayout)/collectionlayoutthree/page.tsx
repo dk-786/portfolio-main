@@ -28,7 +28,7 @@ function PageContent() {
   const param = normalize(decodeURIComponent(rawParam));
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [sidebarOpen, setSidebarOpen] = useState(false); // NEW STATE
+  const [sidebarOpen, setSidebarOpen] = useState(false); 
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [gridCols, setGridCols] = useState<number>(4);
   const [sortBy, setSortBy] = useState<string>("relevance");

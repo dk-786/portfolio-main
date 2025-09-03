@@ -862,8 +862,8 @@ export const shopCategories: ShopCategory[] = [
     items: [
       { title: "Collection Layout 01", href: "/collectionlayoutone" },
       { title: "Collection Layout 02", href: "/collectionlayouttwo" },
-      { title: "Collection Layout 03", href: "/collectionlayoutone" },
-      { title: "Collection Layout 04", href: "/collectionlayoutone" },
+      { title: "Collection Layout 03", href: "/collectionlayoutthree" },
+      { title: "Collection Layout 04", href: "/collectionlayoutfour" },
     ],
   },
   {

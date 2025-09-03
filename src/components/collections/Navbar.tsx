@@ -65,8 +65,8 @@ const Navbar = ({ id, priceRange, setPriceRange, variant = "default" }: NavbarPr
     <div
       className={`${
         variant === "sidebar"
-          ? "w-full h-full overflow-y-auto p-6" // 👈 sidebar mode
-          : "w-full md:max-w-[27%] mx-auto p-6 md:p-8" // 👈 default inline mode
+          ? "w-full h-full overflow-y-auto p-6" 
+          : "w-full md:max-w-[27%] mx-auto p-6 md:p-8" 
       }`}
     >
       {variant === "default" && (
