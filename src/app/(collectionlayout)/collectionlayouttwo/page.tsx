@@ -10,9 +10,9 @@ import CollectionGrid from "../components/CollectionGrid";
 import ViewModeToggle from "../components/ViewModeToggle";
 import SortSelect from "../components/SortSelect";
 import ProductList from "../components/ProductList";
-import { TurningTableCard } from "@/components/sidebar";
-import { useAppContext } from "@/components/context/AppContext";
+import { VscSettings } from "react-icons/vsc";
 import Pagination from "../components/Pagination";
+import { TurningTableCard } from "@/components/sidebar";
 
 const allProducts: Product[] = [...products, ...productss];
 
@@ -29,23 +29,16 @@ function PageContent() {
   const param = normalize(decodeURIComponent(rawParam));
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { getConvertedPrice } = useAppContext();
-  const [filterOpen, setFilterOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // NEW STATE
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [gridCols, setGridCols] = useState<number>(4);
   const [sortBy, setSortBy] = useState<string>("relevance");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200]);
   const [loading, setLoading] = useState(false);
-  const [tempPriceRange, setTempPriceRange] = useState<[number, number]>([
-    ...priceRange,
-  ]);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 8;
-  const openFilterModal = () => {
-    setTempPriceRange([...priceRange]);
-    setFilterOpen(true);
-  };
+
   useEffect(() => {
     setLoading(true);
     const t = setTimeout(() => setLoading(false), 700);
@@ -101,30 +94,9 @@ function PageContent() {
     return baseProducts.filter((p) => {
       if (filters.inStock && !p.available) return false;
       if (filters.notAvailable && p.available) return false;
-      if (
-        filters.categories.length &&
-        !filters.categories.includes(p.category!)
-      )
-        return false;
-      if (
-        filters.composition.length &&
-        !filters.composition.includes(p.composition!)
-      )
-        return false;
-      if (
-        filters.property.length &&
-        !(p.properties ?? []).some((pp) => filters.property.includes(pp))
-      )
-        return false;
-      if (filters.brand.length && !filters.brand.includes(p.brand!))
-        return false;
-      if (filters.paperType.length && !filters.paperType.includes(p.paperType!))
-        return false;
-
       const price =
         parseFloat(String(p.newPrice).replace(/[^0-9.-]+/g, "")) || 0;
       if (price < priceRange[0] || price > priceRange[1]) return false;
-
       return true;
     });
   }, [baseProducts, filters, priceRange]);
@@ -155,27 +127,57 @@ function PageContent() {
     }
     return copy;
   }, [filtered, sortBy]);
-  const productCount = sorted.length;
 
   useEffect(() => setCurrentPage(1), [sorted]);
 
   return (
     <>
-      <div className="hidden lg:flex w-full">
-        <Navbar
-          id={rawParam}
-          priceRange={priceRange}
-          setPriceRange={setPriceRange}
-        />
+      {/* Sidebar */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 z-40 flex">
+          {/* Overlay */}
+          <div
+            className="fixed inset-0 bg-black opacity-50"
+            onClick={() => setSidebarOpen(false)}
+          />
 
-        {loading && <Loader />}
-
-        <div className="container flex flex-col px-4 md:px-12">
-          <div className="hidden md:block">
-            <CollectionGrid router={router} />
+          {/* Sidebar Content */}
+          <div className="relative w-96 bg-white shadow-lg h-full p-4 z-50">
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="absolute top-2 right-14 text-black cursor-pointer"
+            >
+              ✕
+            </button>
+            <Navbar
+              id={rawParam}
+              priceRange={priceRange}
+              setPriceRange={setPriceRange}
+              variant="sidebar"
+            />
           </div>
+        </div>
+      )}
 
-          <div className="flex justify-between items-center my-4 md:my-6">
+      <div className="container flex flex-col px-6 md:px-12 mt-16">
+        {/* Desktop grid */}
+        <div className="hidden md:block">
+          <CollectionGrid router={router} />
+        </div>
+
+       <div className="md:hidden">
+         <TurningTableCard />
+       </div>
+
+        {/* Mobile + Desktop Controls */}
+        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between my-4 md:my-6 gap-4">
+          {/* First row: Settings + Grid View */}
+          <div className="flex items-center gap-3">
+            <VscSettings
+              className="border border-gray-400 h-8 w-8 rounded cursor-pointer"
+              onClick={() => setSidebarOpen(true)}
+            />
+
             <ViewModeToggle
               viewMode={viewMode}
               setViewMode={setViewMode}
@@ -183,51 +185,15 @@ function PageContent() {
               setGridCols={setGridCols}
               productCount={sorted.length}
             />
-            <SortSelect sortBy={sortBy} setSortBy={setSortBy} />
           </div>
 
-          <ProductList
-            products={sorted}
-            viewMode={viewMode}
-            gridCols={gridCols}
-            currentPage={currentPage}
-            productsPerPage={productsPerPage}
-            router={router}
-          />
-
-          <Pagination
-            total={sorted.length}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            perPage={productsPerPage}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col w-full px-6 lg:hidden mb-20">
-        <TurningTableCard />
-        <div className="flex w-full items-center justify-between gap-4">
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="bg-gray-200 rounded-sm w-full h-14"
-          >
-            <option value="relevance">Relevance</option>
-            <option value="price_low_high">Price: Low to High</option>
-            <option value="price_high_low">Price: High to Low</option>
-            <option value="name_az">Name: A-Z</option>
-            <option value="name_za">Name: Z-A</option>
-          </select>
-          <button
-            onClick={openFilterModal}
-            className="w-full h-14 rounded-sm font-lg text-white bg-black"
-          >
-            Filter
-          </button>
+          {/* Second row (mobile) or inline (desktop): Sorting */}
+          <div className="flex items-center">
+            <SortSelect sortBy={sortBy} setSortBy={setSortBy} />
+          </div>
         </div>
 
-        <div className="mb-10 border-b py-8 w-full text-gray-600">
-          Showing 1-{productCount} of {productCount} item(s)
-        </div>
+        {loading && <Loader />}
 
         <ProductList
           products={sorted}
@@ -245,30 +211,6 @@ function PageContent() {
           perPage={productsPerPage}
         />
       </div>
-      {/* Mobile Filter Modal */}
-      {filterOpen && (
-        <div className="fixed inset-0 z-50 bg-white overflow-y-auto">
-          <div className="flex justify-between items-center p-4 border-b">
-            <h2 className="text-lg font-semibold">Filters</h2>
-            <button
-              onClick={() => {
-                setPriceRange(tempPriceRange); // Apply filters
-                setFilterOpen(false);
-              }}
-              className="text-white bg-black px-4 py-2 rounded"
-            >
-              OK
-            </button>
-          </div>
-
-          {/* Pass tempPriceRange and setter to Navbar */}
-          <Navbar
-            id={rawParam}
-            priceRange={tempPriceRange}
-            setPriceRange={setTempPriceRange}
-          />
-        </div>
-      )}
     </>
   );
 }

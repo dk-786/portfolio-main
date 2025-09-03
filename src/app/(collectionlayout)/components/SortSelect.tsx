@@ -13,12 +13,12 @@ const SortSelect: React.FC<Props> = ({ sortBy, setSortBy }) => {
       <select
         value={sortBy}
         onChange={(e) => setSortBy(e.target.value)}
-        className="border rounded px-3 py-2 text-sm cursor-pointer"
+        className="border-1 rounded px-2 py-2 text-sm cursor-pointer"
       >
         <option value="relevance">Relevance</option>
         <option value="price_low_high">Price, low to high</option>
         <option value="price_high_low">Price, high to low</option>
-        <option value="name_az">Name, A to Z</option>
+        <option value="name_az">Name, A to Z</option> 
         <option value="name_za">Name, Z to A</option>
       </select>
     </div>

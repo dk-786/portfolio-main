@@ -27,12 +27,15 @@ const ProductList: React.FC<Props> = ({
     (currentPage - 1) * productsPerPage,
     currentPage * productsPerPage
   );
- const { getConvertedPrice } = useAppContext();
+  const { getConvertedPrice } = useAppContext();
   const gridClass =
-    gridCols === 2 ? "md:grid-cols-2" : gridCols === 3 ? "md:grid-cols-3" : "md:grid-cols-4";
+    gridCols === 2
+      ? "md:grid-cols-2"
+      : gridCols === 3
+      ? "md:grid-cols-3"
+      : "md:grid-cols-4";
 
   if (viewMode === "list") {
-   
     return (
       <div className="space-y-6">
         {paginated.map((p) => (
@@ -51,12 +54,12 @@ const ProductList: React.FC<Props> = ({
               <h3 className="text-xl font-semibold mb-2">{p.name}</h3>
               <p className="text-gray-600 mb-4">{p.dicription}</p>
               <div className="flex items-center gap-4">
-             <div className="text-gray-400 line-through">
-  {p.oldPrice ? getConvertedPrice(Number(p.oldPrice)) : null}
-</div>
-<div className="text-[#a67c00] font-bold text-lg">
-  {getConvertedPrice(Number(p.newPrice))}
-</div>
+                <div className="text-gray-400 line-through">
+                  {p.oldPrice ? getConvertedPrice(Number(p.oldPrice)) : null}
+                </div>
+                <div className="text-[#a67c00] font-bold text-lg">
+                  {getConvertedPrice(Number(p.newPrice))}
+                </div>
               </div>
               <div className="mt-4">
                 <button
@@ -76,8 +79,19 @@ const ProductList: React.FC<Props> = ({
   return (
     <div className={`grid grid-cols-1 sm:grid-cols-2 ${gridClass} gap-8`}>
       {paginated.map((p, idx) => (
-        <div key={p.id} className="cursor-pointer" onClick={() => router.push(`/card/${p.id}`)}>
-          <ProductCardItem product={p} isMobile={false} hovered={null} setHovered={() => {}} index={idx} gridCols={gridCols} />
+        <div
+          key={p.id}
+          className="cursor-pointer"
+          onClick={() => router.push(`/card/${p.id}`)}
+        >
+          <ProductCardItem
+            product={p}
+            isMobile={false}
+            hovered={null}
+            setHovered={() => {}}
+            index={idx}
+            gridCols={gridCols}
+          />
         </div>
       ))}
     </div>

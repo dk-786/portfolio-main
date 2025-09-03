@@ -11,17 +11,15 @@ interface NavbarProps {
   id: string;
   priceRange: [number, number];
   setPriceRange: (range: [number, number]) => void;
+  variant?: "default" | "sidebar"; // 👈 new
 }
 
-const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
+const Navbar = ({ id, priceRange, setPriceRange, variant = "default" }: NavbarProps) => {
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
   const collection = collections.find((c) => String(c.id) === id);
-  const allProducts = useMemo(
-    () => [...products, ...productss],
-    []
-  );
+  const allProducts = useMemo(() => [...products, ...productss], []);
 
   const collectionProducts = useMemo(() => {
     if (!collection?.title) return allProducts;
@@ -43,15 +41,12 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
     clearAll,
   } = useFilters(collectionProducts);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   // Sync filters with URL
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams();
-
     Object.entries(filters).forEach(([key, value]) => {
       if (Array.isArray(value) && value.length) {
         params.set(key, value.join(","));
@@ -61,17 +56,24 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
         );
       }
     });
-
     const base = window.location.pathname;
     const qs = params.toString();
     router.replace(qs ? `${base}?${qs}` : base, { scroll: false });
   }, [filters, router]);
 
   return (
-    <div className="w-full md:max-w-[27%] mx-auto p-6 md:p-8">
-      <div className="text-base mb-6 md:text-lg font-bold py-8 border-b hidden md:block">
-        {collection?.title ?? "Home"}
-      </div>
+    <div
+      className={`${
+        variant === "sidebar"
+          ? "w-full h-full overflow-y-auto p-6" // 👈 sidebar mode
+          : "w-full md:max-w-[27%] mx-auto p-6 md:p-8" // 👈 default inline mode
+      }`}
+    >
+      {variant === "default" && (
+        <div className="text-base mb-6 md:text-lg font-bold py-8 border-b hidden md:block">
+          {collection?.title ?? "Home"}
+        </div>
+      )}
 
       <section className="md:col-span-3 space-y-8 w-full">
         <div className="flex justify-between items-center mb-6">
@@ -91,6 +93,7 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
           </div>
         </div>
 
+        {/* Availability */}
         <FilterSection
           title="Availability"
           options={[
@@ -111,6 +114,7 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
           ]}
         />
 
+        {/* Categories */}
         <FilterSection
           title="Categories"
           options={allCategories.map((f) => ({
@@ -122,6 +126,7 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
           }))}
         />
 
+        {/* Composition */}
         <FilterSection
           title="Composition"
           options={allCompositions.map((f) => ({
@@ -133,6 +138,7 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
           }))}
         />
 
+        {/* Price */}
         <div>
           <h3 className="font-medium mb-3">Price</h3>
           <div className="px-2">
@@ -140,6 +146,7 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
           </div>
         </div>
 
+        {/* Property */}
         <FilterSection
           title="Property"
           options={allProperties.map((f) => ({
@@ -151,6 +158,7 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
           }))}
         />
 
+        {/* Brand */}
         <FilterSection
           title="Brand"
           options={allBrands.map((f) => ({
@@ -162,6 +170,7 @@ const Navbar = ({ id, priceRange, setPriceRange }: NavbarProps) => {
           }))}
         />
 
+        {/* Paper Type */}
         <FilterSection
           title="Paper Type"
           options={allPaperTypes.map((f) => ({
