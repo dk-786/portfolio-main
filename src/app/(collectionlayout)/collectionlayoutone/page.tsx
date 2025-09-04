@@ -41,11 +41,16 @@ function PageContent() {
   ]);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const productsPerPage = 8;
+
+  // Different per-page counts
+  const desktopPerPage = 6;
+  const mobilePerPage = 2;
+
   const openFilterModal = () => {
     setTempPriceRange([...priceRange]);
     setFilterOpen(true);
   };
+
   useEffect(() => {
     setLoading(true);
     const t = setTimeout(() => setLoading(false), 700);
@@ -136,14 +141,14 @@ function PageContent() {
         copy.sort(
           (a, b) =>
             parseFloat(String(a.newPrice).replace(/[^0-9.-]+/g, "")) -
-            parseFloat(String(b.newPrice).replace(/[^0-9.-]+/g, ""))
+            parseFloat(String(b.newPrice).replace(/[^0-9.-]+/g, "")),
         );
         break;
       case "price_high_low":
         copy.sort(
           (a, b) =>
             parseFloat(String(b.newPrice).replace(/[^0-9.-]+/g, "")) -
-            parseFloat(String(a.newPrice).replace(/[^0-9.-]+/g, ""))
+            parseFloat(String(a.newPrice).replace(/[^0-9.-]+/g, "")),
         );
         break;
       case "name_az":
@@ -155,12 +160,14 @@ function PageContent() {
     }
     return copy;
   }, [filtered, sortBy]);
+
   const productCount = sorted.length;
 
   useEffect(() => setCurrentPage(1), [sorted]);
 
   return (
     <>
+      {/* 🚀 Desktop View */}
       <div className="hidden lg:flex w-full">
         <Navbar
           id={rawParam}
@@ -191,7 +198,7 @@ function PageContent() {
             viewMode={viewMode}
             gridCols={gridCols}
             currentPage={currentPage}
-            productsPerPage={productsPerPage}
+            productsPerPage={desktopPerPage}
             router={router}
           />
 
@@ -199,11 +206,13 @@ function PageContent() {
             total={sorted.length}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            perPage={productsPerPage}
+            perPage={desktopPerPage}
           />
         </div>
       </div>
-      <div className="flex flex-col w-full px-6 lg:hidden mb-20">
+
+      {/* 📱 Mobile View */}
+      <div className="flex flex-col w-full px-6 lg:hidden mb-20 ">
         <TurningTableCard />
         <div className="flex w-full items-center justify-between gap-4">
           <select
@@ -226,15 +235,17 @@ function PageContent() {
         </div>
 
         <div className="mb-10 border-b py-8 w-full text-gray-600">
-          Showing 1-{productCount} of {productCount} item(s)
+          Showing {(currentPage - 1) * mobilePerPage + 1}–
+          {Math.min(currentPage * mobilePerPage, productCount)} of{" "}
+          {productCount} item(s)
         </div>
 
         <ProductList
           products={sorted}
           viewMode={viewMode}
-          gridCols={gridCols}
+          gridCols={2} 
           currentPage={currentPage}
-          productsPerPage={productsPerPage}
+          productsPerPage={mobilePerPage}
           router={router}
         />
 
@@ -242,9 +253,10 @@ function PageContent() {
           total={sorted.length}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          perPage={productsPerPage}
+          perPage={mobilePerPage}
         />
       </div>
+
       {/* Mobile Filter Modal */}
       {filterOpen && (
         <div className="fixed inset-0 z-50 bg-white overflow-y-auto">
@@ -261,7 +273,6 @@ function PageContent() {
             </button>
           </div>
 
-          {/* Pass tempPriceRange and setter to Navbar */}
           <Navbar
             id={rawParam}
             priceRange={tempPriceRange}

@@ -4,13 +4,13 @@ import { useParams, useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/collections/Navbar";
 import { collections, products, productss } from "@/utils/constants/constant";
 import { Product } from "@/types/product";
-
 import CollectionHeader from "@/components/collections/CollectionHeader";
 import ViewControls from "@/components/collections/ViewControls";
 import ProductListItem from "@/components/collections/ProductListItem";
 import ProductListGrid from "@/components/collections/ProductListGrid";
 import Loader from "@/components/collections/Loader";
 import { TurningTableCard } from "@/components/sidebar";
+import Pagination from "@/components/collections/Pagination";
 
 const allProducts: Product[] = [
   ...(products as Product[]),
@@ -30,7 +30,9 @@ export default function CollectionViewClient() {
   const decoded = decodeURIComponent(rawParam);
   const param = normalize(decoded);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200]);
-  const [tempPriceRange, setTempPriceRange] = useState<[number, number]>([...priceRange]);
+  const [tempPriceRange, setTempPriceRange] = useState<[number, number]>([
+    ...priceRange,
+  ]);
   const searchParams = useSearchParams();
   const router = useRouter();
   const [filterOpen, setFilterOpen] = useState(false);
@@ -38,10 +40,10 @@ export default function CollectionViewClient() {
   const [gridCols, setGridCols] = useState<number>(4);
   const [sortBy, setSortBy] = useState<string>("relevance");
   const [loading, setLoading] = useState(false);
-const openFilterModal = () => {
-  setTempPriceRange([...priceRange]);
-  setFilterOpen(true);
-};
+  const openFilterModal = () => {
+    setTempPriceRange([...priceRange]);
+    setFilterOpen(true);
+  };
   useEffect(() => {
     setLoading(true);
     const t = setTimeout(() => setLoading(false), 700);
@@ -89,6 +91,8 @@ const openFilterModal = () => {
     }),
     [searchParams]
   );
+  const [mobilePage, setMobilePage] = useState(1);
+  const itemsPerPage = 2;
 
   const filtered = useMemo(() => {
     return baseProducts.filter((p) => {
@@ -153,13 +157,18 @@ const openFilterModal = () => {
     }
     return copy;
   }, [filtered, sortBy]);
+  const paginatedMobileProducts = useMemo(() => {
+    const start = (mobilePage - 1) * itemsPerPage;
+    const end = mobilePage * itemsPerPage;
+    return sorted.slice(start, end);
+  }, [sorted, mobilePage]);
 
   const productCount = sorted.length;
 
   return (
     <>
       {/* 🚀 Desktop View (unchanged) */}
-        
+
       <div className="hidden lg:flex w-full">
         <Navbar
           id={rawParam}
@@ -219,7 +228,7 @@ const openFilterModal = () => {
             <option value="name_za">Name: Z-A</option>
           </select>
           <button
-           onClick={openFilterModal}
+            onClick={openFilterModal}
             className="w-full h-14 rounded-sm font-lg text-white bg-black"
           >
             Filter
@@ -231,9 +240,15 @@ const openFilterModal = () => {
         </div>
 
         <div id="product-list">
-          <ProductListGrid products={sorted} gridCols={2} />
+          <ProductListGrid products={paginatedMobileProducts} gridCols={2} />
         </div>
       </div>
+      <Pagination
+        currentPage={mobilePage}
+        totalItems={sorted.length}
+        itemsPerPage={itemsPerPage}
+        onPageChange={setMobilePage}
+      />
 
       {/* Mobile Filter Modal */}
       {filterOpen && (

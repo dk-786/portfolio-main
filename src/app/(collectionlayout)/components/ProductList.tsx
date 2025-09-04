@@ -37,7 +37,7 @@ const ProductList: React.FC<Props> = ({
 
   if (viewMode === "list") {
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 ">
         {paginated.map((p) => (
           <div key={p.id} className="flex gap-6 items-start border-b pb-6">
             <div className="w-64 h-74 bg-gray-100 flex-shrink-0">
@@ -77,7 +77,7 @@ const ProductList: React.FC<Props> = ({
   }
 
   return (
-    <div className={`grid grid-cols-1 sm:grid-cols-2 ${gridClass} gap-8`}>
+    <div className={`grid grid-cols-1 sm:grid-cols-2 ${gridClass} gap-8 mb-12 `}>
       {paginated.map((p, idx) => (
         <div
           key={p.id}

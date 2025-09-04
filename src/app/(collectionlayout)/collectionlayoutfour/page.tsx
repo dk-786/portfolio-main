@@ -10,7 +10,6 @@ import ProductList from "../components/ProductList";
 import { VscSettings } from "react-icons/vsc";
 import Pagination from "../components/Pagination";
 import { TurningTableCard } from "@/components/sidebar";
-import { motion, AnimatePresence } from "framer-motion";
 import { normalize, useCollectionProducts } from "../components/useProducts";
 
 function PageContentGrouped() {
@@ -19,8 +18,6 @@ function PageContentGrouped() {
   const rawParam = String(params?.id ?? "");
   const param = normalize(decodeURIComponent(rawParam));
   const router = useRouter();
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [gridCols, setGridCols] = useState(4);
   const [sortBy, setSortBy] = useState("relevance");
@@ -36,7 +33,8 @@ function PageContentGrouped() {
   const { sorted } = useCollectionProducts(param, filters, priceRange, sortBy);
 
   useEffect(() => {
-    const checkScreen = () => setProductsPerPage(window.innerWidth < 768 ? 2 : 8);
+    const checkScreen = () =>
+      setProductsPerPage(window.innerWidth < 768 ? 2 : 8);
     checkScreen();
     window.addEventListener("resize", checkScreen);
     return () => window.removeEventListener("resize", checkScreen);
@@ -59,40 +57,18 @@ function PageContentGrouped() {
         <TurningTableCard />
       </div>
 
-      <div className="w-full mb-5">
-        <AnimatePresence>
-          {sidebarOpen && (
-            <motion.div
-              key="filter-section"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="overflow-hidden bg-white border-1 p-4 mt-4"
-            >
-              <button
-                onClick={() => setSidebarOpen(false)}
-                className="ml-auto block mb-4 border-1 px-2 py-1 hover:bg-[#be9742c4] cursor-pointer text-gray-700 font-bold"
-              >
-                Close
-              </button>
-              <Navbar
-                id={rawParam}
-                priceRange={priceRange}
-                setPriceRange={setPriceRange}
-                variant="grouped"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div className="w-full mb-5 border-1">
+        <Navbar
+          id={rawParam}
+          priceRange={priceRange}
+          setPriceRange={setPriceRange}
+          variant="grouped"
+        />
       </div>
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-between my-4 md:my-6 gap-4">
         <div className="flex items-center gap-6">
-          <VscSettings
-            className="border border-gray-400 h-8 w-14 rounded cursor-pointer"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          />
+        
           <ViewModeToggle
             viewMode={viewMode}
             setViewMode={setViewMode}
@@ -134,7 +110,9 @@ export default function PageGrouped() {
 }
 
 // Helper to extract filters from search params
-function useCollectionFilters(searchParams: ReturnType<typeof useSearchParams>) {
+function useCollectionFilters(
+  searchParams: ReturnType<typeof useSearchParams>
+) {
   const parseList = (value: string | null) =>
     value
       ? value

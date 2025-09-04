@@ -90,7 +90,7 @@ const NavbarDropdown = () => {
                               </div>
                               <div className="flex-1">
                                 <h5 className="text-1xl font-medium">
-                                  {p.name}
+                                  {p.category}
                                 </h5>
                                 <div className="flex text-yellow-500 mt-1 text-xs">
                                   {[...Array(5)].map((_, i) => (

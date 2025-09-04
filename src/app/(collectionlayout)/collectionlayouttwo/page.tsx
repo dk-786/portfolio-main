@@ -1,10 +1,8 @@
 "use client";
-import React, { useState, useMemo, useEffect, Suspense } from "react";
-import { useParams, useSearchParams, useRouter } from "next/navigation";
+import React, { useState, useEffect, Suspense } from "react";
+import { useParams, useRouter } from "next/navigation";
 import Navbar from "@/components/collections/Navbar";
 import Loader from "@/components/collections/Loader";
-import { collections, products, productss } from "@/utils/constants/constant";
-import { Product } from "@/types/product";
 import CollectionGrid from "../components/CollectionGrid";
 import ViewModeToggle from "../components/ViewModeToggle";
 import SortSelect from "../components/SortSelect";
@@ -12,171 +10,104 @@ import ProductList from "../components/ProductList";
 import { VscSettings } from "react-icons/vsc";
 import Pagination from "../components/Pagination";
 import { TurningTableCard } from "@/components/sidebar";
-
-const allProducts: Product[] = [...products, ...productss];
-
-function normalize(s: string) {
-  return String(s ?? "")
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, "-");
+import { motion, AnimatePresence } from "framer-motion";
+import { normalize, useCollectionProducts } from "../components/useProducts";
+interface Filters {
+  availability: {
+    inStock: boolean;
+    notAvailable: boolean;
+  };
+  categories: string[];
+  composition: string[];
+  property: string[];
+  brand: string[];
+  paperType: string[];
 }
-
 function PageContent() {
   const params = useParams();
   const rawParam = String(params?.id ?? "");
   const param = normalize(decodeURIComponent(rawParam));
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const [sidebarOpen, setSidebarOpen] = useState(false); // NEW STATE
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [gridCols, setGridCols] = useState<number>(4);
-  const [sortBy, setSortBy] = useState<string>("relevance");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200]);
-  const [loading, setLoading] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const productsPerPage = 8;
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [gridCols, setGridCols] = useState(4);
+  const [sortBy, setSortBy] = useState("relevance");
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200]);
+  const [filters, setFilters] = useState<Filters | null>(null);
+
+  const [loading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(8);
 
   useEffect(() => {
-    setLoading(true);
-    const t = setTimeout(() => setLoading(false), 700);
-    return () => clearTimeout(t);
-  }, [priceRange]);
+    const checkScreen = () =>
+      setProductsPerPage(window.innerWidth < 768 ? 2 : 8);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
 
-  const collection = useMemo(
-    () =>
-      collections.find((c) => {
-        const idNormalized = normalize(String(c.id));
-        const titleNormalized = normalize(String(c.title));
-        return idNormalized === param || titleNormalized === param;
-      }),
-    [param]
-  );
-
-  const baseProducts = useMemo(() => {
-    if (param === "all" || !param) return allProducts;
-    if (collection) {
-      const idNorm = normalize(String(collection.id));
-      const titleNorm = normalize(String(collection.title));
-      return allProducts.filter((p) => {
-        const cat = normalize(String(p.category ?? ""));
-        return cat === idNorm || cat === titleNorm;
-      });
-    }
-    const filtered = allProducts.filter(
-      (p) => normalize(String(p.category ?? "")) === param
-    );
-    return filtered.length > 0 ? filtered : allProducts;
-  }, [param, collection]);
-
-  const filters = useMemo(() => {
-    const parseList = (value: string | null) =>
-      value
-        ? value
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean)
-        : [];
-    return {
-      inStock: searchParams.get("inStock") === "true",
-      notAvailable: searchParams.get("notAvailable") === "true",
-      categories: parseList(searchParams.get("categories")),
-      composition: parseList(searchParams.get("composition")),
-      property: parseList(searchParams.get("property")),
-      brand: parseList(searchParams.get("brand")),
-      paperType: parseList(searchParams.get("paperType")),
-    };
-  }, [searchParams]);
-
-  const filtered = useMemo(() => {
-    return baseProducts.filter((p) => {
-      if (filters.inStock && !p.available) return false;
-      if (filters.notAvailable && p.available) return false;
-      const price =
-        parseFloat(String(p.newPrice).replace(/[^0-9.-]+/g, "")) || 0;
-      if (price < priceRange[0] || price > priceRange[1]) return false;
-      return true;
-    });
-  }, [baseProducts, filters, priceRange]);
-
-  const sorted = useMemo(() => {
-    const copy = [...filtered];
-    switch (sortBy) {
-      case "price_low_high":
-        copy.sort(
-          (a, b) =>
-            parseFloat(String(a.newPrice).replace(/[^0-9.-]+/g, "")) -
-            parseFloat(String(b.newPrice).replace(/[^0-9.-]+/g, ""))
-        );
-        break;
-      case "price_high_low":
-        copy.sort(
-          (a, b) =>
-            parseFloat(String(b.newPrice).replace(/[^0-9.-]+/g, "")) -
-            parseFloat(String(a.newPrice).replace(/[^0-9.-]+/g, ""))
-        );
-        break;
-      case "name_az":
-        copy.sort((a, b) => String(a.name).localeCompare(String(b.name)));
-        break;
-      case "name_za":
-        copy.sort((a, b) => String(b.name).localeCompare(String(a.name)));
-        break;
-    }
-    return copy;
-  }, [filtered, sortBy]);
+  const { sorted } = useCollectionProducts(param, filters, priceRange, sortBy);
 
   useEffect(() => setCurrentPage(1), [sorted]);
 
   return (
     <>
-      {/* Sidebar */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 z-40 flex">
-          {/* Overlay */}
-          <div
-            className="fixed inset-0 bg-black opacity-50"
-            onClick={() => setSidebarOpen(false)}
-          />
-
-          {/* Sidebar Content */}
-          <div className="relative w-96 bg-white shadow-lg h-full p-4 z-50">
-            <button
+      <AnimatePresence>
+        {sidebarOpen && (
+          <div className="fixed inset-0 z-40 flex">
+            {/* Overlay */}
+            <motion.div
+              className="fixed inset-0 bg-black opacity-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
               onClick={() => setSidebarOpen(false)}
-              className="absolute top-2 right-14 text-black cursor-pointer"
-            >
-              ✕
-            </button>
-            <Navbar
-              id={rawParam}
-              priceRange={priceRange}
-              setPriceRange={setPriceRange}
-              variant="sidebar"
             />
+            {/* Sidebar Content */}
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", stiffness: 80, damping: 20 }}
+              className="relative w-96 bg-white shadow-lg h-full p-4 z-50"
+            >
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="absolute top-2 right-14 text-black cursor-pointer"
+              >
+                ✕
+              </button>
+              <Navbar
+                id={rawParam}
+                priceRange={priceRange}
+                setPriceRange={setPriceRange}
+                variant="sidebar"
+                onFiltersChange={setFilters}
+              />
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
-      <div className="container flex flex-col px-6 md:px-12 mt-16">
+      <div className="container flex flex-col px-6 md:px-12 mt-16 max-w-full justify-center">
         {/* Desktop grid */}
         <div className="hidden md:block">
           <CollectionGrid router={router} />
         </div>
 
-       <div className="md:hidden">
-         <TurningTableCard />
-       </div>
+        <div className="md:hidden">
+          <TurningTableCard />
+        </div>
 
-        {/* Mobile + Desktop Controls */}
-        <div className="flex flex-col  md:flex-row md:items-center md:justify-between my-4 md:my-6 gap-4">
-          {/* First row: Settings + Grid View */}
+        {/* Controls */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between my-4 md:my-6 gap-4">
           <div className="flex items-center gap-6">
             <VscSettings
               className="border border-gray-400 h-8 w-14 rounded cursor-pointer"
               onClick={() => setSidebarOpen(true)}
             />
-
             <ViewModeToggle
               viewMode={viewMode}
               setViewMode={setViewMode}
@@ -186,10 +117,7 @@ function PageContent() {
             />
           </div>
 
-          {/* Second row (mobile) or inline (desktop): Sorting */}
-          <div className="flex items-center">
-            <SortSelect sortBy={sortBy} setSortBy={setSortBy} />
-          </div>
+          <SortSelect sortBy={sortBy} setSortBy={setSortBy} />
         </div>
 
         {loading && <Loader />}
