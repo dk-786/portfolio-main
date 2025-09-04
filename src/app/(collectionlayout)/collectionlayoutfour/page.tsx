@@ -7,7 +7,6 @@ import CollectionGrid from "../components/CollectionGrid";
 import ViewModeToggle from "../components/ViewModeToggle";
 import SortSelect from "../components/SortSelect";
 import ProductList from "../components/ProductList";
-import { VscSettings } from "react-icons/vsc";
 import Pagination from "../components/Pagination";
 import { TurningTableCard } from "@/components/sidebar";
 import { normalize, useCollectionProducts } from "../components/useProducts";

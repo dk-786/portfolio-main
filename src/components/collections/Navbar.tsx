@@ -7,7 +7,6 @@ import PriceRangeFilter from "./PriceRangeFilter";
 import FilterSection from "./FilterSection";
 import { useFilters } from "./useFilters";
 import { TurningTableCard } from "@/components/sidebar";
-
 interface Filters {
   availability: {
     inStock: boolean;
@@ -19,7 +18,6 @@ interface Filters {
   brand: string[];
   paperType: string[];
 }
-
 interface NavbarProps {
   id: string;
   priceRange: [number, number];
@@ -27,8 +25,6 @@ interface NavbarProps {
   variant?: "default" | "sidebar" | "grouped";
   onFiltersChange?: (filters: Filters) => void;
 }
-
-
 const Navbar = ({
   id,
   priceRange,
@@ -64,8 +60,6 @@ const Navbar = ({
       onFiltersChange(filters);
     }
   }, [filters, onFiltersChange]);
-
-  // Sync filters with URL (optional, for deep links)
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams();
@@ -80,7 +74,6 @@ const Navbar = ({
     const qs = params.toString();
     router.replace(qs ? `${base}?${qs}` : base, { scroll: false });
   }, [filters, router]);
-
   return (
     <div
       className={`${
@@ -104,7 +97,6 @@ const Navbar = ({
           Clear All
         </button>
       </div>
-
       <section
         className={`w-full space-y-8 ${
           variant === "grouped"
@@ -133,7 +125,6 @@ const Navbar = ({
             ]}
           />
         </div>
-
         <div>
           <FilterSection
             title="Categories"
@@ -146,7 +137,6 @@ const Navbar = ({
             }))}
           />
         </div>
-
         <div>
           <FilterSection
             title="Composition"
@@ -192,6 +182,8 @@ const Navbar = ({
               onClick: () => handleToggleArray("brand", f),
             }))}
           />
+
+          
         </div>
 
         <div>
@@ -206,10 +198,7 @@ const Navbar = ({
             }))}
           />
         </div>
-
-        
       </section>
-
       {variant === "default" && <TurningTableCard />}
     </div>
   );
