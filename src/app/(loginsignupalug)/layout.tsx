@@ -2,7 +2,7 @@ import React from "react";
 import BlogPoster from "@/components/blog/BlogPoster";
 
 export const metadata = {
-  title: "My Next.js App",
+  title: "login-signup",
   description: "Generated with Next.js",
 };
 

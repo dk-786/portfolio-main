@@ -1,16 +1,16 @@
 "use client";
 import React, { useState, useMemo, useEffect, Suspense } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
-import Navbar from "@/components/collections/Navbar";
+import Navbar from "../components/Navbar";
 import Loader from "@/components/collections/Loader";
 import { collections, products, productss } from "@/utils/constants/constant";
 import { Product } from "@/types/product";
-import CollectionGrid from "../components/CollectionGrid";
-import ViewModeToggle from "../components/ViewModeToggle";
-import SortSelect from "../components/SortSelect";
-import ProductList from "../components/ProductList";
+import CollectionGrid from "@/app/(collectionlayout)/components/CollectionGrid";
+import ViewModeToggle from "@/app/(collectionlayout)/components//ViewModeToggle";
+import SortSelect from "@/app/(collectionlayout)/components/SortSelect";
+import ProductList from "@/app/(collectionlayout)/components/ProductList";
 import { TurningTableCard } from "@/components/sidebar";
-import Pagination from "../components/Pagination";
+import Pagination from "@/app/(collectionlayout)/components/Pagination";
 
 const allProducts: Product[] = [...products, ...productss];
 

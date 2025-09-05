@@ -1,7 +1,7 @@
 import React from "react";
 
 export const metadata = {
-  title: "My Next.js App",
+  title: "home",
   description: "Generated with Next.js",
 };
 

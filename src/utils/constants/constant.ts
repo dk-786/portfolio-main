@@ -852,6 +852,14 @@ export interface ShopCategory {
   items: { title: string; href: string }[];
 }
 
+export const categories = [
+  { title: "Furniture", sub: ["Lighting Lamp", "Decor Art"] },
+  { title: "Chairs", sub: ["Artisan Appeal", "Boho Bliss"] },
+  { title: "Sofas" },
+  { title: "Construction" },
+];
+
+
 export const shopCategories: ShopCategory[] = [
   {
     title: "Collection Layout",
@@ -865,10 +873,10 @@ export const shopCategories: ShopCategory[] = [
   {
     title: "Product Types",
     items: [
-      { title: "Product Type 01", href: "/shop/products/type-01" },
-      { title: "Product Type 02", href: "/shop/products/type-02" },
-      { title: "Product Type 03", href: "/shop/products/type-03" },
-      { title: "Product Type 04", href: "/shop/products/type-04" },
+      { title: "Product Type 01", href: "/productlayoutone"},
+      { title: "Product Type 02", href: "/productlayoutone"},
+      { title: "Product Type 03", href: "/productlayoutone"},
+      { title: "Product Type 04", href: "/productlayoutone"},
     ],
   },
   {

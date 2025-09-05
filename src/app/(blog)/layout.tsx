@@ -4,7 +4,7 @@ import { popularArticles, recentArticles } from "@/utils/constants/constant";
 import { BlogSidebar } from "@/components/blog";
 
 export const metadata = {
-  title: "My Next.js App",
+  title: "blog",
   description: "Generated with Next.js",
 };
 

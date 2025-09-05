@@ -3,7 +3,7 @@ import { AppProvider } from "@/components/context/AppContext";
 import BlogPoster from "@/components/blog/BlogPoster";
 
 export const metadata = {
-  title: "My Next.js App",
+  title: "checkout",
   description: "Generated with Next.js",
 };
 

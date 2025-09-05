@@ -6,13 +6,7 @@ import { TurningTableCard } from "@/components/sidebar";
 import { useRouter } from "next/navigation";
 import { collections } from "@/utils/constants/constant";
 import { categoriess } from "@/utils/constants/constant";
-
-const categories = [
-  { title: "Furniture", sub: ["Lighting Lamp", "Decor Art"] },
-  { title: "Chairs", sub: ["Artisan Appeal", "Boho Bliss"] },
-  { title: "Sofas" },
-  { title: "Construction" },
-];
+import { categories } from "@/utils/constants/constant";
 
 interface Article {
   id: number;
