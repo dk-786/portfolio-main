@@ -418,43 +418,42 @@ export const productss = [
   },
 ];
 
-
 export const posters = [
   {
     id: 1,
     src: "/images/poster.jpg",
     alt: "Poster 1",
-    price: "21$"
+    price: "21$",
   },
   {
     id: 2,
     src: "/images/poster1.jpg",
     alt: "Poster 2",
-    price: "81$"
+    price: "81$",
   },
   {
     id: 3,
     src: "/images/patti.webp",
     alt: "Poster 3",
-    price: "91$"
+    price: "91$",
   },
   {
     id: 4,
     src: "/images/chair3.jpg",
     alt: "Poster 4",
-    price: "27$"
+    price: "27$",
   },
   {
     id: 5,
     src: "/images/sofa.webp",
     alt: "Poster 5",
-    price: "215$"
+    price: "215$",
   },
   {
     id: 6,
     src: "/images/banner.jpg",
     alt: "Poster 6",
-    price: "24$"
+    price: "24$",
   },
 ];
 
@@ -502,8 +501,6 @@ export const socialMediaLinks = [
     color: "hover:text-pink-500",
   },
 ];
-
-
 
 export const features = [
   {
@@ -726,7 +723,6 @@ export const follow = [
   { id: 6, img: "/images/i6.jpg", title: "Boho Bliss" },
 ];
 
-
 // footerData.js
 export const footerLinks = {
   customerServices: [
@@ -892,8 +888,14 @@ export const shopCategories: ShopCategory[] = [
       { title: "Layout 02 - Left thumb", href: "/shop/products/layout-02" },
       { title: "Layout 03 - Right thumb", href: "/shop/products/layout-03" },
       { title: "Layout 04 - No thumb", href: "/shop/products/layout-04" },
-      { title: "Layout 05 - No thumb center", href: "/shop/products/layout-05" },
-      { title: "Layout 06 - No thumb fullwidth", href: "/shop/products/layout-06" },
+      {
+        title: "Layout 05 - No thumb center",
+        href: "/shop/products/layout-05",
+      },
+      {
+        title: "Layout 06 - No thumb fullwidth",
+        href: "/shop/products/layout-06",
+      },
       { title: "Layout 07 - Gallery", href: "/shop/products/layout-07" },
     ],
   },
@@ -901,9 +903,21 @@ export const shopCategories: ShopCategory[] = [
 
 // Popular products
 export const productsss = [
-  { id: 12, name: "Product 12", img: "/p12.jpg", newPrice: "$99", oldPrice: "$120" },
+  {
+    id: 12,
+    name: "Product 12",
+    img: "/p12.jpg",
+    newPrice: "$99",
+    oldPrice: "$120",
+  },
   { id: 13, name: "Product 13", img: "/p13.jpg", newPrice: "$89" },
-  { id: 14, name: "Product 14", img: "/p14.jpg", newPrice: "$79", oldPrice: "$99" },
+  {
+    id: 14,
+    name: "Product 14",
+    img: "/p14.jpg",
+    newPrice: "$79",
+    oldPrice: "$99",
+  },
 ];
 export const collections = [
   { id: 1, img: "/images/i1.jpg", title: "Artisan Appeal" },
@@ -912,7 +926,32 @@ export const collections = [
   { id: 4, img: "/images/i4.jpg", title: "Chairs" },
   { id: 5, img: "/images/i5.jpg", title: "Furniture" },
   { id: 6, img: "/images/i6.jpg", title: "Lighting Lamp" },
+  { id: 7, img: "/images/i5.jpg", title: "Sofas" },
+  { id: 8, img: "/images/i6.jpg", title: "Construction" },
 ];
+
+export const categoriess = [
+  {
+    title: "Category",
+    sub: [
+      {
+        id: 1,
+        title: "sub category 1",
+        img: "/images/i5.jpg",
+        description:
+          "This is a dummy description created for testing purposes only, containing exactly twenty words to validate formatting and structure correctly.",
+      },
+      {
+        id: 2,
+        title: "sub category 2",
+        img: "/images/i6.jpg",
+        description:
+          "Here is another dummy description for demonstration purposes, still ensuring that it contains exactly twenty words to remain consistent.",
+      },
+    ],
+  },
+];
+
 
 export const sliderData = [
   {
@@ -999,20 +1038,33 @@ export const sliderData = [
   },
 ];
 
-
-
 export const sameCategory = [
   { id: 1, title: "At risus pretium urna tortor metus fringilla" },
-  { id: 2, title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum" },
-  { id: 3, title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum" },
+  {
+    id: 2,
+    title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum",
+  },
+  {
+    id: 3,
+    title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum",
+  },
   { id: 4, title: "Morbi condimentum molestie Nam enim odio sodales" },
-  { id: 5, title: "Turpis at eleifend leo mi elit Aenean porta ac sed faucibus" },
+  {
+    id: 5,
+    title: "Turpis at eleifend leo mi elit Aenean porta ac sed faucibus",
+  },
 ];
 
 export const relatedTags = [
   { id: 1, title: "Morbi condimentum molestie Nam enim odio sodales" },
-  { id: 2, title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum" },
-  { id: 3, title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum" },
+  {
+    id: 2,
+    title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum",
+  },
+  {
+    id: 3,
+    title: "Urna pretium elit mauris cursus Curabitur at elit Vestibulum",
+  },
   { id: 4, title: "Ipsum cursus vestibulum at interdum Vivamus" },
   { id: 5, title: "At risus pretium urna tortor metus fringilla" },
 ];
@@ -1023,32 +1075,32 @@ export const popularArticles = [
     id: 1,
     img: "/images/b-2.jpg",
     title: "Modern Furniture Design Trends for 2024",
-    date: "Dec 15, 2024"
+    date: "Dec 15, 2024",
   },
   {
     id: 2,
     img: "/images/b-3.jpg",
     title: "Sustainable Materials in Home Decor",
-    date: "Dec 12, 2024"
+    date: "Dec 12, 2024",
   },
   {
     id: 3,
     img: "/images/b-4.jpg",
     title: "Minimalist Living Room Ideas",
-    date: "Dec 10, 2024"
+    date: "Dec 10, 2024",
   },
   {
     id: 4,
     img: "/images/b-6.jpg",
     title: "Choosing the Perfect Dining Table",
-    date: "Dec 8, 2024"
+    date: "Dec 8, 2024",
   },
   {
     id: 5,
     img: "/images/b-7.jpg",
     title: "Lighting Solutions for Small Spaces",
-    date: "Dec 5, 2024"
-  }
+    date: "Dec 5, 2024",
+  },
 ];
 
 // Recent Articles for sidebar
@@ -1057,32 +1109,32 @@ export const recentArticles = [
     id: 6,
     img: "/images/b-8.jpg",
     title: "Kitchen Organization Tips and Tricks",
-    date: "Dec 18, 2024"
+    date: "Dec 18, 2024",
   },
   {
     id: 7,
     img: "/images/b-9.jpg",
     title: "Bedroom Furniture Essentials",
-    date: "Dec 16, 2024"
+    date: "Dec 16, 2024",
   },
   {
     id: 8,
     img: "/images/i1.jpg",
     title: "Outdoor Furniture Maintenance Guide",
-    date: "Dec 14, 2024"
+    date: "Dec 14, 2024",
   },
   {
     id: 9,
     img: "/images/i2.jpg",
     title: "Color Psychology in Interior Design",
-    date: "Dec 12, 2024"
+    date: "Dec 12, 2024",
   },
   {
     id: 10,
     img: "/images/i3.jpg",
     title: "Smart Home Integration with Furniture",
-    date: "Dec 10, 2024"
-  }
+    date: "Dec 10, 2024",
+  },
 ];
 export interface ChairItem {
   id: number;
@@ -1167,4 +1219,3 @@ export const shopByCategoryData = [
     colSpan: "col-span-2 row-span-6 col-start-5 row-start-4",
   },
 ];
-

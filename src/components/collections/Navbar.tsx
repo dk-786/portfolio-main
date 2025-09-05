@@ -1,4 +1,3 @@
-// Navbar.tsx
 "use client";
 import React, { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
@@ -40,7 +39,6 @@ const Navbar = ({
     const matched = allProducts.filter((p) => p.category === collection.title);
     return matched.length ? matched : allProducts;
   }, [collection, allProducts]);
-
   const {
     filters,
     counts,
@@ -53,8 +51,6 @@ const Navbar = ({
     toggleAvailability,
     clearAll,
   } = useFilters(collectionProducts);
-
-  // ✅ Send filters back to PageContent
   useEffect(() => {
     if (onFiltersChange) {
       onFiltersChange(filters);
@@ -87,7 +83,6 @@ const Navbar = ({
           {collection?.title ?? "Home"}
         </div>
       )}
-
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">Filter By</h2>
         <button
@@ -156,8 +151,6 @@ const Navbar = ({
             <PriceRangeFilter range={priceRange} setRange={setPriceRange} />
           </div>
         </div>
-
-        {/* Second row */}
         <div>
           <FilterSection
             title="Property"
@@ -170,7 +163,6 @@ const Navbar = ({
             }))}
           />
         </div>
-
         <div>
           <FilterSection
             title="Brand"
@@ -182,10 +174,7 @@ const Navbar = ({
               onClick: () => handleToggleArray("brand", f),
             }))}
           />
-
-          
         </div>
-
         <div>
           <FilterSection
             title="Paper Type"
@@ -203,5 +192,4 @@ const Navbar = ({
     </div>
   );
 };
-
 export default Navbar;

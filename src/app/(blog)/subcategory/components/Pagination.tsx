@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 type Props = {
   total: number;
@@ -8,34 +8,30 @@ type Props = {
   perPage: number;
 };
 
-const Pagination: React.FC<Props> = ({
-  total,
-  currentPage,
-  setCurrentPage,
-  perPage,
-}) => {
+const Pagination: React.FC<Props> = ({ total, currentPage, setCurrentPage, perPage }) => {
   const totalPages = Math.max(1, Math.ceil(total / perPage));
 
-  if (totalPages <= 1) return null;
+ 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
+
+  if (totalPages <= 1) return null; 
 
   const getVisiblePages = () => {
     const pages: number[] = [];
     const maxVisible = 4;
 
     if (totalPages <= maxVisible) {
-      // show all pages if less than 4
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
       if (currentPage <= 2) {
-        // show first 4 pages
         pages.push(1, 2, 3, 4);
       } else if (currentPage >= totalPages - 1) {
-        // show last 4 pages
         pages.push(totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
       } else {
-        // show current in the middle
         pages.push(
           currentPage - 1,
           currentPage,
@@ -51,7 +47,7 @@ const Pagination: React.FC<Props> = ({
   const visiblePages = getVisiblePages();
 
   return (
-    <div className="flex justify-center md:justify-end my-5">
+    <div className="flex justify-center md:justify-end my-10">
       <div className="flex items-center gap-2">
         {/* Prev */}
         <button

@@ -1,12 +1,9 @@
-// Blogmain.tsx
 "use client";
-
 import React from "react";
 import { Blogmain1 } from "@/utils/constants/constant";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ClientSwiper from "./ClientSwiper";
-// Correctly import SwiperSlide from swiper/react
 import { SwiperSlide } from "swiper/react";
 
 const Blogmain = () => {

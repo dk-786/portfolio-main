@@ -93,6 +93,9 @@ export default function CollectionViewClient() {
   );
   const [mobilePage, setMobilePage] = useState(1);
   const itemsPerPage = 2;
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [mobilePage]);
 
   const filtered = useMemo(() => {
     return baseProducts.filter((p) => {
@@ -202,16 +205,23 @@ export default function CollectionViewClient() {
                 <ProductListGrid products={sorted} gridCols={gridCols} />
               )}
             </div>
-
-            <div className="mt-6 border-t pt-4 text-sm text-gray-600 mb-20">
-              Showing 1-{productCount} of {productCount} item(s)
-            </div>
+            <section className="flex py-10 border-t mt-10 justify-between">
+              <div className=" flex  items-center text-sm text-gray-600 mb-20">
+                Showing 1-{productCount} of {productCount} item(s)
+              </div>
+              <Pagination
+                currentPage={mobilePage}
+                totalItems={sorted.length}
+                itemsPerPage={itemsPerPage}
+                onPageChange={setMobilePage}
+              />
+            </section>
           </div>
         </div>
       </div>
 
       {/* Mobile view */}
-      <div className="flex flex-col w-full px-6 lg:hidden mb-20">
+      <div className="flex flex-col w-full px-6 lg:hidden mb-10">
         <TurningTableCard />
         <CollectionHeader collection={collection} rawParam={rawParam} />
 
@@ -239,16 +249,18 @@ export default function CollectionViewClient() {
           Showing 1-{productCount} of {productCount} item(s)
         </div>
 
-        <div id="product-list">
+        <div id="product-list ">
           <ProductListGrid products={paginatedMobileProducts} gridCols={2} />
         </div>
+        <div className="mt-10">
+          <Pagination
+            currentPage={mobilePage}
+            totalItems={sorted.length}
+            itemsPerPage={itemsPerPage}
+            onPageChange={setMobilePage}
+          />
+        </div>
       </div>
-      <Pagination
-        currentPage={mobilePage}
-        totalItems={sorted.length}
-        itemsPerPage={itemsPerPage}
-        onPageChange={setMobilePage}
-      />
 
       {/* Mobile Filter Modal */}
       {filterOpen && (

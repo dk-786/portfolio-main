@@ -46,6 +46,15 @@ function PageContent() {
   const desktopPerPage = 6;
   const mobilePerPage = 2;
 
+  const slides = Array.isArray(allProducts) ? allProducts.filter(Boolean) : [];
+  const startIndex = (currentPage - 1) * desktopPerPage;
+  const paginatedSlides = slides.slice(startIndex, startIndex + desktopPerPage);
+
+  // calculate summary
+  const total = slides.length;
+  const startItem = total === 0 ? 0 : startIndex + 1;
+  const endItem = Math.min(startIndex + desktopPerPage, total);
+
   const openFilterModal = () => {
     setTempPriceRange([...priceRange]);
     setFilterOpen(true);
@@ -141,14 +150,14 @@ function PageContent() {
         copy.sort(
           (a, b) =>
             parseFloat(String(a.newPrice).replace(/[^0-9.-]+/g, "")) -
-            parseFloat(String(b.newPrice).replace(/[^0-9.-]+/g, "")),
+            parseFloat(String(b.newPrice).replace(/[^0-9.-]+/g, ""))
         );
         break;
       case "price_high_low":
         copy.sort(
           (a, b) =>
             parseFloat(String(b.newPrice).replace(/[^0-9.-]+/g, "")) -
-            parseFloat(String(a.newPrice).replace(/[^0-9.-]+/g, "")),
+            parseFloat(String(a.newPrice).replace(/[^0-9.-]+/g, ""))
         );
         break;
       case "name_az":
@@ -201,6 +210,10 @@ function PageContent() {
             productsPerPage={desktopPerPage}
             router={router}
           />
+          <section className="flex  border-t mt-10 justify-between">
+              <p className=" flex  items-center text-sm text-gray-600 ">
+            Showing {startItem} - {endItem} of {total} items
+          </p>
 
           <Pagination
             total={sorted.length}
@@ -208,6 +221,7 @@ function PageContent() {
             setCurrentPage={setCurrentPage}
             perPage={desktopPerPage}
           />
+          </section>
         </div>
       </div>
 
@@ -243,7 +257,7 @@ function PageContent() {
         <ProductList
           products={sorted}
           viewMode={viewMode}
-          gridCols={2} 
+          gridCols={2}
           currentPage={currentPage}
           productsPerPage={mobilePerPage}
           router={router}

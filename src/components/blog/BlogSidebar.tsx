@@ -5,16 +5,13 @@ import { PopularArticles, RecentArticles } from "@/components/articles";
 import { TurningTableCard } from "@/components/sidebar";
 import { useRouter } from "next/navigation";
 import { collections } from "@/utils/constants/constant";
+import { categoriess } from "@/utils/constants/constant";
 
 const categories = [
   { title: "Furniture", sub: ["Lighting Lamp", "Decor Art"] },
   { title: "Chairs", sub: ["Artisan Appeal", "Boho Bliss"] },
   { title: "Sofas" },
   { title: "Construction" },
-];
-
-const categoriess = [
-  { title: "Category 1", sub: ["Sub Category 1", "Sub Category 2"] },
 ];
 
 interface Article {
@@ -47,14 +44,28 @@ const BlogSidebar = ({ popularArticles, recentArticles }: BlogSidebarProps) => {
     );
 
   return (
-    <aside className="w-full md:w-80 lg:w-90 md:pr-6 ">
+    <aside className="w-full md:max-w-[27%] mx-auto ">
       <h1 className="text-base md:text-lg font-bold mb-4">Home</h1>
       <ul className="space-y-3 md:space-y-4 pt-4 md:pt-6 pb-4 md:pb-6 border-b">
         {categories.map((cat, i) => (
           <li key={i}>
             <button
-              onClick={() => toggleCategory(i)}
-              className="flex items-center justify-between w-full text-sm md:text-base font-medium text-gray-500 hover:text-[#ba933e]"
+              onClick={() => {
+                if (!cat.sub) {
+                  // Directly navigate if no subcategories
+                  const item = collections.find(
+                    (col) => col.title === cat.title
+                  );
+                  if (item) {
+                    router.push(`/collection/${item.id}`);
+                  } else {
+                    router.push(`/collection/${encodeURIComponent(cat.title)}`);
+                  }
+                } else {
+                  toggleCategory(i);
+                }
+              }}
+              className="flex items-center cursor-pointer justify-between w-full text-sm md:text-base font-medium text-gray-500 hover:text-[#ba933e]"
             >
               {cat.title}
               {cat.sub && (
@@ -115,11 +126,9 @@ const BlogSidebar = ({ popularArticles, recentArticles }: BlogSidebarProps) => {
                   <li
                     key={j}
                     className="text-gray-500 hover:text-[#ba933e] cursor-pointer text-sm"
-                    onClick={() =>
-                      router.push(`/collections/${encodeURIComponent(s)}`)
-                    }
+                    onClick={() => router.push(`/subcategory/${s.id}`)}
                   >
-                    {s}
+                    {s.title}
                   </li>
                 ))}
               </ul>
