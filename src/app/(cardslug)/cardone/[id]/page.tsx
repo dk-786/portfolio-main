@@ -30,6 +30,7 @@ const Page = () => {
     : (params?.id as string | undefined);
   const [hovered, setHovered] = useState<number | null>(null);
   const productId = Number(idParam);
+
   const allProducts = [...products, ...productss];
   const product = allProducts.find((p) => p.id === productId);
   const [value, setValue] = useState(0);
@@ -37,7 +38,7 @@ const Page = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const sizes = ["S", "M", "L", "XL"];
-  const { getConvertedPrice } = useAppContext(); // ✅ Correct usage
+  const { getConvertedPrice } = useAppContext();
   const [activeTab, setActiveTab] = useState<
     "description" | "product" | "details" | "reviews" | "shipping"
   >("description");
@@ -88,14 +89,14 @@ const Page = () => {
         <ProductImage
           img={product.img}
           name={product.name}
+          images={product.images}
           onClick={() => setShowGallery(true)}
         />
         <ImageGalleryModal
           open={showGallery}
           onClose={() => setShowGallery(false)}
-          images={[product.img, ...product.images]}
+          images={[product.img, ...product.images]} 
         />
-
         <div className="w-full md:w-[50%] py-4">
           <ProductHeader
             name={product.name}

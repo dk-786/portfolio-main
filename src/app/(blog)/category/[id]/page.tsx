@@ -16,6 +16,20 @@ const Page = () => {
     <div className="flex-1">
       <BlogHeader blog={blog} />
       <BlogRelated />
+
+      {blog.youtubeUrl && (
+        <div className="relative w-full pt-[56.25%]" >
+          <iframe
+            className="absolute top-0 left-0 w-full h-full"
+            src={blog.youtubeUrl}
+            title={blog.title}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      )}
+
       <BlogComments comments={comments} setComments={setComments} />
     </div>
   );

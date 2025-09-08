@@ -5,6 +5,7 @@ export const products = [
     hoverImg: "/images/jag.jpg",
     discount: "-20%",
     name: "Storm Small Jug",
+    images: ["/images/jag1.jpg", "/images/jag.jpg", "/images/chair.jpg"],
     oldPrice: "$54.00",
     dicription:
       "The best is yet to come! 8.2cm diameter / 9.5cm height / 0.43kg. Dishwasher-proof.",
@@ -24,6 +25,7 @@ export const products = [
     hoverImg: "/images/chair1.jpg",
     discount: "-30%",
     name: "Elegant Vase",
+    images: ["/images/chair.jpg", "/images/chair1.jpg", "/images/table.jpg"],
     oldPrice: "$75.00",
     dicription: "8.2cm diameter / 9.5cm height / 0.43kg.",
     newPrice: "$52.50",
@@ -42,6 +44,7 @@ export const products = [
     hoverImg: "/images/table1.jpg",
     discount: "-10%",
     name: "Wooden Table",
+    images: ["/images/table.jpg", "/images/table1.jpg", "/images/basket.jpg"],
     oldPrice: "$180.00",
     dicription: "Solid wood, handcrafted finish.",
     newPrice: "$162.00",
@@ -59,6 +62,7 @@ export const products = [
     img: "/images/basket.jpg",
     discount: "-20%",
     name: "Woven Basket",
+    images: ["/images/basket.jpg", "/images/chair.jpg", "/images/jag1.jpg"],
     oldPrice: "$40.00",
     dicription: "Handwoven basket from natural fibers.",
     newPrice: "$32.00",
@@ -80,6 +84,7 @@ export const productss = [
     hoverImg: "/images/jag.jpg",
     discount: "-20%",
     name: "Storm Small Jug II",
+    images: ["/images/jag1.jpg", "/images/jag.jpg", "/images/chair.jpg"],
     dicription:
       "The best is yet to come! 8.2cm diameter / 9.5cm height / 0.43kg.",
     oldPrice: "$65.00",
@@ -97,9 +102,10 @@ export const productss = [
     id: 5,
     img: "/images/table.jpg",
     hoverImg: "/images/table1.jpg",
-    dicription: "Handcrafted table top.",
     discount: "-10%",
     name: "Art Table",
+    images: ["/images/table.jpg", "/images/table1.jpg", "/images/chair.jpg"],
+    dicription: "Handcrafted table top.",
     oldPrice: "$110.00",
     newPrice: "$99.00",
     newimg: "/images/1-brand_default.jpg",
@@ -115,9 +121,10 @@ export const productss = [
     id: 6,
     img: "/images/lamp.jpg",
     hoverImg: "/images/lamp1.jpg",
-    dicription: "Minimal lamp with warm glow.",
     discount: "-20%",
     name: "Minimal Lamp",
+    images: ["/images/lamp.jpg", "/images/lamp1.jpg", "/images/table.jpg"],
+    dicription: "Minimal lamp with warm glow.",
     oldPrice: "$80.00",
     newPrice: "$64.00",
     newimg: "/images/1-brand_default.jpg",
@@ -132,9 +139,10 @@ export const productss = [
   {
     id: 7,
     img: "/images/chairbig.jpg",
-    dicription: "Comfortable lounge chair.",
     discount: "-10%",
     name: "Cozy Chair",
+    images: ["/images/chairbig.jpg", "/images/chair.jpg", "/images/chair1.jpg"],
+    dicription: "Comfortable lounge chair.",
     oldPrice: "$150.00",
     newPrice: "$135.00",
     newimg: "/images/1-brand_default.jpg",
@@ -152,6 +160,7 @@ export const productss = [
     hoverImg: "/images/chair1.jpg",
     discount: "-15%",
     name: "Simple Chair",
+    images: ["/images/chair.jpg", "/images/chair1.jpg", "/images/table.jpg"],
     dicription: "Minimalist seating.",
     oldPrice: "$95.00",
     newPrice: "$80.75",
@@ -170,6 +179,7 @@ export const productss = [
     hoverImg: "/images/basket.jpg",
     discount: "-20%",
     name: "Basket XL",
+    images: ["/images/basket.jpg", "/images/chair.jpg", "/images/jag1.jpg"],
     oldPrice: "$70.00",
     dicription: "Large basket for storage.",
     newPrice: "$56.00",
@@ -188,6 +198,7 @@ export const productss = [
     hoverImg: "/images/jummar.jpg",
     discount: "-20%",
     name: "Jummar Toy",
+    images: ["/images/jummar.jpg", "/images/jummar.jpg", "/images/basket.jpg"],
     dicription: "Cute soft toy.",
     oldPrice: "$45.00",
     newPrice: "$36.00",
@@ -206,6 +217,11 @@ export const productss = [
     hoverImg: "/images/smallchiar.jpg",
     discount: "-20%",
     name: "Small Chair",
+    images: [
+      "/images/smallchair1.jpg",
+      "/images/smallchiar.jpg",
+      "/images/chair.jpg",
+    ],
     oldPrice: "$85.00",
     dicription: "Compact design.",
     newPrice: "$68.00",
@@ -224,6 +240,7 @@ export const productss = [
     hoverImg: "/images/d1.jpg",
     discount: "-20%",
     name: "Decor 1",
+    images: ["/images/d1.jpg", "/images/d1.jpg", "/images/d2.jpg"],
     oldPrice: "$25.00",
     dicription: "Decorative item.",
     newPrice: "$20.00",
@@ -242,6 +259,7 @@ export const productss = [
     hoverImg: "/images/d2.jpg",
     discount: "-20%",
     name: "Decor 2",
+    images: ["/images/d2.jpg", "/images/d2.jpg", "/images/d3.jpg"],
     oldPrice: "$60.00",
     dicription: "Decorative item.",
     newPrice: "$48.00",
@@ -260,6 +278,7 @@ export const productss = [
     hoverImg: "/images/d3.jpg",
     discount: "-20%",
     name: "Decor 3",
+    images: ["/images/d3.jpg", "/images/d3.jpg", "/images/d2.jpg"],
     oldPrice: "$72.00",
     dicription: "Decorative item.",
     newPrice: "$57.60",
@@ -278,6 +297,11 @@ export const productss = [
     hoverImg: "/images/product/brown-bear-cushion_1.jpg",
     discount: "-20%",
     name: "Brown Bear Cushion",
+    images: [
+      "/images/product/brown-bear-cushion.jpg",
+      "/images/product/brown-bear-cushion_1.jpg",
+      "/images/product/brown-bear-notebook.jpg",
+    ],
     oldPrice: "$50.00",
     dicription: "Cute cushion.",
     newPrice: "$40.00",
@@ -296,6 +320,11 @@ export const productss = [
     hoverImg: "/images/product/brown-bear-notebook (1).jpg",
     discount: "-20%",
     name: "Bear Notebook",
+    images: [
+      "/images/product/brown-bear-notebook.jpg",
+      "/images/product/brown-bear-notebook (1).jpg",
+      "/images/product/customizable-mug.jpg",
+    ],
     oldPrice: "$28.00",
     dicription: "Notebook - 120 pages.",
     newPrice: "$22.40",
@@ -314,6 +343,11 @@ export const productss = [
     hoverImg: "/images/product/customizable-mug (1).jpg",
     discount: "-20%",
     name: "Custom Mug",
+    images: [
+      "/images/product/customizable-mug.jpg",
+      "/images/product/customizable-mug (1).jpg",
+      "/images/product/hummingbird-cushion.jpg",
+    ],
     oldPrice: "$35.00",
     dicription: "Personalizable mug.",
     newPrice: "$28.00",
@@ -332,6 +366,11 @@ export const productss = [
     hoverImg: "/images/product/hummingbird-cushion (1).jpg",
     discount: "-20%",
     name: "Hummingbird Cushion",
+    images: [
+      "/images/product/hummingbird-cushion.jpg",
+      "/images/product/hummingbird-cushion (1).jpg",
+      "/images/product/hummingbird-notebook.jpg",
+    ],
     oldPrice: "$48.00",
     dicription: "Soft cushion.",
     newPrice: "$38.40",
@@ -350,6 +389,11 @@ export const productss = [
     hoverImg: "/images/product/hummingbird-notebook (1).jpg",
     discount: "-20%",
     name: "Hummingbird Notebook",
+    images: [
+      "/images/product/hummingbird-notebook.jpg",
+      "/images/product/hummingbird-notebook (1).jpg",
+      "/images/product/pack-mug-framed-poster.jpg",
+    ],
     oldPrice: "$22.00",
     dicription: "Notebook - 120 pages.",
     newPrice: "$17.60",
@@ -368,6 +412,11 @@ export const productss = [
     hoverImg: "/images/product/pack-mug-framed-poster (1).jpg",
     discount: "-20%",
     name: "Mug + Poster Pack",
+    images: [
+      "/images/product/pack-mug-framed-poster.jpg",
+      "/images/product/pack-mug-framed-poster (1).jpg",
+      "/images/product/mountain-fox-cushion.jpg",
+    ],
     oldPrice: "$90.00",
     dicription: "Gift pack.",
     newPrice: "$72.00",
@@ -386,6 +435,11 @@ export const productss = [
     hoverImg: "/images/product/mountain-fox-cushion.jpg",
     discount: "-20%",
     name: "Mountain Fox Cushion",
+    images: [
+      "/images/product/mountain-fox-cushion.jpg",
+      "/images/product/mountain-fox-cushion.jpg",
+      "/images/product/mountain-fox-notebook.jpg",
+    ],
     oldPrice: "$55.00",
     dicription: "Decor cushion.",
     newPrice: "$44.00",
@@ -404,6 +458,11 @@ export const productss = [
     hoverImg: "/images/product/mountain-fox-notebook (1).jpg",
     discount: "-20%",
     name: "Mountain Fox Notebook",
+    images: [
+      "/images/product/mountain-fox-notebook.jpg",
+      "/images/product/mountain-fox-notebook (1).jpg",
+      "/images/product/hummingbird-cushion.jpg",
+    ],
     oldPrice: "$20.00",
     dicription: "Notebook - 120 pages.",
     newPrice: "$16.00",
@@ -528,6 +587,7 @@ export const Blogmain1 = [
     id: 1,
     img: "/images/b-2.jpg",
     date: "05 Aug, 2025",
+    youtubeUrl: "https://www.youtube.com/embed/NO67VMy3guM",
     title: "Turpis at eleifend leo mi elit Aenean porta ac sed faucibus",
     description: `Suspendisse posuere, diam in bibendum lobortis, turpis ipsum aliquam risus,
                   sit amet dictum ligula lorem non nisl Urna pretium elit mauris cursus Curabitur
@@ -551,6 +611,7 @@ export const Blogmain1 = [
     id: 2,
     img: "/images/b-3.jpg",
     date: "05 Aug, 2025",
+    youtubeUrl: "https://www.youtube.com/embed/NO67VMy3guM",
     title: "Turpis at eleifend leo mi elit Aenean porta ac sed faucibus",
     description: `Suspendisse posuere, diam in bibendum lobortis, turpis ipsum aliquam risus,
                   sit amet dictum ligula lorem non nisl Urna pretium elit mauris cursus Curabitur
@@ -574,6 +635,7 @@ export const Blogmain1 = [
     id: 3,
     img: "/images/b-4.jpg",
     date: "05 Aug, 2025",
+    youtubeUrl: "https://www.youtube.com/embed/NO67VMy3guM",
     title: "Turpis at eleifend leo mi elit Aenean porta ac sed faucibus",
     description: `Suspendisse posuere, diam in bibendum lobortis, turpis ipsum aliquam risus,
                   sit amet dictum ligula lorem non nisl Urna pretium elit mauris cursus Curabitur
@@ -597,6 +659,7 @@ export const Blogmain1 = [
     id: 4,
     img: "/images/b-6.jpg",
     date: "05 Aug, 2025",
+    youtubeUrl: "https://www.youtube.com/embed/NO67VMy3guM",
     title: "Turpis at eleifend leo mi elit Aenean porta ac sed faucibus",
     description: `Suspendisse posuere, diam in bibendum lobortis, turpis ipsum aliquam risus,
                   sit amet dictum ligula lorem non nisl Urna pretium elit mauris cursus Curabitur
@@ -620,6 +683,7 @@ export const Blogmain1 = [
     id: 5,
     img: "/images/b-7.jpg",
     date: "05 Aug, 2025",
+    youtubeUrl: "https://www.youtube.com/embed/NO67VMy3guM",
     title: "Turpis at eleifend leo mi elit Aenean porta ac sed faucibus",
     description: `Suspendisse posuere, diam in bibendum lobortis, turpis ipsum aliquam risus,
                   sit amet dictum ligula lorem non nisl Urna pretium elit mauris cursus Curabitur
@@ -643,6 +707,7 @@ export const Blogmain1 = [
     id: 6,
     img: "/images/b-8.jpg",
     date: "05 Aug, 2025",
+    youtubeUrl: "https://www.youtube.com/embed/NO67VMy3guM",
     title: "Turpis at eleifend leo mi elit Aenean porta ac sed faucibus",
     description: `Suspendisse posuere, diam in bibendum lobortis, turpis ipsum aliquam risus,
                   sit amet dictum ligula lorem non nisl Urna pretium elit mauris cursus Curabitur
@@ -666,6 +731,7 @@ export const Blogmain1 = [
     id: 7,
     img: "/images/b-9.jpg",
     date: "05 Aug, 2025",
+    youtubeUrl: "https://www.youtube.com/embed/NO67VMy3guM",
     title: "Turpis at eleifend leo mi elit Aenean porta ac sed faucibus",
     description: `Suspendisse posuere, diam in bibendum lobortis, turpis ipsum aliquam risus,
                   sit amet dictum ligula lorem non nisl Urna pretium elit mauris cursus Curabitur
@@ -823,12 +889,12 @@ export const navigationItems: NavigationItem[] = [
     title: "Pages",
     hasDropdown: true,
     dropdownItems: [
-      { title: "About Us", href: "/pages/about" },
-      { title: "Terms and conditions of use", href: "/pages/terms" },
-      { title: "FAQs", href: "/pages/faqs" },
-      { title: "Our stores", href: "/pages/stores" },
-      { title: "Contact Us", href: "/pages/contact" },
-      { title: "Sitemap", href: "/pages/sitemap" },
+      { title: "About Us", href: "/aboutus" },
+      { title: "Terms and conditions of use", href: "/terms" },
+      { title: "FAQs", href: "/faqs" },
+      { title: "Our stores", href: "/stores" },
+      { title: "Contact Us", href: "/contactus" },
+      { title: "Sitemap", href: "/sitemap" },
     ],
   },
   {
@@ -839,9 +905,9 @@ export const navigationItems: NavigationItem[] = [
     title: "Blog",
     hasDropdown: true,
     dropdownItems: [
-      { title: "Blog Grid", href: "/blog/1" },
-      { title: "Blog Category", href: "/blog/2" },
-      { title: "Blog Details", href: "/blog/3" },
+      { title: "Blog Grid", href: "/subcategory/1" },
+      { title: "Blog Category", href: "/subcategory/2" },
+      { title: "Blog Details", href: "/category/3" },
     ],
   },
 ];
@@ -859,7 +925,6 @@ export const categories = [
   { title: "Construction" },
 ];
 
-
 export const shopCategories: ShopCategory[] = [
   {
     title: "Collection Layout",
@@ -873,38 +938,35 @@ export const shopCategories: ShopCategory[] = [
   {
     title: "Product Types",
     items: [
-      { title: "Product Type 01", href: "/productlayoutone"},
-      { title: "Product Type 02", href: "/productlayoutone"},
-      { title: "Product Type 03", href: "/productlayoutone"},
-      { title: "Product Type 04", href: "/productlayoutone"},
+      { title: "Product Type 01", href: "/productlayoutone" },
+      { title: "Product Type 02", href: "/productlayoutone" },
+      { title: "Product Type 03", href: "/productlayoutone" },
+      { title: "Product Type 04", href: "/productlayoutone" },
     ],
   },
   {
     title: "Product Features",
     items: [
-      { title: "Product Default", href: "/shop/products/default" },
-      { title: "Product Variable", href: "/shop/products/variable" },
-      { title: "Product Countdown", href: "/shop/products/countdown" },
-      { title: "Product Grouped", href: "/shop/products/grouped" },
-      { title: "Product Out-of-stock", href: "/shop/products/out-of-stock" },
+      { title: "Product Default", href: "/card/0" },
+      { title: "Product Variable", href: "/card/2" },
+      { title: "Product Countdown", href: "/card/4" },
+      { title: "Product Grouped", href: "/card/5" },
+      { title: "Product Out-of-stock", href: "/card/3" },
     ],
   },
   {
     title: "Product Layouts",
     items: [
-      { title: "Layout 01 - Bottom thumb", href: "/shop/products/layout-01" },
-      { title: "Layout 02 - Left thumb", href: "/shop/products/layout-02" },
-      { title: "Layout 03 - Right thumb", href: "/shop/products/layout-03" },
-      { title: "Layout 04 - No thumb", href: "/shop/products/layout-04" },
+      { title: "Layout 01 - Bottom thumb", href: "/cardone/0" },
       {
-        title: "Layout 05 - No thumb center",
-        href: "/shop/products/layout-05",
+        title: "Layout 02 - No thumb center",
+        href: "/cardtwo/5",
       },
       {
-        title: "Layout 06 - No thumb fullwidth",
-        href: "/shop/products/layout-06",
+        title: "Layout 03 - No thumb fullwidth",
+        href: "/cardthree/9",
       },
-      { title: "Layout 07 - Gallery", href: "/shop/products/layout-07" },
+      { title: "Layout 04 - Gallery", href: "/cardthree/12" },
     ],
   },
 ];
@@ -960,7 +1022,6 @@ export const categoriess = [
   },
 ];
 
-
 export const sliderData = [
   {
     id: 1,
@@ -989,7 +1050,6 @@ export const sliderData = [
     subtitle: "Sweeper and funnel",
     offer: null,
   },
-  // ✅ New images from public/otherHome
   {
     id: 4,
     desktopImage: "/otherHome/slide_1.jpg",
@@ -1227,3 +1287,256 @@ export const shopByCategoryData = [
     colSpan: "col-span-2 row-span-6 col-start-5 row-start-4",
   },
 ];
+
+export const COMPANY_IMG = [
+  {
+    id: 0,
+    img: "/aboutus/logo.jpg",
+  },
+  {
+    id: 1,
+    img: "/aboutus/cpublic/aboutus/vt_interior_elements_about_avt_1.jpg",
+  },
+];
+
+export const ABOUT_US = {
+  subtitle: "Welcome to Rubix Store",
+  title: "Our Success And Company History.",
+  description1:
+    "Ac bibendum ac in erat. Donec posuere consectetur volutpat rutrum ac, sollicitudin quam quisque, at interdum dignissim, fringilla elit risus lorem eu condimentum eros mollis.",
+  quote:
+    "Donec vehicula cursus vestibulum lectus, sit eros integer varius cum turpis et quam congue nisl accumsan.",
+  description2:
+    "Nam liber tempor cum soluta nobis eleifend option congue nihil doming id quod mazim placerat facer possim assum typi non habent claritatem instam...",
+  signature: "/aboutus/vt_interior_elements_page_about_2.png",
+  founder: {
+    name: "John doe",
+    role: "Founder of Rubix Store",
+  },
+  image: "/aboutus/logo.jpg",
+};
+
+// constant.ts
+export const TEAM_MEMBERS = [
+  {
+    id: 1,
+    name: "ANGELA JOLIE",
+    role: "CEO & Founder",
+    img: "/aboutus/vt_interior_elements_about_avt_1.jpg",
+    socials: {
+      facebook: "#",
+      twitter: "#",
+      instagram: "#",
+      github: "#",
+    },
+  },
+  {
+    id: 2,
+    name: "HANNAH GIBSON",
+    role: "CEO & Founder",
+   img: "/aboutus/vt_interior_elements_about_avt_2.jpg",
+    socials: {
+      facebook: "#",
+      twitter: "#",
+      instagram: "#",
+      github: "#",
+    },
+  },
+  {
+    id: 3,
+    name: "LIL WAYNE",
+    role: "CEO & Founder",
+    img: "/aboutus/vt_interior_elements_about_avt_3.jpg",
+    socials: {
+      facebook: "#",
+      twitter: "#",
+      instagram: "#",
+      github: "#",
+    },
+  },
+  {
+    id: 4,
+    name: "ROBIN JORDAN",
+    role: "CEO & Founder",
+    img: "/aboutus/vt_interior_elements_about_avt_4.jpg",
+    socials: {
+      facebook: "#",
+      twitter: "#",
+      instagram: "#",
+      github: "#",
+    },
+  },
+];
+// constant.ts
+export const TERMS = [
+  {
+    id: 1,
+    title: "Rule 1",
+    description: `Lorem ipsum dolor sit amet conse ctetur adipisicing elit, 
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
+      ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
+      in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+      occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
+  },
+  {
+    id: 2,
+    title: "Rule 2",
+    description: `Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
+      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
+      culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet conse 
+      ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+      Ut enim ad minim veniamю`,
+  },
+  {
+    id: 3,
+    title: "Rule 3",
+    description: `Tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute 
+      irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+      Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore 
+      et dolore magna aliqua. Ut enim ad minim veniamю`,
+  },
+];
+
+
+// constant.ts
+export const FAQS = [
+  {
+    id: 1,
+    question: "What is your return policy?",
+    answer:
+      "We offer a hassle-free return policy. If you’re not satisfied with your purchase, you can return it within 30 days for a full refund or exchange. Please refer to our Returns & Exchanges page for detailed instructions.",
+  },
+  {
+    id: 2,
+    question: "How do I track my order?",
+    answer:
+      "Tracking your order is easy! Once your order is shipped, we’ll send you a confirmation email with a tracking number. You can use this number to track your order’s status on our Order Tracking page.",
+  },
+  {
+    id: 3,
+    question: "What payment methods do you accept?",
+    answer:
+      "We accept major credit cards (Visa, MasterCard, American Express) and PayPal for secure and convenient payments.",
+  },
+  {
+    id: 4,
+    question: "Do you offer international shipping?",
+    answer:
+      "Yes, we offer international shipping to most countries. Shipping fees and delivery times may vary based on your location. Please refer to our Shipping Information page for more details.",
+  },
+  {
+    id: 5,
+    question: "How can I contact your customer support?",
+    answer:
+      "You can reach our friendly customer support team through our Contact Us page, where you’ll find a contact form and our email address. We’re here to assist you with any questions or concerns you may have.",
+  },
+  {
+    id: 6,
+    question: "Are the sizes true to measurements?",
+    answer:
+      "We provide detailed size charts for each product to help you find the perfect fit. Please refer to the size chart on the product page to ensure you choose the right size.",
+  },
+  {
+    id: 7,
+    question: "Can I modify or cancel my order after it's been placed?",
+    answer:
+      "We process orders quickly to ensure fast delivery, so modifications or cancellations may be limited. Contact our customer support as soon as possible, and we’ll do our best to assist you.",
+  },
+  {
+    id: 8,
+    question: "Do you offer gift wrapping services?",
+    answer:
+      "Yes, we offer gift wrapping services for a small additional fee. You can select this option during the checkout process.",
+  },
+  {
+    id: 9,
+    question: "How do I care for my garments?",
+    answer:
+      "Care instructions can usually be found on the product’s care label or on the product page itself. We recommend following the provided guidelines to ensure the longevity and quality of your items.",
+  },
+  
+];
+
+export const STORES = [
+  {
+    id: 1,
+    name: "Coconut Grove",
+    address: "2999 SW 32nd Avenue, Miami, Florida 33133, United States",
+    image: "/aboutus/1-stores_default.jpg",
+    hours: [
+      { day: "Mon.", time: "09:00AM - 07:00PM" },
+      { day: "Tue.", time: "09:00AM - 07:00PM" },
+      { day: "Wed.", time: "09:00AM - 07:00PM" },
+      { day: "Thu.", time: "09:00AM - 07:00PM" },
+      { day: "Fri.", time: "09:00AM - 07:00PM" },
+      { day: "Sat.", time: "10:00AM - 04:00PM" },
+      { day: "Sun.", time: "10:00AM - 04:00PM" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Dade County",
+    address: "3030 SW 8th St Miami, Miami, Florida 33135, United States",
+    image: "/aboutus/2-stores_default.jpg",
+    hours: [
+      { day: "Mon.", time: "09:00AM - 07:00PM" },
+      { day: "Tue.", time: "09:00AM - 07:00PM" },
+      { day: "Wed.", time: "09:00AM - 07:00PM" },
+      { day: "Thu.", time: "09:00AM - 07:00PM" },
+      { day: "Fri.", time: "09:00AM - 07:00PM" },
+      { day: "Sat.", time: "10:00AM - 04:00PM" },
+      { day: "Sun.", time: "10:00AM - 04:00PM" },
+    ],
+  },
+  {
+    id: 3,
+    name: "E Fort Lauderdale",
+    address: "1000 Northeast 4th Ave Fort Lauderdale, Miami, Florida 33304, United States",
+    image: "/aboutus/3-stores_default.jpg",
+    hours: [
+      { day: "Mon.", time: "09:00AM - 07:00PM" },
+      { day: "Tue.", time: "09:00AM - 07:00PM" },
+      { day: "Wed.", time: "09:00AM - 07:00PM" },
+      { day: "Thu.", time: "09:00AM - 07:00PM" },
+      { day: "Fri.", time: "09:00AM - 07:00PM" },
+      { day: "Sat.", time: "10:00AM - 04:00PM" },
+      { day: "Sun.", time: "10:00AM - 04:00PM" },
+    ],
+  },
+  {
+    id: 4,
+    name: "N Miami/Biscayne",
+    address: "12055 Biscayne Blvd, Miami, Florida 33181, United States",
+    image: "/aboutus/4-stores_default.jpg",
+    hours: [
+      { day: "Mon.", time: "09:00AM - 07:00PM" },
+      { day: "Tue.", time: "09:00AM - 07:00PM" },
+      { day: "Wed.", time: "09:00AM - 07:00PM" },
+      { day: "Thu.", time: "09:00AM - 07:00PM" },
+      { day: "Fri.", time: "09:00AM - 07:00PM" },
+      { day: "Sat.", time: "10:00AM - 04:00PM" },
+      { day: "Sun.", time: "10:00AM - 04:00PM" },
+    ],
+  },
+  {
+    id: 5,
+    name: "Pembroke Pines",
+    address: "11001 Pines Blvd Pembroke Pines, Miami, Florida 33026, United States",
+    image: "/aboutus/5-stores_default.jpg",
+    hours: [
+      { day: "Mon.", time: "09:00AM - 07:00PM" },
+      { day: "Tue.", time: "09:00AM - 07:00PM" },
+      { day: "Wed.", time: "09:00AM - 07:00PM" },
+      { day: "Thu.", time: "09:00AM - 07:00PM" },
+      { day: "Fri.", time: "09:00AM - 07:00PM" },
+      { day: "Sat.", time: "10:00AM - 04:00PM" },
+      { day: "Sun.", time: "10:00AM - 04:00PM" },
+    ],
+  },
+];
+

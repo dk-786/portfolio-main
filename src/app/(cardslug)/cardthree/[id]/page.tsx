@@ -22,6 +22,7 @@ import {
   RelatedProducts,
 } from "@/components/product";
 import ImageGalleryModal from "@/components/modals/ImageGalleryModal";
+import ProductImageGallery from "@/components/ProductImageGallery";
 
 const Page = () => {
   const params = useParams();
@@ -30,6 +31,7 @@ const Page = () => {
     : (params?.id as string | undefined);
   const [hovered, setHovered] = useState<number | null>(null);
   const productId = Number(idParam);
+
   const allProducts = [...products, ...productss];
   const product = allProducts.find((p) => p.id === productId);
   const [value, setValue] = useState(0);
@@ -37,7 +39,7 @@ const Page = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const sizes = ["S", "M", "L", "XL"];
-  const { getConvertedPrice } = useAppContext(); // ✅ Correct usage
+  const { getConvertedPrice } = useAppContext();
   const [activeTab, setActiveTab] = useState<
     "description" | "product" | "details" | "reviews" | "shipping"
   >("description");
@@ -84,19 +86,18 @@ const Page = () => {
   }
   return (
     <>
-      <section className="flex flex-col md:flex-row md:p-8  md:justify-between w-full">
-        <ProductImage
-          img={product.img}
+      <section className="flex flex-col items-center md:p-8 w-full">
+       
+        <ProductImageGallery
+          images={[product.img, ...product.images]}
           name={product.name}
-          onClick={() => setShowGallery(true)}
         />
         <ImageGalleryModal
           open={showGallery}
           onClose={() => setShowGallery(false)}
           images={[product.img, ...product.images]}
         />
-
-        <div className="w-full md:w-[50%] py-4">
+        <div className="w-full max-w-3xl md:w-[50%] py-4">
           <ProductHeader
             name={product.name}
             value={value}

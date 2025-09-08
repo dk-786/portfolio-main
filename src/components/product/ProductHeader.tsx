@@ -12,7 +12,7 @@ interface ProductHeaderProps {
 const ProductHeader = ({ name, value, setValue, onWriteReview }: ProductHeaderProps) => {
   return (
     <>
-      <h1 className="w-full text-2xl md:text-3xl font-bold mb-4 px-4">
+      <h1 className="w-full text-2xl  md:text-3xl mt-4  font-bold mb-4 px-4">
         {name}
       </h1>
       <div className="flex flex-wrap gap-4 p-4">

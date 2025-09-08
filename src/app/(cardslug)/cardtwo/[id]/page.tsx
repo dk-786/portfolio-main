@@ -84,19 +84,9 @@ const Page = () => {
   }
   return (
     <>
-      <section className="flex flex-col md:flex-row md:p-8  md:justify-between w-full">
-        <ProductImage
-          img={product.img}
-          name={product.name}
-          onClick={() => setShowGallery(true)}
-        />
-        <ImageGalleryModal
-          open={showGallery}
-          onClose={() => setShowGallery(false)}
-          images={[product.img, ...product.images]}
-        />
-
-        <div className="w-full md:w-[50%] py-4">
+      <section className="flex flex-col md:flex-row md:p-8 md:justify-between w-full gap-4 mb-5">
+        {/* Left Column */}
+        <div className="w-full md:w-1/2  flex flex-col ">
           <ProductHeader
             name={product.name}
             value={value}
@@ -104,14 +94,33 @@ const Page = () => {
             onWriteReview={() => setShowWriteReview(true)}
           />
 
-          <CountdownTimer />
-
           <ProductPricing
             oldPrice={parsePriceToNumber(product.oldPrice)}
             newPrice={parsePriceToNumber(product.newPrice)}
             getConvertedPrice={getConvertedPrice}
           />
 
+          <ProductInfo />
+        </div>
+
+        {/* Middle Column */}
+        <div className="w-full md:w-full flex flex-col items-center gap-4">
+          <ProductImage
+            img={product.img}
+            name={product.name}
+            onClick={() => setShowGallery(true)}
+          />
+          <ImageGalleryModal
+            open={showGallery}
+            onClose={() => setShowGallery(false)}
+            images={[product.img, ...product.images]}
+          />
+
+          <CountdownTimer />
+        </div>
+
+        {/* Right Column */}
+        <div className="w-full md:w-1/2 flex flex-col ">
           <SizeSelector
             sizes={sizes}
             selectedSize={selectedSize}
@@ -128,7 +137,6 @@ const Page = () => {
           />
 
           <ProductActions onSizeGuide={() => setShowSizeGuide(true)} />
-          <ProductInfo />
         </div>
       </section>
 
